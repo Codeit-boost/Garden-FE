@@ -1,0 +1,6 @@
+/* 전체 페이지 설정 */
+.container {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}

@@ -1,0 +1,20 @@
+.my-barchart{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 364px;
+  margin: auto;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 0.5px 3px 0px #00000033;
+
+}
+
+.custom-bar-chart{
+  display: flex;
+  width: 364px;
+  margin-top: 10px;
+  margin-right: 40px;
+  align-items: center;
+  justify-content: center;
+}
