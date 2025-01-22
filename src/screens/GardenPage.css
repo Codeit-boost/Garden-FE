@@ -1,0 +1,34 @@
+/* GardenPage.css */
+/* App.css 또는 GardenPage.css */
+body {
+  padding-top: 20px; /* header의 높이에 맞춰 페이지 상단에 여백 추가 */
+}
+/* Ensure that the page has a fixed width, centered layout, and full height */
+.my-garden {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Center horizontally */
+  justify-content: center;  /* Center vertically */
+  height: auto;  /* Ensure it takes up the full height of the viewport */
+  padding: 20px;
+  margin-top: 200px;
+  box-sizing: border-box;
+  margin:0 auto; /* Center the content horizontally */
+  width: 375px;  /* Fixed width like a mobile screen (you can adjust this as needed) */
+  max-width: 100%;  /* Prevents it from exceeding the screen width */
+   /* Center the content horizontally */
+}
+
+/* Styling for the header */
+.garden-header {
+  background-color: #f0f0f0;
+  padding: 20px;
+  width: 100%;
+  top:0;
+  text-align: center;
+}
+
+.chart-container {
+  
+  margin-bottom: 20px; /* 원하는 간격으로 조정 */
+}
