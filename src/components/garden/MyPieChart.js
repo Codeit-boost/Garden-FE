@@ -24,7 +24,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="white"  fontSize="10" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+    <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" style={{ fontSize: '13px' }}>
       {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
@@ -39,7 +39,7 @@ export default class MyPieChart extends PureComponent {
         <h2>카테고리 분석</h2>
         <div className="custom-pie-chart" >
       <ResponsiveContainer width="100%" height={200}>
-        <PieChart width={500} height={500}>
+        <PieChart width={200} height={200}>
           <Pie
             data={data}
             cx="50%"
@@ -57,7 +57,7 @@ export default class MyPieChart extends PureComponent {
         </PieChart>
       </ResponsiveContainer>
       </div>
-      <div className="legend-container">
+      <div className="legend-container" >
           {formattedData.map((entry, index) => (
             <div key={index} className="legend-item">
               <span className="color-dot" style={{ backgroundColor: entry.color }}></span>
@@ -65,9 +65,11 @@ export default class MyPieChart extends PureComponent {
               <span className="percent">{entry.percentage}%</span>
               <span className="time">  {entry.hours}시간 {entry.minutes}분</span>
               
- 
+              
             </div>
+            
           ))}
+          
         </div>
       </div>
     );

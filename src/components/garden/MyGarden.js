@@ -12,7 +12,7 @@ const MyGarden = () => {
   ];
 
 return (
-  <div className="mygarden">
+  <div className="mygarden" style={{ width: '100%' }}>
       <h2>나의 정원</h2>
       <div className='garden-plants'>
         {gardenPlants.map((plant, index) => (

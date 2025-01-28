@@ -1,20 +1,5 @@
 body {
-  padding-top: 20px; 
-}
-
-.my-garden {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center;  
-  height: auto;  
-  padding: 20px;
-  margin-top: 200px;
-  box-sizing: border-box;
-  margin:0 auto; 
-  width: 375px; 
-  max-width: 100%;  
-   
+  padding-top: 20px 10px; 
 }
 
 
@@ -26,7 +11,7 @@ body {
   text-align: center;
 }
 
-.chart-container {
+.chart-container,.my-garden, .my-best-flower {
   
   margin-bottom: 20px; 
 }
