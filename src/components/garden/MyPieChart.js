@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-import './MyPieChart.css';
+import '../../styles/MyPieChart.css';
 const data = [
   { name: '공부', value: 150, color: '#015000' },  
   { name: '운동', value: 120, color: '#2E7D32' }, 

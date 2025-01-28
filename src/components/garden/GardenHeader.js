@@ -1,5 +1,5 @@
 import React from 'react';
-import './GardenHeader.css';
+import '../../styles/GardenHeader.css';
 
 const GardenHeader = () => {
   return (

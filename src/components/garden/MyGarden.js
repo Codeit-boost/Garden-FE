@@ -1,5 +1,5 @@
 import React from 'react';
-import './MyGarden.css';
+import '../../styles/MyGarden.css';
 
 const MyGarden = () => {
   const gardenPlants = [
