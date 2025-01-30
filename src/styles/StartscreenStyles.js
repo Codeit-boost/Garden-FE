@@ -1,0 +1,24 @@
+import styled from "styled-components";
+
+// 전체 화면 컨테이너
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+  height: 100vh; /* 전체 화면 높이 */
+  background-color: #ffffff; /* 배경색 */
+  cursor: pointer; /* 클릭 가능하도록 설정 */
+
+  &:hover {
+    background-color: #f9f9f9; /* 호버 시 배경색 살짝 변화 */
+  }
+`;
+
+// 로고 이미지 스타일
+export const Logo = styled.img`
+  width: 220px; /* 로고 너비 */
+  height: 230px; /* 로고 높이 */
+  margin-top: -50px; /* 로고를 화면 중심에서 위로 살짝 이동 */
+  object-fit: contain; /* 이미지가 깨지지 않도록 유지 */
+`;
