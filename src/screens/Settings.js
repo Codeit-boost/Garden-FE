@@ -10,10 +10,18 @@ import {
   ArrowIcon,
 } from "../styles/SettingsStyles";
 import TabBar from "../components/BottomBar";
-import arrowRight from "../assets/icons/arrow-right.svg"; // 화살표 아이콘
+import WhiteNoiseModal from "../components/settings/WhiteNoiseModal";
+import ModeSettingsModal from "../components/settings/ModeSettingsModal";
+import InviteFriendsModal from "../components/settings/InviteFriendsModal";
+import arrowRight from "../assets/icons/arrow-right.svg";
 
 const Settings = () => {
   const [notifications, setNotifications] = useState(true);
+  const [isModeModalOpen, setIsModeModalOpen] = useState(false);
+  const [isNoiseModalOpen, setIsNoiseModalOpen] = useState(false);
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [selectedMode, setSelectedMode] = useState("기본 모드");
+  const [selectedNoise, setSelectedNoise] = useState("끄기");
   const navigate = useNavigate();
 
   return (
@@ -23,8 +31,6 @@ const Settings = () => {
       <Section>
         <h3>계정</h3>
         <Item onClick={() => navigate("/myinfo")}>
-          {" "}
-          {/* ✅ 클릭 시 내 정보 페이지 이동 */}
           <span>내 정보</span>
           <ArrowIcon src={arrowRight} alt="화살표" />
         </Item>
@@ -40,31 +46,47 @@ const Settings = () => {
             onChange={() => setNotifications(!notifications)}
           />
         </Item>
-        <Item>
+        <Item onClick={() => setIsModeModalOpen(true)}>
           <span>모드 설정</span>
           <div>
-            <RightText>기본 모드</RightText>
+            <RightText>{selectedMode}</RightText>
             <ArrowIcon src={arrowRight} alt="화살표" />
           </div>
         </Item>
-        <Item>
+        <Item onClick={() => setIsNoiseModalOpen(true)}>
           <span>백색 소음 설정</span>
           <div>
-            <RightText>끄기</RightText>
+            <RightText>{selectedNoise}</RightText>
             <ArrowIcon src={arrowRight} alt="화살표" />
           </div>
         </Item>
       </Section>
 
-      {/* 초대하기 (화면 하단 꽉 차게) */}
       <Section last>
         <h3>초대</h3>
-        <Item>
+        <Item onClick={() => setIsInviteModalOpen(true)}>
           친구 초대하기 <ArrowIcon src={arrowRight} alt="화살표" />
         </Item>
       </Section>
 
       <TabBar />
+
+      <ModeSettingsModal
+        isOpen={isModeModalOpen}
+        onClose={() => setIsModeModalOpen(false)}
+        mode={selectedMode}
+        setMode={setSelectedMode}
+      />
+      <WhiteNoiseModal
+        isOpen={isNoiseModalOpen}
+        onClose={() => setIsNoiseModalOpen(false)}
+        selectedNoise={selectedNoise}
+        setSelectedNoise={setSelectedNoise}
+      />
+      <InviteFriendsModal
+        isOpen={isInviteModalOpen}
+        onClose={() => setIsInviteModalOpen(false)}
+      />
     </Container>
   );
 };
