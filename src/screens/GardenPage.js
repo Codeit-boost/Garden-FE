@@ -9,8 +9,11 @@ import BottomBar from "../components/BottomBar";
 
 const GardenPage = () => {
   return (
+    
     <div className="garden-page">
+      <div className="garden-header">
       <GardenHeader />
+      </div>
       <div className="my-garden">
         <MyGarden />
       </div>

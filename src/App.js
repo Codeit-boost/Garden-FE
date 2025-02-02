@@ -12,6 +12,7 @@ import Ranking from "./screens/Ranking";
 import Mission from "./screens/Mission";
 import Settings from "./screens/Settings";
 import MyInfo from "./screens/MyInfo";
+import "./styles/App.css";
 
 const App = () => {
   return (
