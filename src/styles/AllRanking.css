@@ -1,0 +1,32 @@
+.all-ranking-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 아래 부분은 FriendRanking.css와 거의 동일 */
+.ranking-item {
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
+.ranking-rank {
+  width: 40px;
+  text-align: center;
+  margin-right: 12px;
+}
+.crown-icon {
+  width: 24px;
+  height: 24px;
+}
+.ranking-user {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.ranking-time {
+  margin-left: auto;
+}
