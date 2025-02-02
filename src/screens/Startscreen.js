@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Logo } from "../styles/StartscreenStyles.js";
+import "../styles/Startscreen.css"; // CSS 파일 임포트
 import logo from "../assets/icons/logo.png"; // 로고 이미지 경로
 
 const Startscreen = () => {
   const navigate = useNavigate();
 
   return (
-    <Container onClick={() => navigate("/onboarding/1")}>
-      <Logo src={logo} alt="Garden Logo" />
-    </Container>
+    <div className="container" onClick={() => navigate("/onboarding/1")}>
+      <img className="logo" src={logo} alt="Garden Logo" />
+    </div>
   );
 };
 

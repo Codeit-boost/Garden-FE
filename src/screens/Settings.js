@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Header,
-  Section,
-  Item,
-  ToggleSwitch,
-  RightText,
-  ArrowIcon,
-} from "../styles/SettingsStyles";
+import "../styles/Settings.css";
 import TabBar from "../components/BottomBar";
 import WhiteNoiseModal from "../components/settings/WhiteNoiseModal";
 import ModeSettingsModal from "../components/settings/ModeSettingsModal";
@@ -25,49 +17,67 @@ const Settings = () => {
   const navigate = useNavigate();
 
   return (
-    <Container>
-      <Header>설정</Header>
+    <div className="settings-container">
+      <div className="settings-header-container">
+        <h1 className="settings-header">설정</h1>
+      </div>
 
-      <Section>
+      <div className="settings-section">
         <h3>계정</h3>
-        <Item onClick={() => navigate("/myinfo")}>
+        <div className="settings-item" onClick={() => navigate("/myinfo")}>
           <span>내 정보</span>
-          <ArrowIcon src={arrowRight} alt="화살표" />
-        </Item>
-      </Section>
+          <img className="settings-arrow-icon" src={arrowRight} alt="화살표" />
+        </div>
+      </div>
 
-      <Section>
+      <div className="settings-section">
         <h3>설정</h3>
-        <Item>
+        <div className="settings-item">
           <span>알림 설정</span>
-          <ToggleSwitch
+          <input
+            className="settings-toggle-switch"
             type="checkbox"
             checked={notifications}
             onChange={() => setNotifications(!notifications)}
           />
-        </Item>
-        <Item onClick={() => setIsModeModalOpen(true)}>
+        </div>
+        <div className="settings-item" onClick={() => setIsModeModalOpen(true)}>
           <span>모드 설정</span>
           <div>
-            <RightText>{selectedMode}</RightText>
-            <ArrowIcon src={arrowRight} alt="화살표" />
+            <span className="settings-right-text">{selectedMode}</span>
+            <img
+              className="settings-arrow-icon"
+              src={arrowRight}
+              alt="화살표"
+            />
           </div>
-        </Item>
-        <Item onClick={() => setIsNoiseModalOpen(true)}>
+        </div>
+        <div
+          className="settings-item"
+          onClick={() => setIsNoiseModalOpen(true)}
+        >
           <span>백색 소음 설정</span>
           <div>
-            <RightText>{selectedNoise}</RightText>
-            <ArrowIcon src={arrowRight} alt="화살표" />
+            <span className="settings-right-text">{selectedNoise}</span>
+            <img
+              className="settings-arrow-icon"
+              src={arrowRight}
+              alt="화살표"
+            />
           </div>
-        </Item>
-      </Section>
+        </div>
+      </div>
 
-      <Section last>
+      <div className="settings-section last">
         <h3>초대</h3>
-        <Item onClick={() => setIsInviteModalOpen(true)}>
-          친구 초대하기 <ArrowIcon src={arrowRight} alt="화살표" />
-        </Item>
-      </Section>
+        <div
+          className="settings-item"
+          onClick={() => setIsInviteModalOpen(true)}
+        >
+          친구 초대하기{" "}
+          <img className="settings-arrow-icon" src={arrowRight} alt="화살표" />
+        </div>
+      </div>
 
       <TabBar />
 
@@ -87,7 +97,7 @@ const Settings = () => {
         isOpen={isInviteModalOpen}
         onClose={() => setIsInviteModalOpen(false)}
       />
-    </Container>
+    </div>
   );
 };
 

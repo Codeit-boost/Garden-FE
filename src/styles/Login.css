@@ -1,6 +1,5 @@
-import styled from "styled-components";
-
-export const Container = styled.div`
+/* ✅ 전체 컨테이너 스타일 */
+.login-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,17 +7,19 @@ export const Container = styled.div`
   height: 94vh; /* 화면 전체 높이 사용 */
   padding: 16px;
   background-color: #ffffff;
-`;
+}
 
-export const Logo = styled.img`
+/* ✅ 로고 스타일 */
+.login-logo {
   width: 218px; /* 지정된 이미지 너비 */
   height: 230px; /* 지정된 이미지 높이 */
   max-width: 100%; /* 최대 크기 제한 */
   margin-top: 291px; /* 위에서부터 이미지까지의 간격 */
   margin-bottom: 20px; /* 이미지와 텍스트 간격 */
-`;
+}
 
-export const Button = styled.button`
+/* ✅ 로그인 버튼 스타일 */
+.login-button {
   position: relative; /* 로고와 텍스트의 개별 위치 조정을 위한 상대 위치 */
   width: 90%; /* 모바일 화면 너비에 맞게 */
   max-width: 360px; /* 최대 너비 제한 */
@@ -33,17 +34,19 @@ export const Button = styled.button`
   cursor: pointer;
   margin-bottom: 20px; /* 버튼 하단 간격 */
   transition: background-color 0.3s;
+}
 
-  &:hover {
-    background-color: #ffd400; /* 호버 시 색상 변경 */
-  }
+/* ✅ 버튼 호버 효과 */
+.login-button:hover {
+  background-color: #ffd400; /* 호버 시 색상 변경 */
+}
 
-  img {
-    position: absolute; /* 버튼 내부에서 로고를 위치 조정 */
-    left: 20px; /* 버튼 왼쪽으로부터의 거리 */
-    top: 50%; /* 버튼의 중앙에 수직 정렬 */
-    transform: translateY(-50%); /* 수직 중앙 정렬 보정 */
-    width: 24px; /* 로고 크기 */
-    height: auto;
-  }
-`;
+/* ✅ 카카오 로고 스타일 */
+.login-kakao-logo {
+  position: absolute; /* 버튼 내부에서 로고를 위치 조정 */
+  left: 20px; /* 버튼 왼쪽으로부터의 거리 */
+  top: 50%; /* 버튼의 중앙에 수직 정렬 */
+  transform: translateY(-50%); /* 수직 중앙 정렬 보정 */
+  width: 24px; /* 로고 크기 */
+  height: auto;
+}

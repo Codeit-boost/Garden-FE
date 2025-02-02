@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { TabContainer, TabItem, Icon } from "../styles/BottomBarStyles.js";
+import "../styles/BottomBar.css"; // CSS 파일 임포트
 
 import homeIcon from "../assets/icons/home.svg";
 import gardenIcon from "../assets/icons/garden.svg";
@@ -13,43 +13,95 @@ const BottomBar = () => {
   const currentPath = window.location.pathname;
 
   return (
-    <TabContainer>
-      <TabItem
-        active={currentPath === "/home"}
+    <div className="tab-container">
+      <div
+        className={`tab-item ${currentPath === "/home" ? "active" : ""}`}
         onClick={() => navigate("/home")}
       >
-        <Icon src={homeIcon} alt="홈" />
+        <div
+          className={`icon-wrapper ${currentPath === "/home" ? "active" : ""}`}
+        >
+          <img
+            src={homeIcon}
+            alt="홈"
+            className={`icon ${currentPath === "/home" ? "active" : ""}`}
+          />
+        </div>
         <span>홈</span>
-      </TabItem>
-      <TabItem
-        active={currentPath === "/garden"}
+      </div>
+
+      <div
+        className={`tab-item ${currentPath === "/garden" ? "active" : ""}`}
         onClick={() => navigate("/garden")}
       >
-        <Icon src={gardenIcon} alt="정원" />
+        <div
+          className={`icon-wrapper ${
+            currentPath === "/garden" ? "active" : ""
+          }`}
+        >
+          <img
+            src={gardenIcon}
+            alt="정원"
+            className={`icon ${currentPath === "/garden" ? "active" : ""}`}
+          />
+        </div>
         <span>정원</span>
-      </TabItem>
-      <TabItem
-        active={currentPath === "/ranking"}
+      </div>
+
+      <div
+        className={`tab-item ${currentPath === "/ranking" ? "active" : ""}`}
         onClick={() => navigate("/ranking")}
       >
-        <Icon src={rankingIcon} alt="랭킹" />
+        <div
+          className={`icon-wrapper ${
+            currentPath === "/ranking" ? "active" : ""
+          }`}
+        >
+          <img
+            src={rankingIcon}
+            alt="랭킹"
+            className={`icon ${currentPath === "/ranking" ? "active" : ""}`}
+          />
+        </div>
         <span>랭킹</span>
-      </TabItem>
-      <TabItem
-        active={currentPath === "/mission"}
+      </div>
+
+      <div
+        className={`tab-item ${currentPath === "/mission" ? "active" : ""}`}
         onClick={() => navigate("/mission")}
       >
-        <Icon src={missionIcon} alt="미션" />
+        <div
+          className={`icon-wrapper ${
+            currentPath === "/mission" ? "active" : ""
+          }`}
+        >
+          <img
+            src={missionIcon}
+            alt="미션"
+            className={`icon ${currentPath === "/mission" ? "active" : ""}`}
+          />
+        </div>
         <span>미션</span>
-      </TabItem>
-      <TabItem
-        active={currentPath === "/settings"}
+      </div>
+
+      <div
+        className={`tab-item ${currentPath === "/settings" ? "active" : ""}`}
         onClick={() => navigate("/settings")}
       >
-        <Icon src={settingsIcon} alt="설정" />
+        <div
+          className={`icon-wrapper ${
+            currentPath === "/settings" ? "active" : ""
+          }`}
+        >
+          <img
+            src={settingsIcon}
+            alt="설정"
+            className={`icon ${currentPath === "/settings" ? "active" : ""}`}
+          />
+        </div>
         <span>설정</span>
-      </TabItem>
-    </TabContainer>
+      </div>
+    </div>
   );
 };
 

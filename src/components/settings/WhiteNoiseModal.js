@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  ModalOverlay,
-  ModalContainer,
-  Title,
-  CloseButton,
-  OptionContainer,
-  Option,
-  CheckIcon,
-} from "../../styles/WhiteNoiseModalStyles.js"; // ✅ 스타일 파일 분리
+import "../../styles/WhiteNoiseModal.css"; // ✅ CSS 파일 적용
 
 const WhiteNoiseModal = ({
   isOpen,
@@ -15,25 +7,40 @@ const WhiteNoiseModal = ({
   selectedNoise,
   setSelectedNoise,
 }) => {
+  // 모달이 열리지 않았다면 아무것도 렌더링하지 않음
   if (!isOpen) return null;
 
+  // 표시할 화이트 노이즈 옵션 목록
   const noiseOptions = ["끄기", "빗소리", "새소리", "모닥불"];
 
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>×</CloseButton>
-        <Title>백색 소음 설정</Title>
-        <OptionContainer>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+        {/* 닫기 버튼 */}
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
+
+        {/* 모달 제목 */}
+        <h2 className="modal-title">백색 소음 설정</h2>
+
+        {/* 옵션 목록 */}
+        <div className="option-container">
           {noiseOptions.map((noise) => (
-            <Option key={noise} onClick={() => setSelectedNoise(noise)}>
+            <div
+              key={noise}
+              className={`option ${selectedNoise === noise ? "active" : ""}`}
+              onClick={() => setSelectedNoise(noise)}
+            >
+              {/* 옵션 텍스트 (왼쪽) */}
               {noise}
-              {selectedNoise === noise && <CheckIcon>✔</CheckIcon>}
-            </Option>
+              {/* 선택된 옵션에만 체크 아이콘 표시 (오른쪽 끝) */}
+              {selectedNoise === noise && <span className="check-icon">✔</span>}
+            </div>
           ))}
-        </OptionContainer>
-      </ModalContainer>
-    </ModalOverlay>
+        </div>
+      </div>
+    </div>
   );
 };
 
