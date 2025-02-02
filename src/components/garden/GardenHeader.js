@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../../styles/GardenHeader.css';
 import arrowIcon from '../../assets/icons/화살표(아래).png';
+import MyCalendar from './MyCalendar';
 
 
 const GardenHeader = () => {
-  const [selected, setSelected] = useState('주'); // 기본값 "주"
-  const [showCalendar, setShowCalendar] = useState(false); // 캘린더 상태
+  const [selected, setSelected] = useState('주'); 
+  const [showCalendar, setShowCalendar] = useState(false); 
 
   return (
-    <div className="garden-header">
+    <div className="gardenheader">
       <h2>정원</h2>
 
     
@@ -33,7 +34,7 @@ const GardenHeader = () => {
       
       {showCalendar && (
         <div className="calendar-container">
-          캘린더 컴포넌트 
+          <MyCalendar />
         </div>
       )}
     </div>
