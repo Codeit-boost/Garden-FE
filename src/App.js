@@ -14,6 +14,7 @@ import Mission from "./screens/Mission";
 import Settings from "./screens/Settings";
 import MyInfo from "./screens/MyInfo";
 import DesktopView from "./screens/DesktopView.js"; // ✅ 데스크톱 전용 페이지
+import "./styles/App.css";
 
 const App = () => {
   return (
