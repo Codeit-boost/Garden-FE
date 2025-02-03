@@ -1,9 +1,16 @@
 // src/screens/Ranking.js
 import React, { useState } from "react";
-import TabBar from "../components/BottomBar";
 import FriendRanking from "../components/ranking/FriendRanking";
 import AllRanking from "../components/ranking/AllRanking";
-import "../styles/Ranking.css"; // 탭 / 레이아웃 전용 스타일
+import TabBar from "../components/BottomBar";
+
+import {
+  RankingContainer,
+  RankingTitle,
+  RankingTabs,
+  RankingTabButton,
+  RankingListWrapper,
+} from "../styles/Ranking.styled.js";
 
 const Ranking = () => {
   const [activeTab, setActiveTab] = useState("friends");
@@ -26,34 +33,34 @@ const Ranking = () => {
   ];
 
   return (
-    <div className="ranking-container">
-      <h1 className="ranking-title">랭킹</h1>
+    <RankingContainer>
+      <RankingTitle>랭킹</RankingTitle>
 
-      <div className="ranking-tabs">
-        <button
-          className={`ranking-tab ${activeTab === "friends" ? "active" : ""}`}
+      <RankingTabs>
+        <RankingTabButton
+          active={activeTab === "friends"}
           onClick={() => setActiveTab("friends")}
         >
           친구
-        </button>
-        <button
-          className={`ranking-tab ${activeTab === "all" ? "active" : ""}`}
+        </RankingTabButton>
+        <RankingTabButton
+          active={activeTab === "all"}
           onClick={() => setActiveTab("all")}
         >
           전체
-        </button>
-      </div>
+        </RankingTabButton>
+      </RankingTabs>
 
-      <div className="ranking-list">
+      <RankingListWrapper>
         {activeTab === "friends" ? (
           <FriendRanking data={friendRanking} />
         ) : (
           <AllRanking data={allRanking} />
         )}
-      </div>
+      </RankingListWrapper>
 
       <TabBar />
-    </div>
+    </RankingContainer>
   );
 };
 

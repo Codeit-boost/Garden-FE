@@ -1,46 +1,76 @@
 import React from "react";
-import "../../styles/AllRanking.css"; // 필요하다면 별도 CSS
+import crownGold from "../../assets/icons/1등 왕관.png";
+import crownSilver from "../../assets/icons/2등 왕관.png";
+import crownBronze from "../../assets/icons/3등 왕관.png";
 
-const AllRanking = ({ data }) => {
-  // 1,2,3위 왕관 아이콘
-  const crownIcon = {
-    1: "/images/crown-gold.png",
-    2: "/images/crown-silver.png",
-    3: "/images/crown-bronze.png",
-  };
+import completedFlowerIcon from "../../assets/icons/완성꽃.png";
+import wiltedFlowerIcon from "../../assets/icons/시든꽃.png";
 
+import {
+  AllRankingContainer,
+  RankingItem,
+  RankingRank,
+  CrownIcon,
+  RankingUser,
+  UserName,
+  UserStats,
+  RankingTime,
+} from "../../styles/AllRanking.styled.js";
+
+const crownIcon = {
+  1: crownGold,
+  2: crownSilver,
+  3: crownBronze,
+};
+
+const AllRanking = ({ data = [] }) => {
   const renderRankItem = (item, idx) => {
     const { rank, userName, leaf, seed, time } = item;
+
     return (
-      <div className="ranking-item" key={idx}>
-        <div className="ranking-rank">
+      <RankingItem key={`all-${idx}`}>
+        {/* 순위 영역 */}
+        <RankingRank>
           {rank <= 3 ? (
-            <img
-              src={crownIcon[rank]}
-              alt={`crown-${rank}`}
-              className="crown-icon"
-            />
+            <CrownIcon src={crownIcon[rank]} alt={`crown-${rank}`} />
           ) : (
             <span>{rank}</span>
           )}
-        </div>
+        </RankingRank>
 
-        <div className="ranking-user">
-          <div className="user-name">{userName}</div>
-          <div className="user-stats">
-            <span className="user-leaf">🌱 {leaf}</span>
-            <span className="user-seed">🌰 {seed}</span>
-          </div>
-        </div>
+        {/* 사용자 정보 */}
+        <RankingUser>
+          <UserName>{userName}</UserName>
+          <UserStats>
+            {/* leaf 아이콘 + 갯수 */}
+            <div>
+              <img
+                src={completedFlowerIcon}
+                alt="완성꽃"
+                style={{ width: "16px", marginRight: "4px" }}
+              />
+              {leaf}
+            </div>
 
-        <div className="ranking-time">{time}</div>
-      </div>
+            {/* seed 아이콘 + 갯수 */}
+            <div>
+              <img
+                src={wiltedFlowerIcon}
+                alt="시든꽃"
+                style={{ width: "16px", marginRight: "4px" }}
+              />
+              {seed}
+            </div>
+          </UserStats>
+        </RankingUser>
+
+        {/* 시간 */}
+        <RankingTime>{time}</RankingTime>
+      </RankingItem>
     );
   };
 
-  return (
-    <div className="all-ranking-container">{data.map(renderRankItem)}</div>
-  );
+  return <AllRankingContainer>{data.map(renderRankItem)}</AllRankingContainer>;
 };
 
 export default AllRanking;
