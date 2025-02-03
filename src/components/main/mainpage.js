@@ -18,13 +18,14 @@ import soilImage from "../../assets/flowers/땅 이미지.png";
 
 // 📌 추가된 모달 컴포넌트
 import FlowerSelect from "./flowerselect"; // 꽃 선택 모달
-
+import CategorySelect from "./categoryselect"; // 카테고리 설정 모달
 
 function MainPage() {
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isTimerMode, setIsTimerMode] = useState(true);
   const [selectedFlower, setSelectedFlower] = useState("메리골드");
+  const [selectedCategory, setSelectedCategory] = useState("공부"); // ✅ 카테고리 선택 반영
 
   return (
     <div className="main-container">
@@ -94,7 +95,12 @@ function MainPage() {
             </div>
             <img src={flowerStage} alt="꽃 단계" className="plant-image" />
           </div>
-          <p className="category-text">공부</p>
+
+          {/* ✅ 선택한 카테고리 표시 */}
+          <div className="category-container">
+            <span className="category-dot"></span>
+            <p className="category-text">{selectedCategory}</p>
+          </div>
 
           {/* 🌿 시간 조절 (좌/우 화살표로 변경) */}
           <div className="timer-category-container">
@@ -142,7 +148,13 @@ function MainPage() {
       )}
 
       {/* 🌸 카테고리 설정 모달 */}
-      
+      {isCategoryModalOpen && (
+        <CategorySelect
+          isOpen={isCategoryModalOpen}
+          onClose={() => setCategoryModalOpen(false)}
+          onSelectCategory={(category) => setSelectedCategory(category)} // ✅ 선택 반영
+        />
+      )}
     </div>
   );
 }
