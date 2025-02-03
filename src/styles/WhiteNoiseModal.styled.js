@@ -1,5 +1,7 @@
-/* 모달 뒤 배경 (오버레이) */
-.modal-overlay {
+import styled from "styled-components";
+
+// 모달 뒤 배경 (오버레이)
+export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -10,10 +12,10 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
+`;
 
-/* 모달 컨테이너 */
-.modal-container {
+// 모달 컨테이너
+export const ModalContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 320px;
@@ -22,18 +24,10 @@
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-}
+`;
 
-/* 모달 제목 */
-.modal-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #666;
-  margin-bottom: 16px;
-}
-
-/* 닫기 버튼 */
-.close-button {
+// 닫기 버튼
+export const CloseButton = styled.button`
   position: absolute;
   top: 12px;
   left: 12px;
@@ -42,20 +36,28 @@
   font-size: 20px;
   cursor: pointer;
   color: #666;
-}
+`;
 
-/* 옵션들을 감싸는 컨테이너 */
-.option-container {
+// 모달 제목
+export const ModalTitle = styled.h2`
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 16px;
+`;
+
+// 옵션 목록 전체를 감싸는 컨테이너
+export const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-}
+`;
 
-/* 개별 옵션 */
-.option {
-  display: flex; /* 한 줄 배치 */
-  align-items: center; /* 수직 가운데 정렬 */
-  justify-content: space-between; /* 텍스트 왼쪽, 체크 아이콘 오른쪽 끝 */
+// 개별 옵션 아이템
+export const OptionItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   padding: 12px 16px;
@@ -64,23 +66,21 @@
   transition: background 0.3s;
   color: #aaa; /* 비활성 옵션 글자색 */
   font-weight: normal;
-}
 
-/* (선택) 호버 시 배경 강조하고 싶다면 
-  .option:hover {
-    background: #f9f9f9;
+  &.active {
+    font-weight: bold;
+    color: #333;
   }
-  */
 
-/* 활성화된 옵션 스타일 */
-.option.active {
-  font-weight: bold;
-  color: #333;
-}
+  /* 호버 효과를 주고 싶다면 주석 해제 */
+  /* &:hover {
+    background: #f9f9f9;
+  } */
+`;
 
-/* 체크 아이콘 */
-.check-icon {
+// 체크 아이콘
+export const CheckIcon = styled.span`
   font-size: 18px;
   color: #4caf50; /* 녹색 아이콘 */
   font-weight: bold;
-}
+`;
