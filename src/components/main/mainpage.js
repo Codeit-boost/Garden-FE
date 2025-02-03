@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../../styles/mainpage.css"; // ✅ CSS 경로 수정
+import "../../styles/mainpage.css";
 
-// 🌿 아이콘 이미지 개별 import (폴더명 변경: "icons", "flowers")
+// 🌿 아이콘 이미지 개별 import
 import logo from "../../assets/icons/로고.png";
 import slogan from "../../assets/icons/슬로건.png";
 import notificationIcon from "../../assets/icons/알림.png";
@@ -9,17 +9,22 @@ import witheredFlower from "../../assets/icons/시든꽃.png";
 import completedFlower from "../../assets/icons/완성꽃.png";
 import hourglassIcon from "../../assets/icons/모래시계.png";
 import stopwatchIcon from "../../assets/icons/시계.png";
-import upArrow from "../../assets/icons/화살표(위).png";
-import downArrow from "../../assets/icons/화살표(아래).png";
+import leftArrow from "../../assets/icons/화살표(위).png";
+import rightArrow from "../../assets/icons/화살표(아래).png";
 
-// 🌸 꽃 & 흙 이미지 개별 import (폴더명 변경: "flowers")
+// 🌸 꽃 & 흙 이미지 개별 import
 import flowerStage from "../../assets/flowers/메리골드.png";
-import soilImage from "../../assets/flowers/땅 이미지.png"; // ✅ 흙 이미지 추가
+import soilImage from "../../assets/flowers/땅 이미지.png";
+
+// 📌 추가된 모달 컴포넌트
+import FlowerSelect from "./flowerselect"; // 꽃 선택 모달
+
 
 function MainPage() {
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isTimerMode, setIsTimerMode] = useState(true);
+  const [selectedFlower, setSelectedFlower] = useState("메리골드");
 
   return (
     <div className="main-container">
@@ -46,12 +51,12 @@ function MainPage() {
 
         {/* 🌸 성공한 꽃 / 실패한 꽃 개수 */}
         <div className="flower-count-container">
-          <div className="flower-item">
-            <img src={completedFlower} alt="완성 꽃" className="flower-icon" />
+          <div className="flower-item1">
+            <img src={completedFlower} alt="완성 꽃" className="flower-icon-success-fail" />
             <span className="flower-count">30</span>
           </div>
-          <div className="flower-item">
-            <img src={witheredFlower} alt="시든 꽃" className="flower-icon" />
+          <div className="flower-item1">
+            <img src={witheredFlower} alt="시든 꽃" className="flower-icon-success-fail" />
             <span className="flower-count">1</span>
           </div>
         </div>
@@ -84,23 +89,21 @@ function MainPage() {
         {/* 🌱 꽃 심기 영역 */}
         <section className="planting-box">
           <div className="planting-circle">
-            {/* ✅ 흙 이미지 추가 (동그란 원 내부에서만 보이도록) */}
             <div className="soil-container">
               <img src={soilImage} alt="땅" className="soil-image" />
             </div>
-            {/* 🌼 꽃 이미지 */}
             <img src={flowerStage} alt="꽃 단계" className="plant-image" />
           </div>
           <p className="category-text">공부</p>
 
-          {/* 🌿 시간 조절 화살표를 좌우 배치 */}
+          {/* 🌿 시간 조절 (좌/우 화살표로 변경) */}
           <div className="timer-category-container">
             <button className="time-adjust">
-              <img src={upArrow} alt="시간 증가" />
+              <img src={leftArrow} alt="시간 감소" />
             </button>
             <p className="time-text">03:00:00</p>
             <button className="time-adjust">
-              <img src={downArrow} alt="시간 감소" />
+              <img src={rightArrow} alt="시간 증가" />
             </button>
           </div>
 
@@ -111,8 +114,12 @@ function MainPage() {
 
       {/* 🌸 꽃 변경 & 카테고리 설정 버튼 */}
       <div className="action-buttons">
-        <button className="change-flower-button" onClick={() => setFlowerModalOpen(true)}>꽃 선택</button>
-        <button className="change-category-button" onClick={() => setCategoryModalOpen(true)}>카테고리 설정</button>
+        <button className="change-flower-button" onClick={() => setFlowerModalOpen(true)}>
+          꽃 선택
+        </button>
+        <button className="change-category-button" onClick={() => setCategoryModalOpen(true)}>
+          카테고리 설정
+        </button>
       </div>
 
       {/* 🌼 오늘의 꽃말 */}
@@ -122,6 +129,20 @@ function MainPage() {
           <p className="quote-text">해바라기의 "열정 추억"</p>
         </div>
       </div>
+
+      {/* 🌸 꽃 선택 모달 */}
+      {isFlowerModalOpen && (
+        <FlowerSelect
+          onClose={() => setFlowerModalOpen(false)}
+          onSelectFlower={(flower) => {
+            setSelectedFlower(flower);
+            setFlowerModalOpen(false);
+          }}
+        />
+      )}
+
+      {/* 🌸 카테고리 설정 모달 */}
+      
     </div>
   );
 }
