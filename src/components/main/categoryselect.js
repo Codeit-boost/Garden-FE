@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/categoryselect.css"; // ✅ 스타일 적용
 
-const categoriesList = ["공부", "독서", "운동", "대외활동"]; // ✅ 기본 카테고리 리스트
+const categoriesList = ["공부", "독서", "운동", "취미","대외활동"]; // ✅ 기본 카테고리 리스트
 
 const CategorySelect = ({ isOpen, onClose, onSelectCategory }) => {
   const [categories, setCategories] = useState(categoriesList);
