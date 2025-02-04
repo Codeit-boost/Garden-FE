@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { BrowserView, MobileView } from "react-device-detect";
 import Startscreen from "./screens/Startscreen";
 import Onboarding1 from "./screens/Onboarding1";
 import Onboarding2 from "./screens/Onboarding2";
@@ -13,7 +12,6 @@ import Ranking from "./screens/Ranking";
 import Mission from "./screens/Mission";
 import Settings from "./screens/Settings";
 import MyInfo from "./screens/MyInfo";
-import DesktopView from "./screens/DesktopView.js";
 import "./styles/App.css";
 
 const App = () => {
