@@ -3,6 +3,7 @@ html,
 body {
   width: 100%;
   max-width: 100vw;
+<<<<<<< HEAD
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -20,3 +21,28 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding-bottom: 00px;
 }
+=======
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  margin: 0;
+  padding: 0;
+  font-family: "Korail Round Gothic Bold", sans-serif;
+  background-color: #f0f0f0; /* 외부 배경을 약간 회색 톤으로 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+  
+  /* 📱 앱 전체를 감싸는 컨테이너 */
+  .app-container {
+    width: 100%;
+    max-width: 390px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 00px;
+  }
+  
+>>>>>>> lms

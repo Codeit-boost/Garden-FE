@@ -12,13 +12,11 @@ import Ranking from "./screens/Ranking";
 import Mission from "./screens/Mission";
 import Settings from "./screens/Settings";
 import MyInfo from "./screens/MyInfo";
-import "./styles/global.css"; // ✅ CSS 유지
+import "./styles/App.css";
 
 const App = () => {
   return (
-    <div className="app-container">
-      {" "}
-      {/* ✅ 클래스명을 "app-container"로 유지 */}
+    <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Startscreen />} />
@@ -27,8 +25,7 @@ const App = () => {
           <Route path="/onboarding/3" element={<Onboarding3 />} />
           <Route path="/onboarding/4" element={<Onboarding4 />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />{" "}
-          {/* ✅ Home.js를 Home 경로에 연결 */}
+          <Route path="/home" element={<Home />} />
           <Route path="/garden" element={<Garden />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/mission" element={<Mission />} />
