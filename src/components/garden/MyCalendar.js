@@ -11,10 +11,19 @@ const MyCalendar = () => {
     const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
     const today = new Date();
 
-    for (let i = 0; i < startDay; i++) {
-      days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
+    // 이전 달의 마지막 날짜 계산
+    const prevLastDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+    // 이전 달의 날짜 추가
+    for (let i = startDay - 1; i >= 0; i--) {
+      days.push(
+        <div key={`prev-${i}`} className="calendar-day prev-month">
+          {prevLastDate - i}
+        </div>
+      );
     }
 
+    // 현재 달의 날짜 추가
     for (let i = 1; i <= lastDate; i++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
       const isSelected = selectedDate && selectedDate.toDateString() === date.toDateString();
@@ -31,6 +40,16 @@ const MyCalendar = () => {
       );
     }
 
+    // 다음 달의 날짜 추가
+    const remainingDays = (7 - (days.length % 7)) % 7; // 남은 칸 수 계산
+    for (let i = 1; i <= remainingDays; i++) {
+      days.push(
+        <div key={`next-${i}`} className="calendar-day next-month">
+          {i}
+        </div>
+      );
+    }
+
     return days;
   };
 
@@ -42,16 +61,22 @@ const MyCalendar = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
+  const handleSave = () => {
+    if (selectedDate) {
+      
+    }
+  };
+
+  const handleClose = () => {
+    
+  };
+
   return (
     <div className="calendar">
       <div className="calendar-header">
-        <button onClick={handlePrevMonth}>
-          &lt;
-        </button>
+        <button className="prev-button" onClick={handlePrevMonth}></button>
         <span>{currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월</span>
-        <button onClick={handleNextMonth}>
-          &gt;
-        </button>
+        <button className="next-button" onClick={handleNextMonth}></button>
       </div>
       <div className="calendar-body">
         <div className="calendar-weekdays">
@@ -61,6 +86,10 @@ const MyCalendar = () => {
         </div>
         <div className="calendar-days">
           {renderDays()}
+        </div>
+        <div className="calendar-buttons">
+          <button className="save-button" onClick={handleSave}>변경</button>
+          <button className="close-button" onClick={handleClose}>닫기</button>
         </div>
       </div>
     </div>

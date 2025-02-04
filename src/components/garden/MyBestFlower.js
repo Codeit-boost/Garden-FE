@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/MyBestFlower.css';
 import leafIcon from '../../assets/icons/완성꽃.png'; 
-
+// import api from '../../api/api';
 const MyBestFlower = () => {
   const bestPlant = {
     name: '해바라기',
