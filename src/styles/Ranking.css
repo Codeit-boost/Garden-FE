@@ -1,0 +1,42 @@
+.ranking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+.ranking-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* 탭 영역 */
+.ranking-tabs {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.ranking-tab {
+  flex: 1;
+  padding: 8px;
+  background: #f5f5f5;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ranking-tab.active {
+  background: #68b984; /* 원하는 색상 */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+/* 랭킹 목록 (각 컴포넌트들이 감싸질 영역) */
+.ranking-list {
+  width: 100%;
+}
