@@ -11,24 +11,22 @@ import notificationIcon from "../../assets/icons/알림.png";
 import PlantingBox from "./plantingbox";
 import ModeToggle from "./timer-toggle";
 import TotalTime from "./totaltime";
-import FlowerSelect from "./flowerselect";
-import CategorySelect from "./categoryselect";
+import FlowerSelect from "./flowerselect";  // ✅ 수정: 올바른 모달 파일 import 확인
+import CategorySelect from "./categoryselect";  // ✅ 수정: 올바른 모달 파일 import 확인
 
 function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
-  const [time, setTime] = useState(2 * 3600); // 기본 2시간 (2 * 3600초)
+  const [time, setTime] = useState(2 * 3600);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("공부");
   const [selectedFlower, setSelectedFlower] = useState("메리골드");
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
-  // 🌼 오늘의 꽃 정보 상태 관리
   const [flower, setFlower] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ⏳ 타이머 및 스톱워치 기능 복구
   useEffect(() => {
     let interval;
     if (isRunning) {
@@ -43,10 +41,9 @@ function MainPage() {
     setIsRunning((prev) => !prev);
   };
 
-  // 🌼 오늘의 꽃 정보 API 호출
   useEffect(() => {
     const today = new Date();
-    const fMonth = today.getMonth() + 1; // 0부터 시작하므로 +1
+    const fMonth = today.getMonth() + 1;
     const fDay = today.getDate();
 
     api.get(`/flower/todayflower?fMonth=${fMonth}&fDay=${fDay}`)
@@ -60,7 +57,6 @@ function MainPage() {
         setIsLoading(false);
       });
   }, []);
-
   return (
     <div className="main-container">
       <header className="header-container">
@@ -72,7 +68,10 @@ function MainPage() {
           <img src={notificationIcon} alt="알림" className="header-notification" />
         </div>
 
-        <TotalTime totalTime="07시간 01분" progress={70} />
+        {/* ✅ 누적 시간 & 꽃 개수를 가로 정렬하는 컨테이너 */}
+        <div className="time-flower-container">
+          <TotalTime />
+        </div>
       </header>
 
       <div className="divider"></div>
@@ -122,7 +121,7 @@ function MainPage() {
         </div>
       </div>
 
-      {/* 🌸 모달 */}
+      {/* 🌸 꽃 선택 모달 */}
       {isFlowerModalOpen && (
         <FlowerSelect
           onClose={() => setFlowerModalOpen(false)}
@@ -133,6 +132,7 @@ function MainPage() {
         />
       )}
 
+      {/* 📌 카테고리 선택 모달 */}
       {isCategoryModalOpen && (
         <CategorySelect
           isOpen={isCategoryModalOpen}
@@ -145,3 +145,5 @@ function MainPage() {
 }
 
 export default MainPage;
+
+

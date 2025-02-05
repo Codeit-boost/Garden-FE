@@ -97,31 +97,41 @@ html, body {
     height: 100%;
     background: #00A806;
 }
+/* ✅ 꽃 개수 & 랭킹 정보 가로 정렬 */
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px; /* 게이지 바와 간격 추가 */
+    padding: 0 15px;
+}
 
-/* 🔧 성공한 꽃 / 실패한 꽃 왼쪽 정렬 */
+/* ✅ 꽃 개수 왼쪽 정렬 */
 .flower-count-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    padding-left: 8px;
-    gap: 10px;
+    gap: 15px;
 }
 
+/* ✅ 개별 꽃 아이콘 & 숫자 정렬 */
+.flower-count {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ✅ 랭킹 정보 오른쪽 정렬 */
+.ranking-info-container {
+    text-align: right;
+}
 .flower-item1 {
     display: flex;
     align-items: center;
 }
-
-.flower-icon-success-fail {
+.flower-icon {
     width: 16px;
     height: auto;
 }
-
-.flower-count {
-    font-size: 14px;
-    margin-left: 5px;
-}
-
 /* 🌿 "다음 랭킹까지" 텍스트 */
 .ranking-info-container {
     text-align: right;
