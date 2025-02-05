@@ -1,16 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
-import "../styles/Login.css"; // ✅ CSS 파일 적용
+import { getKakaoLoginUrl } from "../api/auth"; // ✅ API 함수 가져오기
+import "../styles/Login.css";
 import kakaoLogo from "../assets/icons/kakalogo.png";
 import logo from "../assets/icons/logo.png";
 
 const Login = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const handleKakaoLogin = () => {
+    window.location.href = getKakaoLoginUrl(); // ✅ `redirect_uri`가 `/kakao/callback`으로 이동하도록 수정됨
+  };
 
   return (
     <div className="login-container">
       <img src={logo} alt="Garden Logo" className="login-logo" />
-      <button className="login-button" onClick={() => navigate("/home")}>
+      <button className="login-button" onClick={handleKakaoLogin}>
         <img src={kakaoLogo} alt="Kakao Logo" className="login-kakao-logo" />
         카카오 로그인
       </button>

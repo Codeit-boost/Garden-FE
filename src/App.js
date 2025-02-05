@@ -12,6 +12,7 @@ import Ranking from "./screens/Ranking";
 import Mission from "./screens/Mission";
 import Settings from "./screens/Settings";
 import MyInfo from "./screens/MyInfo";
+import KakaoCallback from "./screens/KakaoCallback"; // ✅ 추가
 import "./styles/App.css";
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/mission" element={<Mission />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/myinfo" element={<MyInfo />} />
+          <Route path="/kakao/callback" element={<KakaoCallback />} />{" "}
         </Routes>
       </Router>
     </div>
