@@ -93,6 +93,7 @@ function MainPage() {
         time={time}
         setTime={setTime}
         isRunning={isRunning}
+        setIsRunning={setIsRunning}
         handleStartStop={handleStartStop}
         isTimerMode={isTimerMode}
       />
