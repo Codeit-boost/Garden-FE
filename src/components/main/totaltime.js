@@ -4,29 +4,33 @@ import completedflower from "../../assets/icons/완성꽃.png";
 import witheredflower from "../../assets/icons/시든꽃.png";
 
 const Totaltime = () => {
-  // ✅ 상태(state) 관리 (기본값 0 설정)
+  // ✅ 상태(state) 관리
+  const [totalTime, setTotalTime] = useState("0시간 0분");
+  const [nextRankingTime, setNextRankingTime] = useState(null); // 1등일 경우 null
   const [completedFlowers, setCompletedFlowers] = useState(0);
   const [witheredFlowers, setWitheredFlowers] = useState(0);
 
-  // ✅ API 호출 (useEffect 내부에서 수행)
+  // ✅ API 호출 (useEffect 내부에서 실행)
   useEffect(() => {
-    api.get("/flowers/completed")
+    api.get("/members/me", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } // 인증 필요
+    })
       .then((response) => {
-        console.log("API 응답:", response.data); // API 응답 확인용
-        setCompletedFlowers(response.data.completedFlowers || 0);
-        setWitheredFlowers(response.data.witheredFlowers || 0);
+        console.log("API 응답:", response.data); // API 응답 확인
+        setTotalTime(response.data.currentTotalTime ? `${response.data.currentTotalTime}분` : "0시간 0분");
+        setNextRankingTime(response.data.nextTotalTime); // 1등이면 null
+        setCompletedFlowers(response.data.bloomedCount || 0);
+        setWitheredFlowers(response.data.wiltedCount || 0);
       })
       .catch((error) => {
-        console.error("꽃 개수 정보를 불러오는 중 오류 발생:", error);
-        setCompletedFlowers(0); // API 실패 시 기본값
-        setWitheredFlowers(0); // API 실패 시 기본값
+        console.error("사용자 정보를 불러오는 중 오류 발생:", error);
       });
   }, []);
 
   return (
     <div className="total-time-container">
       <div className="time-rank-container">
-        <p className="total-time">07시간 01분</p>
+        <p className="total-time">{totalTime}</p> {/* ✅ 총 누적 시간 */}
         <p className="total-time-text">누적 시간</p>
       </div>
 
@@ -50,7 +54,11 @@ const Totaltime = () => {
 
         {/* 🏆 랭킹 정보 (오른쪽 정렬) */}
         <div className="ranking-info-container">
-          <p>다음 랭킹까지 <span className="ranking-time">2시간 59분</span></p>
+          {nextRankingTime === null ? (
+            <p className="ranking-time">현재 1등입니다! 🏆</p> // ✅ 1등일 경우
+          ) : (
+            <p>다음 랭킹까지 <span className="ranking-time">{nextRankingTime}분</span></p> // ✅ 다음 랭킹까지 남은 시간
+          )}
         </div>
       </div>
     </div>
