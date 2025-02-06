@@ -1,42 +1,32 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { loginWithKakao } from "../api/auth";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { handleKakaoCallback } from "../api/auth"; // loginWithKakao 대신 사용
 
 const KakaoCallback = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const code = searchParams.get("code");
-    console.log("✅ 카카오 로그인 코드:", code);
+    // URL의 쿼리 파라미터에서 인증 코드 추출
+    const params = new URLSearchParams(location.search);
+    const code = params.get("code");
 
     if (code) {
-      loginWithKakao(code)
-        .then(() => {
-          const token = localStorage.getItem("token");
-          console.log("✅ 로그인 후 JWT:", token);
-
-          if (token) {
-            console.log("✅ 홈으로 이동!");
-            navigate("/home"); // ✅ `?token=...` 없이 이동하도록 수정!
-          } else {
-            console.error("❌ JWT 저장 실패! 로그인 재시도 필요");
-            alert("로그인 실패! 다시 시도해주세요.");
-            navigate("/login");
-          }
+      handleKakaoCallback(code)
+        .then(({ token, user }) => {
+          console.log("Login successful:", user);
+          // 로그인 성공 후 홈 화면으로 이동하도록 경로 변경
+          navigate("/home");
         })
         .catch((error) => {
-          console.error("❌ 로그인 요청 실패:", error);
-          alert("로그인 실패! 다시 시도해주세요.");
+          console.error("Kakao login error:", error);
+          // 에러 발생 시 로그인 페이지 등으로 다시 리다이렉트할 수 있음
           navigate("/login");
         });
-    } else {
-      alert("잘못된 접근입니다.");
-      navigate("/login");
     }
-  }, [searchParams, navigate]);
+  }, [location, navigate]);
 
-  return <div>로그인 처리 중...</div>;
+  return <div>Loading...</div>;
 };
 
 export default KakaoCallback;

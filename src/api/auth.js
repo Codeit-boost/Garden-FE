@@ -1,38 +1,51 @@
-import axios from "axios";
+import api from "./api";
 
-const API_BASE_URL = "https://garden-c.kro.kr/api/auth";
-const REDIRECT_URI = "https://garden-c.kro.kr/kakao/callback"; // ✅ 프론트엔드 콜백 URL
-
+// 카카오 로그인 URL을 반환하는 함수
 export const getKakaoLoginUrl = () => {
-  return `${API_BASE_URL}/kakao?redirect_uri=${encodeURIComponent(
-    REDIRECT_URI
-  )}`;
+  // axios 인스턴스의 baseURL을 사용하여 URL 생성
+  return `${api.defaults.baseURL}/auth/kakao`;
 };
 
-export const loginWithKakao = async (code) => {
+// 카카오 로그인 콜백을 처리하는 함수
+export const handleKakaoCallback = async (code) => {
   try {
-    console.log("✅ loginWithKakao 호출됨, 인증 코드:", code);
+    const response = await api.get(`/auth/kakao/callback?code=${code}`);
+    const { token, user } = response.data;
 
-    const response = await axios.post(`${API_BASE_URL}/kakao/callback`, {
-      code,
-      redirect_uri: REDIRECT_URI,
-    });
+    // JWT 토큰 저장 및 axios 기본 헤더 설정
+    localStorage.setItem("jwtToken", token);
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    console.log("✅ 카카오 로그인 응답:", response.data);
-
-    if (response.data.token) {
-      localStorage.setItem("token", response.data.token);
-      console.log(
-        "✅ JWT 저장 완료! 저장된 값:",
-        localStorage.getItem("token")
-      );
-      return response.data;
-    } else {
-      console.error("❌ JWT 없음! 응답 확인 필요:", response.data);
-      throw new Error("JWT가 응답에 포함되지 않았습니다.");
-    }
+    return { token, user };
   } catch (error) {
-    console.error("❌ 카카오 로그인 실패:", error);
+    console.error("Kakao login failed:", error);
+    throw error;
+  }
+};
+
+// 인증된 사용자 정보를 가져오는 함수
+export const fetchUserInfo = async () => {
+  try {
+    const response = await api.get("/auth/me");
+    return response.data.user;
+  } catch (error) {
+    console.error("Fetching user info failed:", error);
+    throw error;
+  }
+};
+
+// 로그아웃 처리 함수
+export const logout = async () => {
+  try {
+    await api.post("/auth/logout");
+
+    // 로컬 스토리지 및 axios 헤더 정리
+    localStorage.removeItem("jwtToken");
+    delete api.defaults.headers.common["Authorization"];
+
+    return true;
+  } catch (error) {
+    console.error("Logout failed:", error);
     throw error;
   }
 };
