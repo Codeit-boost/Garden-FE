@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../../styles/MyCalendar.css';
 
-const MyCalendar = () => {
+const MyCalendar = ({ onSelectDate, onClose }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // ✅ Default: today
 
   const renderDays = () => {
     const days = [];
@@ -11,10 +11,8 @@ const MyCalendar = () => {
     const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
     const today = new Date();
 
-    // 이전 달의 마지막 날짜 계산
     const prevLastDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
 
-    // 이전 달의 날짜 추가
     for (let i = startDay - 1; i >= 0; i--) {
       days.push(
         <div key={`prev-${i}`} className="calendar-day prev-month">
@@ -23,10 +21,9 @@ const MyCalendar = () => {
       );
     }
 
-    // 현재 달의 날짜 추가
     for (let i = 1; i <= lastDate; i++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-      const isSelected = selectedDate && selectedDate.toDateString() === date.toDateString();
+      const isSelected = selectedDate.toDateString() === date.toDateString();
       const isToday = today.toDateString() === date.toDateString();
 
       days.push(
@@ -40,8 +37,7 @@ const MyCalendar = () => {
       );
     }
 
-    // 다음 달의 날짜 추가
-    const remainingDays = (7 - (days.length % 7)) % 7; // 남은 칸 수 계산
+    const remainingDays = (7 - (days.length % 7)) % 7;
     for (let i = 1; i <= remainingDays; i++) {
       days.push(
         <div key={`next-${i}`} className="calendar-day next-month">
@@ -63,12 +59,9 @@ const MyCalendar = () => {
 
   const handleSave = () => {
     if (selectedDate) {
-      
+      onSelectDate(selectedDate); // ✅ Trigger API request on date change
+      onClose(); // ✅ Close the calendar
     }
-  };
-
-  const handleClose = () => {
-    
   };
 
   return (
@@ -89,7 +82,7 @@ const MyCalendar = () => {
         </div>
         <div className="calendar-buttons">
           <button className="save-button" onClick={handleSave}>변경</button>
-          <button className="close-button" onClick={handleClose}>닫기</button>
+          <button className="close-button" onClick={onClose}>닫기</button>
         </div>
       </div>
     </div>

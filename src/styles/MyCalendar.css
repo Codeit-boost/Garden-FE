@@ -69,8 +69,8 @@
 }
 
 .prev-button, .next-button {
-  width:15px; /* 아이콘 크기에 맞게 조절 */
-  height: 15px; /* 아이콘 크기에 맞게 조절 */
+  width:15px; 
+  height: 15px; 
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
@@ -79,37 +79,40 @@
 }
 
 .prev-button {
-  background-image: url('../assets/icons/화살표\(왼\).png'); /* 이전 달 아이콘 경로 */
+  background-image: url('../assets/icons/화살표\(왼\).png'); 
 }
 
 .next-button {
-  background-image: url('../assets/icons/화살표\(오\).png'); /* 다음 달 아이콘 경로 */
+  background-image: url('../assets/icons/화살표\(오\).png'); 
 }
 
 .calendar-day.prev-month, .calendar-day.next-month {
-  color: #ccc; /* 이전 달과 다음 달 날짜를 회색으로 표시 */
+  color: #ccc;
 }
 .calendar-buttons {
   display: flex;
-  justify-content: space-between; /* 버튼을 가로로 정렬 */
-  width: 100%;
+  justify-content: space-between; 
+  width: 75%;
   padding: 10px;
 }
 
 .save-button, .close-button {
   padding: 10px 20px;
+  width:100px;
+  height: 40px;
   font-size: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 .save-button {
-  background-color: #007bff;
+  background-color: #00A806;
   color: white;
 }
 
 .close-button {
-  background-color: #ccc;
+  background-color: #ffffff;
+ 
   color: black;
 }
