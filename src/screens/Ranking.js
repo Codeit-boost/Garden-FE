@@ -1,3 +1,4 @@
+// src/screens/Ranking.js
 import React, { useState } from "react";
 import FriendRanking from "../components/ranking/FriendRanking";
 import AllRanking from "../components/ranking/AllRanking";
@@ -20,7 +21,7 @@ const Ranking = () => {
   const [activeTab, setActiveTab] = useState("friends");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // ✅ 예시 데이터 유지
+  // 예시 데이터
   const friendRanking = [
     { rank: 1, userName: "user 1", leaf: 8, seed: 0, time: "10 시간 20 분" },
     { rank: 2, userName: "user 2", leaf: 4, seed: 1, time: "09 시간 13 분" },
@@ -39,15 +40,13 @@ const Ranking = () => {
 
   return (
     <RankingContainer>
-      {/* ✅ 랭킹 제목 + 친구 추가 버튼 */}
       <RankingHeader>
         <RankingTitle>랭킹</RankingTitle>
         <AddFriendButton onClick={() => setIsModalOpen(true)}>
-          <img src={friendIcon} alt="친구 추가" /> {/* ✅ SVG 아이콘 적용 */}
+          <img src={friendIcon} alt="친구 추가" />
         </AddFriendButton>
       </RankingHeader>
 
-      {/* ✅ 새로운 스타일 적용된 탭 */}
       <RankingTabs>
         <ActiveTabIndicator activeTab={activeTab} />
         <RankingTabButton
@@ -74,7 +73,6 @@ const Ranking = () => {
 
       <TabBar />
 
-      {/* ✅ 친구 초대 모달 */}
       <RankInviteFriendsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
