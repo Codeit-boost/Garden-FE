@@ -3,17 +3,23 @@ import React, { useState } from "react";
 import FriendRanking from "../components/ranking/FriendRanking";
 import AllRanking from "../components/ranking/AllRanking";
 import TabBar from "../components/BottomBar";
+import RankInviteFriendsModal from "../components/ranking/RankInviteFriendsModal";
+import friendIcon from "../assets/icons/friend.svg";
 
 import {
   RankingContainer,
+  RankingHeader,
   RankingTitle,
+  AddFriendButton,
   RankingTabs,
   RankingTabButton,
+  ActiveTabIndicator,
   RankingListWrapper,
 } from "../styles/Ranking.styled.js";
 
 const Ranking = () => {
   const [activeTab, setActiveTab] = useState("friends");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 예시 데이터
   const friendRanking = [
@@ -34,9 +40,15 @@ const Ranking = () => {
 
   return (
     <RankingContainer>
-      <RankingTitle>랭킹</RankingTitle>
+      <RankingHeader>
+        <RankingTitle>랭킹</RankingTitle>
+        <AddFriendButton onClick={() => setIsModalOpen(true)}>
+          <img src={friendIcon} alt="친구 추가" />
+        </AddFriendButton>
+      </RankingHeader>
 
       <RankingTabs>
+        <ActiveTabIndicator activeTab={activeTab} />
         <RankingTabButton
           active={activeTab === "friends"}
           onClick={() => setActiveTab("friends")}
@@ -60,6 +72,11 @@ const Ranking = () => {
       </RankingListWrapper>
 
       <TabBar />
+
+      <RankInviteFriendsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </RankingContainer>
   );
 };
