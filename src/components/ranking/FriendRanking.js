@@ -12,6 +12,7 @@ import {
   RankingRank,
   CrownIcon,
   RankingUser,
+  UserInfoContainer,
   UserName,
   UserStats,
   RankingTime,
@@ -83,7 +84,7 @@ const FriendRanking = () => {
         key={`friend-${idx}`}
         style={{ background: isMe ? "#e6f7ff" : "#fff" }}
       >
-        {/* 순위 영역 */}
+        
         <RankingRank>
           {rank <= 3 ? (
             <CrownIcon src={crownIcon[rank]} alt={`crown-${rank}`} />
@@ -91,43 +92,46 @@ const FriendRanking = () => {
             <span>{rank}</span>
           )}
         </RankingRank>
-        {/* 사용자 정보 */}
+        
         <RankingUser>
           <img
-            src={img?.trim() ? img : completedFlowerIcon} // ✅ 빈 문자열 체크 추가
+            src={img?.trim() ? img : completedFlowerIcon}
             alt="프로필 이미지"
             style={{
               width: "40px",
               height: "40px",
               borderRadius: "50%",
               marginRight: "8px",
+              marginBottom : "5px"
             }}
           />
-          <UserName>
-            {name} {isMe && "(나)"}
-          </UserName>{" "}
-          {/* ✅ 내 계정이면 "(나)" 추가 */}
-          <UserStats>
-            {/* 완성꽃 (bloomedCount → leaf) */}
-            <div>
-              <img
-                src={completedFlowerIcon}
-                alt="완성꽃"
-                style={{ width: "16px", marginRight: "4px" }}
-              />
-              {bloomedCount}
-            </div>
+          <UserInfoContainer>
+            <UserName>
+              {name} {isMe && "(나)"}
+            </UserName>{" "}
+          
+            <UserStats>
+            
+              <div>
+                <img
+                  src={completedFlowerIcon}
+                  alt="완성꽃"
+                  style={{ width: "12px", marginRight: "3px" }}
+                />
+                {bloomedCount}
+              </div>
 
-            {/* 시든꽃 (wiltedCount → seed) */}
-            <div>
-              <img
-                src={wiltedFlowerIcon}
-                alt="시든꽃"
-                style={{ width: "16px", marginRight: "4px" }}
-              />
-              {wiltedCount}
-            </div>
-          </UserStats>
+              {/* 시든꽃 (wiltedCount → seed) */}
+              <div>
+                <img
+                  src={wiltedFlowerIcon}
+                  alt="시든꽃"
+                  style={{ width: "12px", marginRight: "3px" }}
+                />
+                {wiltedCount}
+              </div>
+            </UserStats>
+          </UserInfoContainer>
         </RankingUser>
         {/* 집중 시간 */}
         <RankingTime>{`${totalFocusTime}분`}</RankingTime>{" "}

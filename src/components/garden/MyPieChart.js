@@ -43,8 +43,8 @@ export default class MyPieChart extends PureComponent {
           name: item.category,
           value: item.time,
           percentage: ((item.time / totalMinutes) * 100).toFixed(2),
-          hours: Math.floor(item.time / 60),
-          minutes: item.time % 60,
+          hours: Math.floor(item.time / 3600), 
+          minutes: Math.floor((item.time % 3600) / 60), 
           color: getCategoryColor(item.category),
         }))
       : defaultData;
