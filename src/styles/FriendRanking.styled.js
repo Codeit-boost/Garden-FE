@@ -49,10 +49,21 @@ export const CrownIcon = styled.img`
 `;
 
 // ✅ 사용자 정보(이름, 통계)를 감싸는 영역
+// export const RankingUser = styled.div`
+//   display: flex;
+//   flex-direction: column; /* 세로 방향 배치 */
+//   flex: 1; /* 남은 공간을 전부 차지 */
+// `;
 export const RankingUser = styled.div`
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+`;
+
+export const UserInfoContainer = styled.div`
   display: flex;
-  flex-direction: column; /* 세로 방향 배치 */
-  flex: 1; /* 남은 공간을 전부 차지 */
+  flex-direction: column;
+  justify-content: center;
 `;
 
 // ✅ 사용자 이름 텍스트
