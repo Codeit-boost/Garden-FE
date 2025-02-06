@@ -8,10 +8,26 @@ export const fetchMembers = async (page = 1, limit = 10) => {
     const response = await api.get("/members", {
       params: { page, limit },
     });
-    // 응답 예시: { page: 0, limit: 0, members: [ {} ] }
-    return response.data;
+
+    // 응답 데이터 로깅
+    console.log("📌 API 응답 데이터:", response.data);
+
+    // API 응답 데이터가 올바른 구조인지 확인
+    if (!response.data || !Array.isArray(response.data.members)) {
+      throw new Error("잘못된 데이터 형식입니다.");
+    }
+
+    // 멤버 리스트 가공 (rank가 없는 경우 기본값 부여)
+    const members = response.data.members.map((member, index) => ({
+      ...member,
+      rank: member.rank ?? index + 1, // rank 값이 없으면 기본적으로 index + 1
+    }));
+
+    console.log("✅ 가공된 멤버 데이터:", members);
+
+    return { ...response.data, members };
   } catch (error) {
-    console.error("Error fetching members:", error);
+    console.error("❌ 멤버 정보 가져오기 오류:", error);
     throw error;
   }
 };

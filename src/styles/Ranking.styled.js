@@ -5,70 +5,70 @@ export const RankingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  width: 100%;
+  max-width: 430px; /* ✅ 모바일 크기 유지 */
+  height: 100vh; /* ✅ 전체 화면을 정확히 맞춤 */
+  background-color: #fff;
+  overflow: hidden; /* ✅ 스크롤 방지 */
+  margin: 0 auto; /* ✅ 화면 중앙 정렬 */
 `;
 
 // ✅ 제목 + 친구 추가 버튼 컨테이너 (가운데 정렬 적용)
 export const RankingHeader = styled.div`
   display: flex;
-  justify-content: center; /* 가운데 정렬 */
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   max-width: 400px;
-  position: relative; /* 친구 추가 버튼 위치 조정 */
+  padding: 10px 0;
 `;
 
-// ✅ 랭킹 제목 (완전 가운데 정렬)
+// ✅ 랭킹 제목 (가운데 정렬)
 export const RankingTitle = styled.h1`
-  font-size: 24px;
-  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: bold;
   text-align: center;
-  flex-grow: 1; /* 제목이 가운데 정렬되도록 설정 */
+  flex-grow: 1;
 `;
 
 // ✅ 친구 추가 버튼 (+ 버튼, 우측 정렬)
 export const AddFriendButton = styled.button`
-  position: absolute;
-  right: 0; /* 우측 끝으로 정렬 */
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: #333;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 // ✅ 탭 컨테이너 (배경 및 둥근 테두리)
 export const RankingTabs = styled.div`
   display: flex;
-  position: relative;
   width: 300px;
   height: 40px;
   background-color: #ddd;
   border-radius: 20px;
-  padding: 4px;
+  position: relative;
   align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
 `;
 
 // ✅ 활성화된 탭을 표시하는 배경 (초록색)
 export const ActiveTabIndicator = styled.div`
   position: absolute;
-  top: 1px;
-  left: ${(props) =>
-    props.activeTab === "friends" ? "0px" : "calc(50% + 4px)"};
+  top: 2px;
+  left: ${(props) => (props.activeTab === "friends" ? "4px" : "50%")};
   width: 50%;
-  height: 50px;
+  height: 36px;
   background-color: #4caf50;
-  border-radius: 20px;
+  border-radius: 18px;
   transition: left 0.3s ease-in-out;
 `;
 
 // ✅ 개별 탭 버튼 (텍스트)
 export const RankingTabButton = styled.button`
   flex: 1;
-  position: relative;
   z-index: 2;
   background: none;
   border: none;
@@ -80,12 +80,40 @@ export const RankingTabButton = styled.button`
   padding: 10px 0;
 `;
 
-// ✅ 랭킹 목록을 감싸는 컨테이너 (추가된 부분)
+// ✅ 랭킹 목록을 감싸는 컨테이너 (스크롤 없이 자동 조절)
 export const RankingListWrapper = styled.div`
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 10px;
+  height: calc(100vh - 180px); /* ✅ 헤더, 탭바 제외한 높이 자동 조정 */
+  overflow-y: auto; /* ✅ 리스트 영역 내에서만 스크롤 */
+  padding-bottom: 10px; /* ✅ 하단 여백 추가 */
+`;
+
+// ✅ 로딩 메시지 스타일
+export const LoadingMessage = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #4caf50;
+`;
+
+// ✅ 에러 메시지 스타일
+export const ErrorMessage = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: red;
+  font-weight: bold;
+`;
+
+// ✅ 데이터 없음 메시지 스타일
+export const NoDataMessage = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: gray;
 `;
