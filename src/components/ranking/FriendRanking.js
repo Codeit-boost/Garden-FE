@@ -17,7 +17,7 @@ import {
   RankingTime,
 } from "../../styles/FriendRanking.styled.js";
 
-// 1,2,3등 왕관
+// 왕관 아이콘 매핑
 const crownIcon = {
   1: crownGold,
   2: crownSilver,
@@ -26,7 +26,8 @@ const crownIcon = {
 
 const FriendRanking = ({ data = [] }) => {
   const renderRankItem = (item, idx) => {
-    const { rank, userName, leaf, seed, time } = item;
+    const { rank, name, totalFocusTime, leaf = 0, seed = 0 } = item; // ✅ 필드명 수정 및 기본값 추가
+
     return (
       <RankingItem key={`friend-${idx}`}>
         {/* 순위 영역 */}
@@ -37,12 +38,11 @@ const FriendRanking = ({ data = [] }) => {
             <span>{rank}</span>
           )}
         </RankingRank>
-
         {/* 사용자 정보 */}
         <RankingUser>
-          <UserName>{userName}</UserName>
+          <UserName>{name}</UserName> {/* ✅ 필드명 수정 */}
           <UserStats>
-            {/* leaf 아이콘 + 갯수 */}
+            {/* 완성꽃 (leaf) */}
             <div>
               <img
                 src={completedFlowerIcon}
@@ -52,7 +52,7 @@ const FriendRanking = ({ data = [] }) => {
               {leaf}
             </div>
 
-            {/* seed 아이콘 + 갯수 */}
+            {/* 시든꽃 (seed) */}
             <div>
               <img
                 src={wiltedFlowerIcon}
@@ -63,9 +63,8 @@ const FriendRanking = ({ data = [] }) => {
             </div>
           </UserStats>
         </RankingUser>
-
-        {/* 시간 */}
-        <RankingTime>{time}</RankingTime>
+        {/* 집중 시간 */}
+        <RankingTime>{totalFocusTime}분</RankingTime> {/* ✅ 시간 표시 수정 */}
       </RankingItem>
     );
   };

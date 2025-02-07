@@ -46,23 +46,27 @@ export const AddFriendButton = styled.button`
 // ✅ 탭 컨테이너 (배경 및 둥근 테두리)
 export const RankingTabs = styled.div`
   display: flex;
-  width: 300px;
+  position: relative;
+  width: 320px;
   height: 40px;
   background-color: #ddd;
   border-radius: 20px;
-  position: relative;
+  padding: 4px;
   align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 `;
 
 // ✅ 활성화된 탭을 표시하는 배경 (초록색)
 export const ActiveTabIndicator = styled.div`
   position: absolute;
-  top: 2px;
-  left: ${(props) => (props.activeTab === "friends" ? "4px" : "50%")};
+  top: 1px;
+  left: ${(props) =>
+    props.activeTab === "friends" ? "0px" : "calc(50% + 2px)"};
   width: 50%;
-  height: 36px;
+  height: 50px;
   background-color: #4caf50;
-  border-radius: 18px;
+  border-radius: 20px;
   transition: left 0.3s ease-in-out;
 `;
 
