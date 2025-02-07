@@ -6,9 +6,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh; /* 뷰포트 전체 높이 */
+  height: 100vh; /* ✅ 화면 전체 높이 */
   background-color: #ffffff;
-  padding-bottom: 20px; /* 하단 여백 조정 */
+  padding-bottom: 0; /* ✅ 하단 여백 제거 */
   overflow: hidden; /* ✅ 스크롤바 제거 */
 `;
 
@@ -42,7 +42,7 @@ export const ProfileCard = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 24px;
-  margin-top: 60px; /* ✅ 여백 줄이기 */
+  margin-top: 30px; /* ✅ 여백 조정 */
 `;
 
 /* ✅ 프로필 이미지 컨테이너 */
@@ -103,40 +103,47 @@ export const InfoValue = styled.span`
   font-weight: bold;
 `;
 
-/* ✅ 로그아웃 & 탈퇴하기 버튼 감싸는 컨테이너 */
+/* ✅ 버튼 감싸는 컨테이너 */
 export const ActionContainer = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: auto; /* ✅ 화면 아래로 배치 */
-  padding-bottom: 30px; /* ✅ 하단 여백 추가 */
+  position: absolute; /* ✅ 화면 아래 고정 */
+  bottom: 90px; /* ✅ 하단바 위쪽으로 배치 */
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 /* ✅ 로그아웃 버튼 */
 export const LogoutButton = styled.button`
-  width: 100%;
+  width: 90%;
   background-color: #4caf50;
   color: white;
-  margin-top: 340px;
+  margin-top: 410px;
   border: none;
   border-radius: 8px;
   padding: 14px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 
   &:hover {
     background-color: #388e3c;
+    transform: scale(1.02);
   }
 `;
 
 /* ✅ 탈퇴하기 텍스트 */
 export const QuitText = styled.div`
   font-size: 14px;
-  color: gray;
-  margin-top: 10px; /* ✅ 로그아웃 버튼과 간격 */
+  color: black;
+  margin-top: 10px; /* ✅ 버튼과 간격 조정 */
   cursor: pointer;
-  text-align: center;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
