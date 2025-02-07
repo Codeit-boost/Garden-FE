@@ -67,7 +67,10 @@ const GardenPage = () => {
             <MyGarden myGarden={statistics?.myGarden}/>
           </div>
           <div className="chart-container">
-            <MyBarChart timeDistribution={statistics?.timeDistribution} />
+          <MyBarChart 
+  timeDistribution={statistics?.timeDistribution} 
+  periodType={period === "일" ? "daily" : period === "주" ? "weekly" : "monthly"} 
+/>
           </div>
           <div className="chart-container">
             <MyPieChart categoryAnalysis={statistics?.categoryAnalysis} />
@@ -84,3 +87,4 @@ const GardenPage = () => {
 };
 
 export default GardenPage;
+
