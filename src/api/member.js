@@ -1,4 +1,4 @@
-// src/api/members.js
+// src/api/member.js
 import api from "./api";
 
 // 모든 멤버를 집중시간 총합 순으로 페이지네이션 조회
