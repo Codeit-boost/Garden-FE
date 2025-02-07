@@ -1,37 +1,44 @@
-import React from 'react';
-import '../../styles/MyBestFlower.css';
-import leafIcon from '../../assets/icons/완성꽃.png'; 
-// import api from '../../api/api';
-const MyBestFlower = () => {
-  const bestPlant = {
-    name: '해바라기',
-    image: require('../../assets/flowers/해바라기.png'),
-    meaning: '열정, 추억',
-    count: 10, 
-  };
+import React from "react";
+import "../../styles/MyBestFlower.css";
+import leafIcon from "../../assets/icons/완성꽃.png";
+
+const MyBestFlower = ({ flowerAnalysis }) => {
+ 
+  if (!flowerAnalysis || flowerAnalysis.length === 0) {
+    return (
+      <div className="mybestflower" style={{ width: "100%" }}>
+        <h2>많이 심은 꽃</h2>
+        <p className="no-flowers">심은 꽃이 없습니다.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="mybestflower" style={{ width: '100%' }}>
+    <div className="mybestflower" style={{ width: "100%" }}>
+      <h2>많이 심은 꽃</h2>
       
-        <h2>많이 심은 꽃</h2>
-        <div className="flower-content">
-         
-          <div className="flower-image-container">
-            <img src={bestPlant.image} alt={bestPlant.name} className="flower-image" />
-          </div>
-
-         
-          <div className="flower-info">
-            <p className="flower-name">{bestPlant.name}의</p>
-            <p className="flower-meaning">"{bestPlant.meaning}"</p>
-            <div className="flower-count">
-            <img src={leafIcon} alt="Leaf Icon" className="leaf-icon" />
-              <span>{bestPlant.count}회</span>
+        {flowerAnalysis.map((flower, index) => (
+          <div key={index} className="flower-content">
+            <div className="flower-image-container">
+             
+              <img
+                src={require(`../../assets/flowers/${flower.name}.png`)}
+                alt={flower.name}
+                className="flower-image"
+              />
             </div>
-          
-        </div>
+            <div className="flower-info">
+              <p className="flower-name">{flower.name}의</p>
+              <p className="flower-meaning">"{flower.floriography}"</p>
+              <div className="flower-count">
+                <img src={leafIcon} alt="Leaf Icon" className="leaf-icon" />
+                <span>{flower.bloomedCount}회</span> 
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+    
   );
 };
 
