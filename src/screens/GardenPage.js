@@ -36,13 +36,13 @@ const GardenPage = () => {
       ...(period === "일" && { day }),
       ...(period === "주" && { week: getWeekNumber(selectedDate) }),
     };
-
+    console.log("요청 파라미터", queryParams)
     try {
-      const response = await api.get("/api/statistic", { params: queryParams });
-      console.log("📊 API 응답 데이터:", response.data);
+      const response = await api.get("/statistic", { params: queryParams });
+      console.log("API 응답 데이터:", response.data);
       setStatistics(response.data);
     } catch (error) {
-      console.error("❌ API 요청 실패:", error);
+      console.error("API 요청 실패:", error);
     } finally {
       setLoading(false);
     }
@@ -57,14 +57,15 @@ const GardenPage = () => {
       <div className="garden-header">
         <GardenHeader onSelectPeriod={setPeriod} onSelectDate={setSelectedDate} /> 
       </div>
-      <div className="my-garden">
-        <MyGarden />
-      </div>
+      
 
       {loading ? (
         <p></p>
       ) : (
         <>
+          <div className="my-garden">
+            <MyGarden myGarden={statistics?.myGarden}/>
+          </div>
           <div className="chart-container">
             <MyBarChart timeDistribution={statistics?.timeDistribution} />
           </div>

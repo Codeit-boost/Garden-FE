@@ -1,42 +1,87 @@
 // src/screens/Ranking.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FriendRanking from "../components/ranking/FriendRanking";
 import AllRanking from "../components/ranking/AllRanking";
 import TabBar from "../components/BottomBar";
+import RankInviteFriendsModal from "../components/ranking/RankInviteFriendsModal";
+import friendIcon from "../assets/icons/friend.svg";
+import { fetchMembers } from "../api/member"; // API 함수 import
 
 import {
   RankingContainer,
+  RankingHeader,
   RankingTitle,
+  AddFriendButton,
   RankingTabs,
   RankingTabButton,
+  ActiveTabIndicator,
   RankingListWrapper,
+  LoadingMessage,
+  ErrorMessage,
+  NoDataMessage,
 } from "../styles/Ranking.styled.js";
 
 const Ranking = () => {
   const [activeTab, setActiveTab] = useState("friends");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [membersData, setMembersData] = useState([]); // API로부터 받은 멤버 데이터 저장
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // 예시 데이터
-  const friendRanking = [
-    { rank: 1, userName: "user 1", leaf: 8, seed: 0, time: "10 시간 20 분" },
-    { rank: 2, userName: "user 2", leaf: 4, seed: 1, time: "09 시간 13 분" },
-    { rank: 3, userName: "user 3", leaf: 2, seed: 1, time: "06 시간 54 분" },
-    { rank: 4, userName: "user 4", leaf: 1, seed: 1, time: "05 시간 33 분" },
-  ];
+  // 🔍 API 요청 상태 확인을 위한 로그 추가
+  useEffect(() => {
+    console.log("🔍 Ranking 컴포넌트 마운트됨. fetchMembers 실행");
 
-  const allRanking = [
-    { rank: 1, userName: "user 1", leaf: 8, seed: 0, time: "10 시간 20 분" },
-    { rank: 2, userName: "user 2", leaf: 4, seed: 1, time: "09 시간 13 분" },
-    { rank: 3, userName: "user 3", leaf: 2, seed: 1, time: "06 시간 54 분" },
-    { rank: 4, userName: "user 4", leaf: 1, seed: 1, time: "05 시간 33 분" },
-    { rank: 5, userName: "user 1", leaf: 1, seed: 0, time: "04 시간 22 분" },
-    { rank: 6, userName: "user 2", leaf: 0, seed: 0, time: "02 시간 44 분" },
-  ];
+    const loadMembers = async () => {
+      setLoading(true);
+      try {
+        console.log("📡 API 요청 시작: fetchMembers(1, 10)");
+
+        const data = await fetchMembers(1, 10); // 첫 페이지, 10개 항목
+        console.log("✅ API 응답 데이터:", data);
+
+        if (data && data.members) {
+          setMembersData(data.members);
+        } else {
+          console.warn("⚠️ API 응답에 members 데이터 없음:", data);
+        }
+      } catch (err) {
+        setError(err);
+        console.error("❌ 멤버 불러오기 오류:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMembers();
+  }, []);
+
+  // ⏳ 로딩 상태 UI
+  if (loading) {
+    return <LoadingMessage>멤버 정보를 불러오는 중...</LoadingMessage>;
+  }
+
+  // ❌ API 요청 실패 UI
+  if (error) {
+    return (
+      <ErrorMessage>
+        멤버 정보를 불러오는 데 오류가 발생했습니다: {error.message}
+      </ErrorMessage>
+    );
+  }
 
   return (
     <RankingContainer>
-      <RankingTitle>랭킹</RankingTitle>
+      <RankingHeader>
+        <RankingTitle>랭킹</RankingTitle>
+        <AddFriendButton onClick={() => setIsModalOpen(true)}>
+          <img src={friendIcon} alt="친구 추가" />
+        </AddFriendButton>
+      </RankingHeader>
 
+      {/* 랭킹 탭 */}
       <RankingTabs>
+        <ActiveTabIndicator activeTab={activeTab} />
         <RankingTabButton
           active={activeTab === "friends"}
           onClick={() => setActiveTab("friends")}
@@ -51,15 +96,23 @@ const Ranking = () => {
         </RankingTabButton>
       </RankingTabs>
 
+      {/* 랭킹 리스트 */}
       <RankingListWrapper>
-        {activeTab === "friends" ? (
-          <FriendRanking data={friendRanking} />
+        {membersData.length === 0 ? (
+          <NoDataMessage>등록된 멤버가 없습니다.</NoDataMessage>
+        ) : activeTab === "friends" ? (
+          <FriendRanking data={membersData} />
         ) : (
-          <AllRanking data={allRanking} />
+          <AllRanking data={membersData} />
         )}
       </RankingListWrapper>
 
       <TabBar />
+
+      <RankInviteFriendsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </RankingContainer>
   );
 };

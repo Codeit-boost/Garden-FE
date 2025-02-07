@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/MyCalendar.css';
 
-const MyCalendar = ({ onSelectDate, onClose }) => {
+const MyCalendar = ({ onSelectDate, onClose, defaultDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date()); // ✅ Default: today
+  const [selectedDate, setSelectedDate] = useState(defaultDate || new Date()); // ✅ 기본값 유지
+
+  useEffect(() => {
+    if (defaultDate) {
+      setSelectedDate(defaultDate);
+      setCurrentDate(new Date(defaultDate.getFullYear(), defaultDate.getMonth(), 1));
+    }
+  }, [defaultDate]);
 
   const renderDays = () => {
     const days = [];
@@ -59,8 +66,8 @@ const MyCalendar = ({ onSelectDate, onClose }) => {
 
   const handleSave = () => {
     if (selectedDate) {
-      onSelectDate(selectedDate); // ✅ Trigger API request on date change
-      onClose(); // ✅ Close the calendar
+      onSelectDate(selectedDate); // ✅ 선택한 날짜 저장
+      onClose(); // ✅ 달력 닫기
     }
   };
 
@@ -81,8 +88,9 @@ const MyCalendar = ({ onSelectDate, onClose }) => {
           {renderDays()}
         </div>
         <div className="calendar-buttons">
+        <button className="close-button" onClick={onClose}>닫기</button>
           <button className="save-button" onClick={handleSave}>변경</button>
-          <button className="close-button" onClick={onClose}>닫기</button>
+          
         </div>
       </div>
     </div>

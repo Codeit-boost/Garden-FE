@@ -1,26 +1,31 @@
 import React from 'react';
 import '../../styles/MyGarden.css';
 
-const MyGarden = () => {
-  const gardenPlants = [
-    {name : '장미', image: require('../../assets/flowers/장미.png')},
-    {name : '능소화', image: require('../../assets/flowers/능소화.png')},
-    {name : '라일락', image: require('../../assets/flowers/라일락.png')},
-    {name : '메리골드', image: require('../../assets/flowers/메리골드.png')},
-    {name : '물망초',image: require('../../assets/flowers/물망초.png')},
-    {name : '수선화', image: require('../../assets/flowers/수선화.png')},
-  ];
 
-return (
-  <div className="mygarden" style={{ width: '100%' }}>
+const MyGarden = ({ myGarden }) => { // ✅ API에서 받은 데이터 props로 받음
+  return (
+    <div className="mygarden" style={{ width: '100%' }}>
       <h2>나의 정원</h2>
       <div className='garden-plants'>
-        {gardenPlants.map((plant, index) => (
-          <div key={index} className="plant">
-            <img src={plant.image} alt={plant.name} />
-            <p>{plant.name}</p>
-          </div>
-        ))}
+        {myGarden?.length > 0 ? (
+          myGarden.map((plant, index) => (
+            <div key={index} className="plant">
+              <img
+                src={require(`../../assets/flowers/${plant.name}.png`)}
+                alt={plant.name}
+                className="flower-image"
+              />
+              <p>{plant.name}</p>
+             
+            </div>
+          ))
+        ) : (
+          <div className="plant" style={{
+            boxShadow: '0px 0.5px 3px 0px #0000001A',
+            borderRadius: '8px'
+          }}>  <p> 비어있음</p>
+            </div>
+        )}
       </div>
     </div>
   );
