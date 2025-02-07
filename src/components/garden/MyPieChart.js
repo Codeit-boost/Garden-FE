@@ -4,7 +4,6 @@ import '../../styles/MyPieChart.css';
 
 const RADIAN = Math.PI / 180;
 
-// ✅ PieChart Label 커스텀 렌더링
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -96,3 +95,4 @@ export default class MyPieChart extends PureComponent {
     );
   }
 }
+
