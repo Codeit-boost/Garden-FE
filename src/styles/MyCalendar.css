@@ -97,12 +97,12 @@
 }
 .calendar-buttons {
   display: flex;
-  justify-content: space-between; 
+  justify-content: center; 
   width: 75%;
   padding: 10px;
 }
 
-.save-button, .close-button {
+ .close-button {
   padding: 10px 20px;
   width:100px;
   height: 40px;
@@ -112,15 +112,14 @@
   cursor: pointer;
 }
 
-.save-button {
+/* .save-button {
   background-color: #00A806;
   color: white;
-}
+} */
 
 .close-button {
-  background-color: #ffffff;
- 
-  color: black;
+  background-color: #00A806;
+  color: white;
 }
 .calendar-day.today {
   

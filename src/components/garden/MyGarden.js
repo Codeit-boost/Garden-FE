@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/MyGarden.css';
 
 
-const MyGarden = ({ myGarden }) => { // ✅ API에서 받은 데이터 props로 받음
+const MyGarden = ({ myGarden }) => { 
   return (
     <div className="mygarden" style={{ width: '100%' }}>
       <h2>나의 정원</h2>

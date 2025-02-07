@@ -3,7 +3,7 @@ import '../../styles/MyCalendar.css';
 
 const MyCalendar = ({ onSelectDate, onClose, defaultDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(defaultDate || new Date()); // ✅ 기본값 유지
+  const [selectedDate, setSelectedDate] = useState(defaultDate || new Date());
 
   useEffect(() => {
     if (defaultDate) {
@@ -66,8 +66,8 @@ const MyCalendar = ({ onSelectDate, onClose, defaultDate }) => {
 
   const handleSave = () => {
     if (selectedDate) {
-      onSelectDate(selectedDate); // ✅ 선택한 날짜 저장
-      onClose(); // ✅ 달력 닫기
+      onSelectDate(selectedDate); 
+      onClose(); 
     }
   };
 
@@ -88,8 +88,8 @@ const MyCalendar = ({ onSelectDate, onClose, defaultDate }) => {
           {renderDays()}
         </div>
         <div className="calendar-buttons">
-        <button className="close-button" onClick={onClose}>닫기</button>
-          <button className="save-button" onClick={handleSave}>변경</button>
+        <button className="close-button" onClick={handleSave}>닫기</button>
+          {/* <button className="save-button" onClick={handleSave}>변경</button> */}
           
         </div>
       </div>
