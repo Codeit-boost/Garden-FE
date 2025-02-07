@@ -14,8 +14,9 @@ export const handleKakaoCallback = async (code) => {
 
     // JWT 토큰 저장 및 axios 기본 헤더 설정
     localStorage.setItem("jwtToken", token);
+    // api.defaults.headers.common["Authorization"] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IuydtOyKueywrCIsImlhdCI6MTczODg5MzI5MSwiZXhwIjoxNzM4OTc5NjkxfQ.EfNVR4389uH-wlcVHs7mUe40t7U3FnGFpz7yBvgNofY`;
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
+   
     return { token, user };
   } catch (error) {
     console.error("Kakao login failed:", error);

@@ -1,0 +1,120 @@
+/* 📌 카테고리 설정 모달 스타일 */
+.category-modal {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* 기존보다 조금 더 크게 설정 */
+    max-width: 400px; /* 화면보다 조금 더 큰 정도 */
+    height: 30%;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ 모달이 확장될 때 크기 변경 (카테고리 수정 시) */
+.category-modal.expanded {
+    height: 40%;
+}
+
+/* 📌 카테고리 리스트 (가로 스크롤) */
+.category-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    padding-bottom: 15px; /* ✅ 버튼들이 아래 공간을 차지하지 않도록 조정 */
+}
+
+/* 📌 카테고리 아이템 */
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: 2px solid #00A806;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+}
+
+/* ✅ 선택된 카테고리의 수정/삭제 버튼 (아래로 이동) */
+.category-item.selected {
+    position: relative;
+    margin-bottom: 20px; /* ✅ 카테고리 아래 공간 확보 */
+}
+
+/* ✅ 카테고리 아래 수정/삭제 버튼 */
+.category-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px; /* ✅ 기존보다 조금 더 아래 배치 */
+}
+
+/* 📌 수정 및 삭제 버튼 스타일 */
+.edit-button, .delete-button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.category-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .category-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #aaa;
+    border-radius: 50%;
+  }
+  
+  .category-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 선택된 카테고리일 때 점 색상 변경 */
+  .category-item.active .category-dot {
+    background-color: #00A806;
+  }
+
+/* ✅ 변경하기 버튼 아래쪽으로 이동 */
+.confirm-button {
+    width: 80%;
+    height: 40px;
+    background: #00A806;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px; /* ✅ 버튼이 아래쪽으로 이동 */
+}
+.select-btn {
+    width: 90%;
+    padding: 10px;
+    background: #00a806;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
