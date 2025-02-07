@@ -19,9 +19,9 @@ const Onboarding4 = () => {
       <OnboardingContent>
         <OnboardingImage src={onboardingImage} alt="Flower growing" />
         <OnboardingText>
-          더 열심히 집중해서,
+          꾸준한 몰입으로,
           <br />
-          나만의 정원을 가꿔보세요
+          나만의 정원을 완성해보세요.
         </OnboardingText>
         <OnboardingIndicator>
           <Dot />
