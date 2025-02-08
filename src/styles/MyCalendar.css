@@ -9,11 +9,13 @@
   border: none;
   box-sizing: border-box; 
   max-width: 368px; 
+  font-family: 'Pretendard-regular';
   
 }
 
 .calendar-header {
   display: flex;
+  font-family: 'Pretendard-regular';
   justify-content: space-between;
   width: 90%;
   padding: 5px;
@@ -26,6 +28,7 @@
 }
 
 .calendar-body {
+  font-family: 'Pretendard-regular';
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -35,6 +38,7 @@
 }
 
 .calendar-weekdays {
+  font-family: 'Pretendard-regular';
   display: grid;
   font-size: 15px;
   color: #00A806;
@@ -43,18 +47,20 @@
 }
 
 .calendar-days {
+  font-family: 'Pretendard-regular';
   display: grid;
   font-size: 15px;
   padding:10px;
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
   gap: 16px;
-  align-items: center; /* ✅ 텍스트를 수직 중앙 정렬 */
-  justify-content: center; /* ✅ 텍스트를 가로 중앙 정렬 */
+  align-items: center; 
+  justify-content: center; 
  
 }
 
 .calendar-weekday, .calendar-day {
+  font-family: 'Pretendard-regular';
   text-align: center;
   padding: 9px;
   cursor: pointer;
@@ -65,16 +71,18 @@
 }
 
 .calendar-day.selected {
+
   background-color:#00A806;
   color: white;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  align-items: center; /* ✅ 텍스트를 수직 중앙 정렬 */
+  align-items: center; 
   justify-content: center;
 }
 
 .prev-button, .next-button {
+  font-family: 'Pretendard-regular';
   width:15px; 
   height: 15px; 
   background-size: contain;
