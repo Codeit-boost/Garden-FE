@@ -26,7 +26,13 @@ const crownIcon = {
 
 const AllRanking = ({ data = [] }) => {
   const renderRankItem = (item, idx) => {
-    const { rank, name, totalFocusTime, leaf = 0, seed = 0 } = item; // ✅ 필드명 수정 및 기본값 추가
+    const {
+      rank,
+      name,
+      totalFocusTime,
+      bloomedCount = 0,
+      wiltedCount = 0,
+    } = item; // ✅ 필드명 변경
 
     return (
       <RankingItem key={`all-${idx}`}>
@@ -42,24 +48,24 @@ const AllRanking = ({ data = [] }) => {
         <RankingUser>
           <UserName>{name}</UserName> {/* ✅ 필드명 수정 */}
           <UserStats>
-            {/* 완성꽃 (leaf) */}
+            {/* 완성꽃 (bloomedCount → leaf) */}
             <div>
               <img
                 src={completedFlowerIcon}
                 alt="완성꽃"
                 style={{ width: "16px", marginRight: "4px" }}
               />
-              {leaf}
+              {bloomedCount}
             </div>
 
-            {/* 시든꽃 (seed) */}
+            {/* 시든꽃 (wiltedCount → seed) */}
             <div>
               <img
                 src={wiltedFlowerIcon}
                 alt="시든꽃"
                 style={{ width: "16px", marginRight: "4px" }}
               />
-              {seed}
+              {wiltedCount}
             </div>
           </UserStats>
         </RankingUser>
