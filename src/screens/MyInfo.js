@@ -4,8 +4,6 @@ import { logout } from "../api/auth"; // ✅ 로그아웃 함수 가져오기
 import { deleteMyInfo, fetchMyInfo } from "../api/member"; // ✅ 회원 정보 API 가져오기
 import TabBar from "../components/BottomBar";
 import backIcon from "../assets/icons/back-icon.svg";
-import cameraIcon from "../assets/icons/camera-icon.svg";
-import profilePlaceholder from "../assets/icons/profile-placeholder.png";
 import {
   Container,
   Header,
@@ -13,7 +11,6 @@ import {
   ProfileCard,
   ProfileImageContainer,
   ProfileImage,
-  CameraIcon,
   UserName,
   InfoSection,
   InfoLabel,
@@ -26,26 +23,20 @@ const MyInfo = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null); // ✅ 사용자 정보 상태
 
-  // ✅ 사용자 정보 불러오기 (백엔드 + localStorage 동기화)
+  // ✅ 사용자 정보 불러오기
   useEffect(() => {
     const loadUserInfo = async () => {
       try {
-        // ✅ localStorage에서 변경된 정보 가져오기
-        const storedUserInfo = localStorage.getItem("userInfo");
-        if (storedUserInfo) {
-          setUserInfo(JSON.parse(storedUserInfo));
-        } else {
-          const data = await fetchMyInfo();
-          setUserInfo(data);
-        }
-        console.log("✅ 불러온 사용자 정보:", storedUserInfo || userInfo);
+        const data = await fetchMyInfo(); // ✅ API 호출
+        console.log("✅ 불러온 사용자 정보:", data);
+        setUserInfo(data); // ✅ 상태 업데이트
       } catch (error) {
         console.error("❌ 사용자 정보 불러오기 실패:", error);
       }
     };
 
     loadUserInfo();
-  }, [localStorage.getItem("userInfo")]); // ✅ localStorage 값이 변경될 때마다 다시 불러오기
+  }, []);
 
   // ✅ 로그아웃 핸들러 함수
   const handleLogout = async () => {
@@ -71,7 +62,9 @@ const MyInfo = () => {
 
       // ✅ 로그아웃 처리 및 이동
       await logout();
-      navigate("/startscreen");
+      console.log("✅ 로그아웃 후 시작 화면으로 이동!");
+
+      navigate("/"); // ✅ Startscreen으로 이동
     } catch (error) {
       console.error("❌ 회원 탈퇴 중 오류 발생:", error);
     }
@@ -88,20 +81,18 @@ const MyInfo = () => {
       {/* 프로필 카드 */}
       <ProfileCard>
         <ProfileImageContainer>
-          <ProfileImage src={profilePlaceholder} alt="프로필 이미지" />
-          <CameraIcon src={cameraIcon} alt="카메라 아이콘" />
+          {/* ✅ 등록된 프로필 이미지만 표시 (기본 이미지 제거) */}
+          {userInfo?.img && (
+            <ProfileImage src={userInfo.img} alt="프로필 이미지" />
+          )}
         </ProfileImageContainer>
-        <UserName>{userInfo ? userInfo.name : "로딩 중..."}</UserName>{" "}
-        {/* ✅ 이름만 표시 */}
+        <UserName>{userInfo ? userInfo.name : "로딩 중..."}</UserName>
       </ProfileCard>
 
       {/* 사용자 정보 */}
       <InfoSection>
         <InfoLabel>아이디</InfoLabel>
-        <InfoValue>
-          {userInfo ? userInfo.kakaoUserId : "로딩 중..."}
-        </InfoValue>{" "}
-        {/* ✅ 카카오 ID만 표시 */}
+        <InfoValue>{userInfo ? userInfo.kakaoUserId : "로딩 중..."}</InfoValue>
       </InfoSection>
 
       {/* 로그아웃 버튼 */}
