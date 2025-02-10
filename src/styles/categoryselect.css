@@ -1,25 +1,50 @@
 /* 📌 카테고리 설정 모달 스타일 */
 .category-modal {
     position: fixed;
-    bottom: 0;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%; /* 기존보다 조금 더 크게 설정 */
-    max-width: 400px; /* 화면보다 조금 더 큰 정도 */
-    height: 30%;
+    width: 90%;
+    max-width: 400px;
+    height: 45%;
     background: white;
     border-radius: 20px 20px 0 0;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     transition: all 0.3s ease-in-out;
+    z-index: 1001;
 }
 
-/* ✅ 모달이 확장될 때 크기 변경 (카테고리 수정 시) */
-.category-modal.expanded {
-    height: 40%;
+/* ✅ 배경 어두워지는 효과 */
+.category-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* 📌 모달 상단 닫기 버튼 ('━' 모양, 중앙 정렬) */
+.modal-close-button {
+    width: 50px;
+    height: 5px;
+    background: #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+}
+
+/* 📌 카테고리 설정 제목 */
+.category-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
 /* 📌 카테고리 리스트 (가로 스크롤) */
@@ -29,7 +54,7 @@
     overflow-x: auto;
     white-space: nowrap;
     width: 100%;
-    padding-bottom: 15px; /* ✅ 버튼들이 아래 공간을 차지하지 않도록 조정 */
+    padding-bottom: 10px;
 }
 
 /* 📌 카테고리 아이템 */
@@ -47,70 +72,47 @@
     position: relative;
 }
 
-/* ✅ 선택된 카테고리의 수정/삭제 버튼 (아래로 이동) */
+/* ✅ 선택된 카테고리 */
 .category-item.selected {
-    position: relative;
-    margin-bottom: 20px; /* ✅ 카테고리 아래 공간 확보 */
-}
-
-/* ✅ 카테고리 아래 수정/삭제 버튼 */
-.category-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 5px; /* ✅ 기존보다 조금 더 아래 배치 */
-}
-
-/* 📌 수정 및 삭제 버튼 스타일 */
-.edit-button, .delete-button {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
-.category-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 8px;
-  }
-  
-  .category-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #aaa;
-    border-radius: 50%;
-  }
-  
-  .category-text {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* 선택된 카테고리일 때 점 색상 변경 */
-  .category-item.active .category-dot {
     background-color: #00A806;
-  }
+    color: white;
+}
 
-/* ✅ 변경하기 버튼 아래쪽으로 이동 */
+/* ✅ 카테고리 추가 입력창 */
+.add-category-container {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-input {
+    flex: 0.7; /* ✅ 입력창 크기 조정 */
+    padding: 10px;
+    border: 2px solid #00A806;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+/* ✅ 설정 버튼 (입력창과 동일한 높이, 비율 조정) */
 .confirm-button {
-    width: 80%;
+    flex: 0.3;
     height: 40px;
     background: #00A806;
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
     cursor: pointer;
-    margin-top: 20px; /* ✅ 버튼이 아래쪽으로 이동 */
+    margin-left: 10px;
 }
+
+/* ✅ 선택 버튼 및 카테고리 추가 버튼 스타일 통일 */
 .select-btn {
     width: 90%;
-    padding: 10px;
-    background: #00a806;
+    padding: 12px;
+    background: #00A806;
     color: white;
     border: none;
     border-radius: 10px;
