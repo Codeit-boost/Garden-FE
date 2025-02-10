@@ -1,68 +1,81 @@
-import React, { useState, useEffect } from "react";
-import api from "../../api/api";
-import completedflower from "../../assets/icons/완성꽃.png";
-import witheredflower from "../../assets/icons/시든꽃.png";
+import { useState, useEffect } from "react";
+import { fetchMyInfo } from "../../api/member"; // ✅ 기존 API 함수 활용
+import completedFlowerIcon from "../../assets/icons/완성꽃.png"; // ✅ 완성 꽃 아이콘 추가
+import witheredFlowerIcon from "../../assets/icons/시든꽃.png"; // ✅ 시든 꽃 아이콘 추가
 
-const Totaltime = () => {
-  // ✅ 상태(state) 관리
-  const [totalTime, setTotalTime] = useState("0시간 0분");
-  const [nextRankingTime, setNextRankingTime] = useState(null); // 1등일 경우 null
-  const [completedFlowers, setCompletedFlowers] = useState(0);
-  const [witheredFlowers, setWitheredFlowers] = useState(0);
+const TotalTime = () => {
+  const [userStats, setUserStats] = useState({
+    currentTotalTime: 0,
+    bloomedCount: 0,
+    wiltedCount: 0,
+    nextTotalTime: null,
+  });
 
-  // ✅ API 호출 (useEffect 내부에서 실행)
   useEffect(() => {
-    api.get("/members/me", {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } // 인증 필요
-    })
-      .then((response) => {
-        console.log("API 응답:", response.data); // API 응답 확인
-        setTotalTime(response.data.currentTotalTime ? `${response.data.currentTotalTime}분` : "0시간 0분");
-        setNextRankingTime(response.data.nextTotalTime); // 1등이면 null
-        setCompletedFlowers(response.data.bloomedCount || 0);
-        setWitheredFlowers(response.data.wiltedCount || 0);
-      })
-      .catch((error) => {
-        console.error("사용자 정보를 불러오는 중 오류 발생:", error);
-      });
+    const loadUserStats = async () => {
+      try {
+        const data = await fetchMyInfo();
+        console.log("📡 [API 응답] 사용자 통계 데이터:", data);
+
+        setUserStats({
+          currentTotalTime: data.currentTotalTime || 0,
+          bloomedCount: data.bloomedCount || 0,
+          wiltedCount: data.wiltedCount || 0,
+          nextTotalTime: data.nextTotalTime || null,
+        });
+      } catch (error) {
+        console.error("❌ [API 실패] 사용자 정보 가져오기 오류:", error);
+      }
+    };
+
+    loadUserStats();
   }, []);
+
+  // ✅ 시간 변환 함수 (초 → HH:MM:SS)
+  const formatTime = (seconds) => {
+    const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+    const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    return `${h}:${m}:${s}`;
+  };
 
   return (
     <div className="total-time-container">
       <div className="time-rank-container">
-        <p className="total-time">{totalTime}</p> {/* ✅ 총 누적 시간 */}
+        <p className="total-time">{formatTime(userStats.currentTotalTime)}</p>
         <p className="total-time-text">누적 시간</p>
       </div>
-
+      
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: "70%" }}></div>
-      </div>
+      </div>    
 
-      {/* ✅ 꽃 개수 & 랭킹 정보 가로 정렬 */}
-      <div className="info-container">
-        {/* 🌿 꽃 개수 (왼쪽 정렬) */}
-        <div className="flower-count-container">
-          <div className="flower-count">
-            <img src={completedflower} alt="완성된 꽃" className="flower-icon" />
-            <span>{completedFlowers}</span>
+      {/* ✅ 꽃 아이콘 및 개수를 먼저 표시, 그다음 '다음 랭킹까지' 표시 */}
+      <div className="rank-flower-container">
+        {/* ✅ 꽃 아이콘 및 개수 (왼쪽 정렬) */}
+        <div className="flower-count">
+          <div className="flower-item1">
+            <img src={completedFlowerIcon} alt="완성 꽃" className="flower-icon" />
+            <p>{userStats.bloomedCount}</p>
           </div>
-          <div className="flower-count">
-            <img src={witheredflower} alt="시든 꽃" className="flower-icon" />
-            <span>{witheredFlowers}</span>
+          <div className="flower-item1">
+            <img src={witheredFlowerIcon} alt="시든 꽃" className="flower-icon" />
+            <p>{userStats.wiltedCount}</p>
           </div>
         </div>
 
-        {/* 🏆 랭킹 정보 (오른쪽 정렬) */}
-        <div className="ranking-info-container">
-          {nextRankingTime === null ? (
-            <p className="ranking-time">현재 1등입니다! 🏆</p> // ✅ 1등일 경우
-          ) : (
-            <p>다음 랭킹까지 <span className="ranking-time">{nextRankingTime}분</span></p> // ✅ 다음 랭킹까지 남은 시간
-          )}
+        {/* ✅ 다음 랭킹까지 남은 시간 (오른쪽 정렬) */}
+        <div className="ranking-info">
+          <p>
+            다음 랭킹까지{" "}
+            <span className="ranking-time">
+              {userStats.nextTotalTime !== null ? formatTime(userStats.nextTotalTime) : "최고 랭킹"}
+            </span>
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Totaltime;
+export default TotalTime;

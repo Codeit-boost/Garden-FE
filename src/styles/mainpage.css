@@ -135,10 +135,16 @@ html, body {
 /* 🌿 "다음 랭킹까지" 텍스트 */
 .ranking-info-container {
     text-align: right;
-    padding: 10px 20px;
     font-size: 12px;
     color: #979797;
 }
+.rank-flower-container {
+    display: flex;
+    justify-content: space-between; /* 좌우 정렬 */
+    align-items: center;
+    margin-top: 10px;
+  }
+
 
 /* 🌿 헤더와 꽃 심기 박스 사이의 회색 선 */
 .divider {
@@ -346,3 +352,4 @@ html, body {
     font-size: 12px;
     text-align: center;
 }
+
