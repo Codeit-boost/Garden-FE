@@ -70,12 +70,12 @@
   top: 120%;
   left: 50%;
   transform: translateX(-50%);
-  width: 319px;
-  height: 319px;
   background: white;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1100;
   box-sizing: border-box; /* 패딩과 보더를 포함한 전체 너비와 높이 계산 */
+  max-height: 430px; /* 최대 높이 설정 */
+  display: inline-block; /* 내용에 따라 높이 자동 조절 */
 }

@@ -1,48 +1,68 @@
+
 .calendar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
-  height: 300px;
+  width: 100%; 
+  height: auto; 
   font-size: 13px;
-  border: none; /* 테두리 제거 */
-  box-sizing: border-box; /* 패딩과 보더를 포함한 전체 너비와 높이 계산 */
+  border: none;
+  box-sizing: border-box; 
+  max-width: 368px; 
+  font-family: 'Pretendard-regular';
+  
 }
 
 .calendar-header {
   display: flex;
+  font-family: 'Pretendard-regular';
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   padding: 5px;
-  background-color: #f0f0f0;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  background-color:white;
+  
   border-radius: 10px;
 }
 
 .calendar-body {
+  font-family: 'Pretendard-regular';
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  font-family: 'Pretendard';
 }
 
 .calendar-weekdays {
+  font-family: 'Pretendard-regular';
   display: grid;
+  font-size: 15px;
+  color: #00A806;
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
 }
 
 .calendar-days {
+  font-family: 'Pretendard-regular';
   display: grid;
-  padding:7px;
+  font-size: 15px;
+  padding:10px;
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
-  gap: 7px;
+  gap: 16px;
+  align-items: center; 
+  justify-content: center; 
+ 
 }
 
 .calendar-weekday, .calendar-day {
+  font-family: 'Pretendard-regular';
   text-align: center;
-  padding: 10px;
+  padding: 9px;
   cursor: pointer;
 }
 
@@ -51,13 +71,65 @@
 }
 
 .calendar-day.selected {
-  background-color: #00A806;
+
+  background-color:#00A806;
   color: white;
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  align-items: center; 
+  justify-content: center;
 }
 
+.prev-button, .next-button {
+  font-family: 'Pretendard-regular';
+  width:15px; 
+  height: 15px; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.prev-button {
+  background-image: url('../assets/icons/화살표\(왼\).png'); 
+}
+
+.next-button {
+  background-image: url('../assets/icons/화살표\(오\).png'); 
+}
+
+.calendar-day.prev-month, .calendar-day.next-month {
+  color: #ccc;
+}
+.calendar-buttons {
+  display: flex;
+  justify-content: center; 
+  width: 75%;
+  padding: 10px;
+}
+
+ .close-button {
+  padding: 10px 20px;
+  width:100px;
+  height: 40px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* .save-button {
+  background-color: #00A806;
+  color: white;
+} */
+
+.close-button {
+  background-color: #00A806;
+  color: white;
+}
 .calendar-day.today {
-  font-weight: bold;
+  
+  font-weight: bold; /* ✅ 오늘 날짜 굵은 글씨 */
 }
