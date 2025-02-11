@@ -1,42 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchMissions } from "../../api/missonapi";
 import "../../styles/mission.css";
 import logo from "../../assets/icons/로고.png";
 
-const missions = [
-  { id: 1, name: "3일 연속 심기", description: "연속 3일 동안 꽃을 심었어요", progress: 1, total: 3 },
-  { id: 2, name: "7일 연속 심기", description: "연속 7일 동안 꽃을 심었어요", progress: 0, total: 7 },
-  { id: 3, name: "30일 연속 심기", description: "연속 30일 동안 꽃을 심었어요", progress: 0, total: 30 },
-  { id: 4, name: "초급 가드너", description: "총 2개의 꽃을 심었어요", progress: 2, total: 2 },
-  { id: 5, name: "중급 가드너", description: "총 5개의 꽃을 심었어요", progress: 0, total: 5 },
-  { id: 6, name: "고급 가드너", description: "총 10개의 꽃을 심었어요", progress: 0, total: 10 },
-  { id: 7, name: "5시간 집중", description: "총 5시간 동안 집중했어요", progress: 5, total: 5 },
-  { id: 8, name: "10시간 집중", description: "총 10시간 동안 집중했어요", progress: 0, total: 10 },
-  { id: 9, name: "15시간 집중", description: "총 15시간 동안 집중했어요", progress: 0, total: 15 },
-];
-
 const MissionPage = () => {
+  const [missions, setMissions] = useState([]); // ✅ 미션 목록 상태
+  const [loading, setLoading] = useState(true); // ✅ 로딩 상태
+  const [error, setError] = useState(null); // ✅ 에러 상태
+
+  // ✅ 미션 데이터 불러오기
+  useEffect(() => {
+    const loadMissions = async () => {
+      try {
+        const data = await fetchMissions(); // ✅ API 호출
+        console.log("✅ 불러온 미션 목록:", data);
+
+        // ✅ 데이터 가공 (progress & total 추가)
+        const formattedMissions = data.map((mission) => ({
+          id: mission.id,
+          description: mission.description || "미션 설명 없음",
+          progress: mission.progress || 0, // 기본값 0
+          total: mission.total || 1, // 기본값 1
+        }));
+
+        setMissions(formattedMissions);
+      } catch (err) {
+        console.error("❌ 미션 목록 불러오기 실패:", err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMissions();
+  }, []);
+
+  // ✅ 로딩 상태 처리
+  if (loading) {
+    return <p className="loading-message">미션을 불러오는 중...</p>;
+  }
+
+  // ✅ 에러 발생 시 처리
+  if (error) {
+    return <p className="error-message">미션을 불러오는 데 실패했습니다.</p>;
+  }
+
   return (
     <div className="mission-container">
       <h1 className="mission-title">미션</h1>
       <div className="mission-list">
-        {missions.map((mission) => (
-          <div key={mission.id} className="mission-item">
-            <div className="mission-icon-container">
-              <img src={logo} alt="미션 아이콘" className="mission-icon" />
-            </div>
-            <div className="mission-content">
-              <p className="mission-name">{mission.name}</p>
-              <p className="mission-description">{mission.description}</p>
-              <div className="progress-bar-container">
-                <div
-                  className="progress-bar-fill"
-                  style={{ width: `${(mission.progress / mission.total) * 100}%` }}
-                ></div>
+        {missions.length === 0 ? (
+          <p className="no-mission-message">진행 중인 미션이 없습니다.</p>
+        ) : (
+          missions.map((mission) => (
+            <div key={mission.id} className="mission-item">
+              <div className="mission-icon-container">
+                <img src={logo} alt="미션 아이콘" className="mission-icon" />
               </div>
-              <p className="progress-text">{mission.progress}/{mission.total}</p>
+              <div className="mission-content">
+                <p className="mission-name">{mission.description}</p>
+                <div className="progress-bar-container">
+                  <div
+                    className="progress-bar-fill"
+                    style={{
+                      width: `${(mission.progress / mission.total) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+                <p className="progress-text">
+                  {mission.progress}/{mission.total}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

@@ -17,21 +17,25 @@ export const RankingContainer = styled.div`
 export const RankingHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* ✅ 가운데 정렬 */
+  position: relative; /* ✅ 상대적 위치 설정 */
   width: 100%;
   max-width: 400px;
-  padding: 10px 0;
+  padding: 20px 0 15px; /* ✅ 상단 여백 추가해서 제목을 아래로 */
+  margin-bottom: 20px; /* ✅ 하단 여백 추가 */
 `;
 
-// ✅ 랭킹 제목 (가운데 정렬)
+// ✅ 랭킹 제목 (완전한 가운데 정렬)
 export const RankingTitle = styled.h1`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
-  flex-grow: 1;
+  position: absolute; /* ✅ 위치 고정 */
+  left: 50%; /* ✅ 화면의 정확한 중앙 */
+  transform: translateX(-50%); /* ✅ 중앙 정렬 */
 `;
 
-// ✅ 친구 추가 버튼 (+ 버튼, 우측 정렬)
+// ✅ 친구 추가 버튼 (우측 고정)
 export const AddFriendButton = styled.button`
   background: none;
   border: none;
@@ -41,6 +45,8 @@ export const AddFriendButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: absolute; /* ✅ 위치 고정 */
+  right: 10px; /* ✅ 오른쪽 끝에 배치 */
 `;
 
 // ✅ 탭 컨테이너 (배경 및 둥근 테두리)
