@@ -1,51 +1,55 @@
-export const connectToSSE = (setTime, setCurrentFlowerImage, setCurrentStageIndex) => {
-    console.log("📡 [SSE] 서버 이벤트 연결 시작...");
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
-    const eventSource = new EventSource('https://garden-c.kro.kr/api/focusTime/stream', { withCredentials: true });
+export const connectToSSE = (setFocusTime, setIsRunning, initialized, setInitialized) => {
+  console.log("📡 [SSE] 서버 이벤트 연결 시작...");
 
-    eventSource.onopen = () => {
-        console.log("✅ [SSE] 연결 성공");
-    };
+  const token = localStorage.getItem("jwt");
+  const eventSource = new EventSourcePolyfill('https://garden-c.kro.kr/api/focusTime/stream', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
 
-    eventSource.onmessage = (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            console.log("📡 [SSE] 서버에서 받은 데이터:", data);
+  eventSource.onopen = () => {
+    console.log("✅ [SSE] 연결 성공");
+  };
 
-            // ✅ 백엔드 응답에서 focusTimeId 저장
-            if (data.id) {
-                localStorage.setItem("focusTimeId", data.id);
-                console.log(`✅ [SSE] 집중시간 ID 저장됨: ${data.id}`);
-            }
+  eventSource.onmessage = (event) => {
+    // 첫 메시지일 때 집중시간 여부를 판단
+    if (!initialized) {
+      setInitialized(true); // 외부에서도 첫 메시지 수신 여부를 알 수 있게 처리
+      if (event.data === ":") {
+        setIsRunning(false); // 집중시간이 생성되지 않음
+        return;
+      } else {
+        setIsRunning(true); // 집중시간 진행 중
+      }
+    }
 
-            // ✅ 서버에서 받은 시간으로 동기화
-            if (data.time) {
-                setTime(data.time);
-            }
+    // 하트비트 (:) 무시
+    if (event.data === ":") return;
 
-            // ✅ 꽃 성장 상태 반영
-            if (data.FlowerImage) {
-                setCurrentFlowerImage(data.FlowerImage);
-                setCurrentStageIndex(4);
-            } else {
-                setCurrentStageIndex(prevIndex => Math.min(prevIndex + 1, 4));
-            }
-        } catch (error) {
-            console.error("❌ [SSE] 데이터 처리 오류:", error);
-        }
-    };
+    try {
+      const parsedData = JSON.parse(event.data);
+      setFocusTime(parsedData);
+      setIsRunning(true);
+    } catch (err) {
+      console.error('파싱 오류:', err);
+    }
+  };
 
-    eventSource.onerror = (error) => {
-        console.error("❌ [SSE] 서버 이벤트 연결 오류:", error);
-        setTimeout(() => {
-            console.log("🔄 [SSE] 재연결 시도...");
-            connectToSSE(setTime, setCurrentFlowerImage, setCurrentStageIndex);
-        }, 5000); // 5초 후 재연결 시도
-        eventSource.close();
-    };
+  eventSource.onerror = (error) => {
+    console.error("❌ [SSE] 서버 이벤트 연결 오류:", error);
+    setTimeout(() => {
+      console.log("🔄 [SSE] 재연결 시도...");
+      // 재연결 로직 추가 가능
+    }, 5000);
+    eventSource.close();
+  };
 
-    return () => {
-        console.log("🔌 [SSE] 연결 해제");
-        eventSource.close();
-    };
+  return () => {
+    console.log("🔌 [SSE] 연결 해제");
+    eventSource.close();
+  };
 };

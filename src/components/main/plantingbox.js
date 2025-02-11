@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { formatTimeForApi, convertTimeToSeconds, handleTimeAdjust } from "./timeutils";
 import { startFocusTime, cancelFocusTime } from "../../api/focustime"; // ✅ API 호출 함수 가져오기
 import { connectToSSE } from "./ssemanager"; // ✅ SSE 연결 함수 가져오기
@@ -50,7 +50,6 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
           setShowFailModal(true); // ✅ 실패 모달 표시
         } else {
           startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, setCurrentStageIndex);
-          connectToSSE(setTime, setCurrentFlowerImage, setCurrentStageIndex);
         }
       }}>
         {isRunning ? "포기" : "시작"}
