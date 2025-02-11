@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/mainpage.css";
+import api from "../../api/api"; // API 연동을 위한 axios 설정
 
 // 🌿 아이콘 및 이미지
 import logo from "../../assets/icons/로고.png";
@@ -10,8 +11,8 @@ import notificationIcon from "../../assets/icons/알림.png";
 import PlantingBox from "./plantingbox";
 import ModeToggle from "./timer-toggle";
 import TotalTime from "./totaltime";
-import FlowerSelect from "./flowerselect";
-import CategorySelect from "./categoryselect";
+import FlowerSelect from "./flowerselect";  // ✅ 수정: 올바른 모달 파일 import 확인
+import CategorySelect from "./categoryselect";  // ✅ 수정: 올바른 모달 파일 import 확인
 
 function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
@@ -21,6 +22,10 @@ function MainPage() {
   const [selectedFlower, setSelectedFlower] = useState("메리골드");
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
+
+  const [flower, setFlower] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     let interval;
@@ -36,6 +41,22 @@ function MainPage() {
     setIsRunning((prev) => !prev);
   };
 
+  useEffect(() => {
+    const today = new Date();
+    const fMonth = today.getMonth() + 1;
+    const fDay = today.getDate();
+
+    api.get(`/flower/todayflower?fMonth=${fMonth}&fDay=${fDay}`)
+      .then((response) => {
+        setFlower(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("오늘의 꽃 정보를 불러오는 중 오류 발생:", error);
+        setError("오늘의 꽃 정보를 불러올 수 없습니다.");
+        setIsLoading(false);
+      });
+  }, []);
   return (
     <div className="main-container">
       <header className="header-container">
@@ -47,7 +68,10 @@ function MainPage() {
           <img src={notificationIcon} alt="알림" className="header-notification" />
         </div>
 
-        <TotalTime totalTime="07시간 01분" progress={70} />
+        {/* ✅ 누적 시간 & 꽃 개수를 가로 정렬하는 컨테이너 */}
+        <div className="time-flower-container">
+          <TotalTime />
+        </div>
       </header>
 
       <div className="divider"></div>
@@ -69,6 +93,7 @@ function MainPage() {
         time={time}
         setTime={setTime}
         isRunning={isRunning}
+        setIsRunning={setIsRunning}
         handleStartStop={handleStartStop}
         isTimerMode={isTimerMode}
       />
@@ -83,11 +108,21 @@ function MainPage() {
       <div className="today-quote-container">
         <h3 className="today-quote-title">오늘의 꽃말</h3>
         <div className="quote-background">
-          <p className="quote-text">해바라기의 "열정 추억"</p>
+          {isLoading ? (
+            <p className="quote-text">오늘의 꽃 정보를 불러오는 중...</p>
+          ) : error ? (
+            <p className="quote-text">{error}</p>
+          ) : flower ? (
+            <>
+              <p className="quote-text">{flower.name}의 "{flower.language}"</p>
+            </>
+          ) : (
+            <p className="quote-text">오늘의 꽃 정보가 없습니다.</p>
+          )}
         </div>
       </div>
 
-      {/* 🌸 모달 */}
+      {/* 🌸 꽃 선택 모달 */}
       {isFlowerModalOpen && (
         <FlowerSelect
           onClose={() => setFlowerModalOpen(false)}
@@ -98,6 +133,7 @@ function MainPage() {
         />
       )}
 
+      {/* 📌 카테고리 선택 모달 */}
       {isCategoryModalOpen && (
         <CategorySelect
           isOpen={isCategoryModalOpen}
@@ -110,3 +146,5 @@ function MainPage() {
 }
 
 export default MainPage;
+
+
