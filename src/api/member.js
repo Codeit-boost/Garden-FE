@@ -28,7 +28,7 @@ export const fetchMembers = async (page = 1, limit = 10) => {
   }
 };
 
-// ✅ 친구 목록 조회 (집중시간 총합 순으로 페이지네이션 조회)
+// ✅ 친구 목록 + 나 포함 조회 (집중시간 총합 순으로 페이지네이션 조회)
 export const fetchFriends = async (page = 1, limit = 10) => {
   try {
     const response = await api.get("/members/friends", {
@@ -41,14 +41,15 @@ export const fetchFriends = async (page = 1, limit = 10) => {
       throw new Error("잘못된 데이터 형식입니다.");
     }
 
-    const friends = response.data.members.map((friend, index) => ({
-      ...friend,
-      rank: index + 1, // ✅ 친구 목록에서는 rank 직접 부여
+    // ✅ 나 포함된 전체 랭킹 리스트
+    const rankingList = response.data.members.map((member, index) => ({
+      ...member,
+      rank: index + 1, // ✅ 랭킹 순위 부여
     }));
 
-    console.log("✅ 가공된 친구 목록 데이터:", friends);
+    console.log("✅ 가공된 친구 랭킹 데이터:", rankingList);
 
-    return { ...response.data, members: friends };
+    return { ...response.data, members: rankingList };
   } catch (error) {
     console.error("❌ 친구 목록 가져오기 오류:", error);
     throw error;
