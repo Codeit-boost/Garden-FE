@@ -20,7 +20,6 @@ function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
   const [time, setTime] = useState(2 * 3600);
   const [index, setIndex] = useState(0);
-  const [sse, setSse] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const [focusTime, setFocusTime] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("공부");
