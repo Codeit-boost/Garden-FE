@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie"; // ✅ 쿠키 사용을 위한 라이브러리 추가
 import { logout } from "./auth"; // ✅ 로그아웃 함수 추가
 
 const api = axios.create({
@@ -8,10 +9,10 @@ const api = axios.create({
   },
 });
 
-// ✅ 요청 인터셉터: 모든 요청에 JWT 토큰 자동 추가
+// ✅ 요청 인터셉터: 모든 요청에 JWT 토큰 자동 추가 (쿠키 + 로컬스토리지)
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("jwtToken");
+    let token = localStorage.getItem("jwtToken") || Cookies.get("jwtToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -32,5 +33,21 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// ✅ JWT 토큰 저장 함수 (로컬스토리지 + 쿠키)
+export const saveToken = (token) => {
+  localStorage.setItem("jwtToken", token); // ✅ 로컬 스토리지 저장
+  Cookies.set("jwtToken", token, {
+    expires: 7,
+    secure: true,
+    sameSite: "Strict",
+  }); // ✅ 쿠키 저장 (7일 유효)
+};
+
+// ✅ JWT 토큰 삭제 함수 (로컬스토리지 + 쿠키)
+export const clearToken = () => {
+  localStorage.removeItem("jwtToken");
+  Cookies.remove("jwtToken");
+};
 
 export default api;
