@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchMissions } from "../../api/missonapi";
+import { fetchMissions } from "../../api/missonApi";
 import "../../styles/mission.css";
 import logo from "../../assets/icons/로고.png";
 
