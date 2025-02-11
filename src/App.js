@@ -7,7 +7,7 @@ import Startscreen from "./screens/Startscreen";
 // import Onboarding4 from "./screens/Onboarding4";
 import Onboarding from "./screens/OnboardingPage";
 import Login from "./screens/Login";
-import Home from "./screens/Home"; // ✅ Home.js를 그대로 유지
+import Home from "./screens/Home";  // ✅ Home.js를 그대로 유지
 import Garden from "./screens/GardenPage";
 import Ranking from "./screens/Ranking";
 import Mission from "./screens/Mission";
