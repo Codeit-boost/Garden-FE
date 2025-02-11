@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { formatTimeForApi, convertTimeToSeconds, handleTimeAdjust } from "./timeutils";
 import { startFocusTime, cancelFocusTime } from "../../api/focustime"; // ✅ API 호출 함수 가져오기
 import { connectToSSE } from "./ssemanager"; // ✅ SSE 연결 함수 가져오기

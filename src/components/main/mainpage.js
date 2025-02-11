@@ -19,6 +19,7 @@ import CategorySelect from "./categoryselect";  // ✅ 수정: 올바른 모달 
 function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
   const [time, setTime] = useState(2 * 3600);
+  const [index, setIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [focusTime, setFocusTime] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("공부");
@@ -29,24 +30,14 @@ function MainPage() {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    const disconnectSSE = connectToSSE(setFocusTime, setIsRunning, initialized, setInitialized);
+    const disconnectSSE = connectToSSE(setFocusTime, setIsRunning, setIndex, initialized, setInitialized);
     console.log(isRunning)
     return () => disconnectSSE();
-  }, [isRunning]);
+  }, [isRunning, index]);
 
   const [flower, setFlower] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let interval;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTime((prevTime) => (isTimerMode ? Math.max(0, prevTime - 1) : prevTime + 1));
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning, isTimerMode]);
 
   const handleStartStop = () => {
     setIsRunning((prev) => !prev);
@@ -100,7 +91,9 @@ function MainPage() {
       {isRunning && focusTime && focusTime.id ?(
         <PlantBox
         focusTime = {focusTime} 
+        index = {index}
         isRunning = {isRunning}
+        isTimerMode = {isTimerMode}
         setIsRunning = {setIsRunning}
         />
       ) : ( 

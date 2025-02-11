@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { formatTimeForApi, convertTimeToSeconds, handleTimeAdjust } from "./timeutils";
+import React, { useState, useEffect } from "react";
+import { formatTime, convertTimeToSeconds, handleTimeAdjust } from "./timeutils";
 import { startFocusTime, cancelFocusTime } from "../../api/focustime"; // ✅ API 호출 함수 가져오기
-import { connectToSSE } from "./ssemanager"; // ✅ SSE 연결 함수 가져오기
 import soilImage from "../../assets/flowers/땅 이미지.png";
 import flowerStage1 from "../../assets/flowers/1단계 새싹.png";
 import flowerStage2 from "../../assets/flowers/2단계 새싹.png";
@@ -12,18 +11,36 @@ import rightArrow from "../../assets/icons/화살표(아래).png";
 import FlowerPlantSuccess from "./flowerplantsuccess"; // ✅ 성공 모달 추가
 import FlowerPlantFail from "./flowerplantfail"; // ✅ 실패 모달 추가
 
-const PlantBox = ({ focusTime ,isRunning, setIsRunning }) => {
-  const [time, setTime] = useState(focusTime.time);
+const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) => {
+    const initialTime =
+    focusTime.target_time != "00:00:00"
+    ? convertTimeToSeconds(focusTime.target_time) -
+    (convertTimeToSeconds(focusTime.time) + (Date.now() - focusTime.now) / 1000)
+    : convertTimeToSeconds(focusTime.time) + (Date.now() - focusTime.now) / 1000;
+
+    console.log(focusTime.target_time,focusTime.time, initialTime)
+
+  const [time, setTime] = useState(initialTime);
   const [currentFlowerImage, setCurrentFlowerImage] = useState(focusTime.currentFlowerImage);
   const [showSuccessModal, setShowSuccessModal] = useState(false); // ✅ 성공 모달 상태 추가
   const [showFailModal, setShowFailModal] = useState(false); // ✅ 실패 모달 상태 추가
 
   const flowerStages = [soilImage, flowerStage1, flowerStage2, flowerStage3, focusTime.FlowerImage || defaultFlower];
-
+ 
+  useEffect(() => {
+    let interval;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTime((prevTime) => (focusTime.target_time != "00:00:00" ? Math.max(0, prevTime - 1) : prevTime + 1));
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning,]);
+  
   return (
     <section className="planting-box">
       <div className="planting-circle">
-        <img src={currentFlowerImage} alt="꽃 성장 단계" className="plant-image" />
+        <img src={flowerStages[index]} alt="꽃 성장 단계" className="plant-image" />
       </div>
 
       {/* ✅ 선택한 카테고리 표시 */}
@@ -33,13 +50,13 @@ const PlantBox = ({ focusTime ,isRunning, setIsRunning }) => {
 
       {/* 🌿 시간 보여주기 */}
         <div className="timer-category-container">
-            <p className="time-text">{time}</p>
+            <p className="time-text">{formatTime(time)}</p>
         </div>
 
       {/* 🌿 시작 & 포기 버튼 */}
       <button className="start-button" onClick={() => {
         if (isRunning) {
-          cancelFocusTime(setIsRunning);
+          cancelFocusTime(setIsRunning, focusTime.id);
           setShowFailModal(true); // ✅ 실패 모달 표시
         } else {
           startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, 0);

@@ -1,6 +1,6 @@
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
-export const connectToSSE = (setFocusTime, setIsRunning, initialized, setInitialized) => {
+export const connectToSSE = (setFocusTime, setIsRunning, setIndex, initialized, setInitialized) => {
   console.log("📡 [SSE] 서버 이벤트 연결 시작...");
 
   const token = localStorage.getItem("jwt");
@@ -34,6 +34,7 @@ export const connectToSSE = (setFocusTime, setIsRunning, initialized, setInitial
       const parsedData = JSON.parse(event.data);
       setFocusTime(parsedData);
       setIsRunning(true);
+      setIndex(parsedData.index)
     } catch (err) {
       console.error('파싱 오류:', err);
     }
