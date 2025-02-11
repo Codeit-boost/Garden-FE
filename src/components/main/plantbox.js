@@ -37,6 +37,12 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) =>
     return () => clearInterval(interval);
   }, [isRunning,]);
   
+  useEffect(() => {
+    if (index > 4 && isTimerMode) {
+      setShowSuccessModal(true);
+    }
+  }, [index, isTimerMode]); 
+
   return (
     <section className="planting-box">
       <div className="planting-circle">
@@ -66,7 +72,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) =>
       </button>
 
       {/* ✅ 성공 모달 */}
-      {showSuccessModal && <FlowerPlantSuccess onClose={() => setShowSuccessModal(false)} />}
+      {showSuccessModal && <FlowerPlantSuccess onClose={() => {window.location.reload(); setShowSuccessModal(false);}} />}
 
       {/* ✅ 실패 모달 */}
       {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)} />}
