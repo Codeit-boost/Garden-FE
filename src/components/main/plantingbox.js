@@ -61,10 +61,10 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
       </button>
 
       {/* ✅ 성공 모달 */}
-      {showSuccessModal && <FlowerPlantSuccess onClose={() => setShowSuccessModal(false)} />}
+      {showSuccessModal && <FlowerPlantSuccess onClose={() => setShowSuccessModal(false)}keepOpen={true} />}
 
       {/* ✅ 실패 모달 */}
-      {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)} />}
+      {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)}keepOpen={true} />}
     </section>
   );
 };
