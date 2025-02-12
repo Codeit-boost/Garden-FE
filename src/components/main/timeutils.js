@@ -17,21 +17,27 @@ export const formatTimeForApi = (seconds) => {
     return `${h}:${m}:00`;
   };
   
-  // ✅ "HH:MM:SS" 형식을 초(Seconds)로 변환
   export const convertTimeToSeconds = (timeString) => {
-    if (!timeString) {
-      console.warn("⚠️ convertTimeToSeconds: 유효하지 않은 timeString 값");
-      return 0;
+    if (!timeString || typeof timeString !== "string" || !timeString.includes(":")) {
+      console.warn("⚠️ convertTimeToSeconds: 유효하지 않은 time 값:", timeString);
+      return 0; // 기본값 0초 반환
     }
   
     const [hours, minutes, seconds] = timeString.split(":").map(Number);
-    return (hours || 0) * 3600 + (minutes || 0) * 60 + seconds;    
+    return (hours || 0) * 3600 + (minutes || 0) * 60 + (seconds || 0);
   };
   
-  // ✅ 타이머 시간 조정 (15분 단위 증가/감소)
-  export const handleTimeAdjust = (setTime, amount, isTimerMode, isRunning) => {
-    if (isTimerMode && !isRunning) {
-      setTime((prevTime) => Math.max(0, prevTime + amount * 900)); // 900초 = 15분
-    }
-  };
   
+  // ✅ 15분 단위 증가
+export const handleTimeIncrease = (setTime, isTimerMode, isRunning) => {
+  if (isTimerMode && !isRunning) {
+    setTime((prevTime) => prevTime + 900); // 900초 = 15분 증가
+  }
+};
+
+// ✅ 15분 단위 감소
+export const handleTimeDecrease = (setTime, isTimerMode, isRunning) => {
+  if (isTimerMode && !isRunning) {
+    setTime((prevTime) => Math.max(0, prevTime - 900)); // 900초 = 15분 감소
+  }
+};
