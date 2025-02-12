@@ -63,7 +63,12 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) =>
       <button className="start-button" onClick={() => {
         if (isRunning) {
           cancelFocusTime(setIsRunning, focusTime.id);
-          setShowFailModal(true); // ✅ 실패 모달 표시
+          if(isTimerMode){
+            setShowFailModal(true); // ✅ 실패 모달 표시
+          }else{ // 스톱워치는 성공
+            setShowSuccessModal(true); // ✅ 성공 모달 표시
+          }
+          
         } else {
           startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, 0);
         }
