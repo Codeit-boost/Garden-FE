@@ -1,6 +1,11 @@
 // src/App.js
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Startscreen from "./screens/Startscreen";
 import Onboarding from "./screens/OnboardingPage";
 import Login from "./screens/Login";
@@ -13,30 +18,44 @@ import MyInfo from "./screens/MyInfo";
 import KakaoCallback from "./screens/KakaoCallback";
 import "./styles/App.css";
 
-// 전역 오디오 컨텍스트 및 백그라운드 오디오 컴포넌트 임포트
 import { AudioProvider } from "./context/AudioContext";
 import BackgroundAudio from "./components/BackGroundAudio";
+
+// AppContent 컴포넌트 내에서 현재 경로를 확인하여,
+// Startscreen ("/"), Onboarding ("/onboarding"로 시작) 및 Login ("/login") 페이지에서는 BackgroundAudio를 렌더링X
+const AppContent = () => {
+  const location = useLocation();
+  const shouldPlayAudio = !(
+    location.pathname === "/" ||
+    location.pathname === "/login" ||
+    location.pathname.startsWith("/onboarding")
+  );
+
+  return (
+    <>
+      {shouldPlayAudio && <BackgroundAudio />}
+      <Routes>
+        <Route path="/" element={<Startscreen />} />
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/garden" element={<Garden />} />
+        <Route path="/ranking" element={<Ranking />} />
+        <Route path="/mission" element={<Mission />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/myinfo" element={<MyInfo />} />
+        <Route path="/kakao/callback" element={<KakaoCallback />} />
+      </Routes>
+    </>
+  );
+};
 
 const App = () => {
   return (
     <div className="App">
-      {/* AudioProvider로 앱 전체를 감싸고, 
-          BackgroundAudio 컴포넌트를 최상위에 렌더링하여 라우터 전환에도 유지 */}
       <AudioProvider>
-        <BackgroundAudio />
         <Router>
-          <Routes>
-            <Route path="/" element={<Startscreen />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/garden" element={<Garden />} />
-            <Route path="/ranking" element={<Ranking />} />
-            <Route path="/mission" element={<Mission />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/myinfo" element={<MyInfo />} />
-            <Route path="/kakao/callback" element={<KakaoCallback />} />
-          </Routes>
+          <AppContent />
         </Router>
       </AudioProvider>
     </div>
