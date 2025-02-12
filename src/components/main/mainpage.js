@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/mainpage.css";
 import api from "../../api/api"; // API 연동을 위한 axios 설정
+import { connectToSSE } from "./ssemanager";
 
 // 🌿 아이콘 및 이미지
 import logo from "../../assets/icons/로고.png";
@@ -9,6 +10,7 @@ import notificationIcon from "../../assets/icons/알림.png";
 
 // 📌 분리된 컴포넌트 import
 import PlantingBox from "./plantingbox";
+import PlantBox from "./plantbox";
 import ModeToggle from "./timer-toggle";
 import TotalTime from "./totaltime";
 import FlowerSelect from "./flowerselect";  // ✅ 수정: 올바른 모달 파일 import 확인
@@ -17,25 +19,25 @@ import CategorySelect from "./categoryselect";  // ✅ 수정: 올바른 모달 
 function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
   const [time, setTime] = useState(2 * 3600);
+  const [index, setIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [focusTime, setFocusTime] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("공부");
   const [selectedFlower, setSelectedFlower] = useState("메리골드");
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    const disconnectSSE = connectToSSE(setFocusTime, setIsRunning, setIndex, initialized, setIsTimerMode, setInitialized);
+    console.log(isRunning)
+    return () => disconnectSSE();
+  }, [isRunning, index]);
+
   const [flower, setFlower] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let interval;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTime((prevTime) => (isTimerMode ? Math.max(0, prevTime - 1) : prevTime + 1));
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning, isTimerMode]);
 
   const handleStartStop = () => {
     setIsRunning((prev) => !prev);
@@ -86,7 +88,15 @@ function MainPage() {
           setTime={setTime} 
         />
       </div>
-
+      {isRunning && focusTime && focusTime.id ?(
+        <PlantBox
+        focusTime = {focusTime} 
+        index = {index}
+        isRunning = {isRunning}
+        isTimerMode = {isTimerMode}
+        setIsRunning = {setIsRunning}
+        />
+      ) : ( 
       <PlantingBox
         selectedCategory={selectedCategory}
         selectedFlower={selectedFlower}
@@ -97,6 +107,8 @@ function MainPage() {
         handleStartStop={handleStartStop}
         isTimerMode={isTimerMode}
       />
+      )}
+      
 
       {/* 🌸 꽃 변경 & 카테고리 설정 버튼 */}
       <div className="action-buttons">

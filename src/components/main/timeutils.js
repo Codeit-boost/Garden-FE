@@ -1,3 +1,12 @@
+export const formatTime = (seconds) => {
+    const totalSeconds = Math.floor(seconds);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const second = totalSeconds % 60;
+    
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
+};
+
 // ✅ 초(Seconds)를 "HH:MM:00" 형식으로 변환
 export const formatTimeForApi = (seconds) => {
     if (seconds === null || seconds === undefined) return "00:00:00";
@@ -15,8 +24,8 @@ export const formatTimeForApi = (seconds) => {
       return 0;
     }
   
-    const [hours, minutes] = timeString.split(":").map(Number);
-    return (hours || 0) * 3600 + (minutes || 0) * 60;
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
+    return (hours || 0) * 3600 + (minutes || 0) * 60 + seconds;    
   };
   
   // ✅ 타이머 시간 조정 (15분 단위 증가/감소)

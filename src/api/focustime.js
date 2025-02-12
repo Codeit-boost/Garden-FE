@@ -37,8 +37,7 @@ export const startFocusTime = async (setIsRunning, setTime, setCurrentFlowerImag
 };
 
 // ✅ 집중시간 포기 (DELETE /focusTime/{focusTimeId}/cancel)
-export const cancelFocusTime = async (setIsRunning) => {
-  const focusTimeId = localStorage.getItem("focusTimeId");
+export const cancelFocusTime = async (setIsRunning, focusTimeId) => {
   if (!focusTimeId) {
     console.warn("⚠️ [포기 실패] 현재 실행 중인 집중시간이 없습니다.");
     return;
@@ -51,7 +50,7 @@ export const cancelFocusTime = async (setIsRunning) => {
   }
 
   try {
-    await api.delete(`/focusTime/${focusTimeId}/cancel`, {
+    await api.patch(`/focusTime/${focusTimeId}/cancel`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

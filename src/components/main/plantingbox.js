@@ -50,7 +50,6 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
           setShowFailModal(true); // ✅ 실패 모달 표시
         } else {
           startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, setCurrentStageIndex);
-          connectToSSE(setTime, setCurrentFlowerImage, setCurrentStageIndex);
         }
       }}>
         {isRunning ? "포기" : "시작"}
