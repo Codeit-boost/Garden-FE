@@ -13,7 +13,7 @@ import FlowerPlantFail from "./flowerplantfail"; // ✅ 실패 모달 추가
 
 
 const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning }) => {
-  const [time, setTime] = useState(900); // ✅ 900초 = 15분 (초 단위로 변경)
+  const [time, setTime] = useState(60); // ✅ 900초 = 15분 (초 단위로 변경)
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [currentFlowerImage, setCurrentFlowerImage] = useState(soilImage);
   const [showSuccessModal, setShowSuccessModal] = useState(false); // ✅ 성공 모달 상태 추가
@@ -24,6 +24,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
   return (
     <section className="planting-box">
       <div className="planting-circle">
+        {/*<img src={soilImage} alt="흙" className="soil-image" />*/}
         <img src={currentFlowerImage} alt="꽃 성장 단계" className="plant-image" />
       </div>
 
