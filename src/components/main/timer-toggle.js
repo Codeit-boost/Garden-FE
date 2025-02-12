@@ -7,10 +7,10 @@ const TimerToggle = ({ isTimerMode, setIsTimerMode, setIsRunning, setTime, isRun
     <div
       className={`mode-toggle ${isTimerMode ? "timer" : "stopwatch"}`}
       onClick={() => {
-        if (isRunning) return; // ✅ 집중시간 진행 중일 때 토글 비활성화
+        if (isRunning) return; // ✅ 실행 중일 때 토글 비활성화
         setIsTimerMode(!isTimerMode);
         setIsRunning(false);
-        setTime(!isTimerMode ? 0 : 2 * 3600); // ✅ 타이머 모드: 2시간, 스톱워치 모드: 0초
+        setTime(!isTimerMode ? 0 : 60); // ✅ 타이머 모드: 60초, 스톱워치 모드: 0초
       }}
     >
       <div className="mode-toggle-thumb">
