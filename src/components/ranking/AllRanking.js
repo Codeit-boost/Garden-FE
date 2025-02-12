@@ -84,6 +84,10 @@ const AllRanking = () => {
             {/* 사용자 정보 */}
             <RankingUser>
               <UserName>{item.name}</UserName>
+              {/* 유저 아이디 추가 */}
+              <div style={{ fontSize: "0.8em", color: "#777" }}>
+                ID: {item.id}
+              </div>
               <UserStats>
                 {/* 완성꽃 (bloomedCount → leaf) */}
                 <div>
