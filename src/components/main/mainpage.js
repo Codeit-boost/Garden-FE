@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/mainpage.css";
 import api from "../../api/api"; // API 연동을 위한 axios 설정
 import { connectToSSE } from "./ssemanager";
+import { startFocusTime } from "../../api/focustime"; // ✅ 집중시간 API 호출
 
 // 🌿 아이콘 및 이미지
 import logo from "../../assets/icons/로고.png";
@@ -13,8 +14,8 @@ import PlantingBox from "./plantingbox";
 import PlantBox from "./plantbox";
 import ModeToggle from "./timer-toggle";
 import TotalTime from "./totaltime";
-import FlowerSelect from "./flowerselect";  // ✅ 수정: 올바른 모달 파일 import 확인
-import CategorySelect from "./categoryselect";  // ✅ 수정: 올바른 모달 파일 import 확인
+import FlowerSelect from "./flowerselect";  // ✅ 꽃 선택 모달
+import CategorySelect from "./categoryselect";  // ✅ 카테고리 선택 모달
 
 function MainPage() {
   const [isTimerMode, setIsTimerMode] = useState(true);
@@ -22,8 +23,8 @@ function MainPage() {
   const [index, setIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [focusTime, setFocusTime] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("공부");
-  const [selectedFlower, setSelectedFlower] = useState("메리골드");
+  const [selectedCategory, setSelectedCategory] = useState("공부"); // ✅ 기본값
+  const [selectedFlower, setSelectedFlower] = useState("1"); // ✅ 기본값
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -31,7 +32,7 @@ function MainPage() {
 
   useEffect(() => {
     const disconnectSSE = connectToSSE(setFocusTime, setIsRunning, setIndex, initialized, setIsTimerMode, setInitialized);
-    console.log(isRunning)
+    console.log("📡 [SSE 연결] isRunning 상태:", isRunning);
     return () => disconnectSSE();
   }, [isRunning, index]);
 
@@ -39,26 +40,18 @@ function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleStartStop = () => {
-    setIsRunning((prev) => !prev);
+  // ✅ 사용자가 선택한 값이 올바르게 업데이트되는지 확인
+  useEffect(() => {
+    console.log("🌸 선택한 꽃:", selectedFlower);
+    console.log("📌 선택한 카테고리:", selectedCategory);
+  }, [selectedFlower, selectedCategory]);
+
+  const handleStart = () => {
+    console.log("🚀 [시작 버튼 클릭] 선택된 값 → ", { selectedCategory, selectedFlower, time });
+
+    startFocusTime(setIsRunning, time, selectedCategory, selectedFlower);
   };
 
-  useEffect(() => {
-    const today = new Date();
-    const fMonth = today.getMonth() + 1;
-    const fDay = today.getDate();
-
-    api.get(`/flower/todayflower?fMonth=${fMonth}&fDay=${fDay}`)
-      .then((response) => {
-        setFlower(response.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("오늘의 꽃 정보를 불러오는 중 오류 발생:", error);
-        setError("오늘의 꽃 정보를 불러올 수 없습니다.");
-        setIsLoading(false);
-      });
-  }, []);
   return (
     <div className="main-container">
       <header className="header-container">
@@ -88,27 +81,27 @@ function MainPage() {
           setTime={setTime} 
         />
       </div>
-      {isRunning && focusTime && focusTime.id ?(
+
+      {isRunning && focusTime && focusTime.id ? (
         <PlantBox
-        focusTime = {focusTime} 
-        index = {index}
-        isRunning = {isRunning}
-        isTimerMode = {isTimerMode}
-        setIsRunning = {setIsRunning}
+          focusTime={focusTime} 
+          index={index}
+          isRunning={isRunning}
+          isTimerMode={isTimerMode}
+          setIsRunning={setIsRunning}
         />
       ) : ( 
-      <PlantingBox
-        selectedCategory={selectedCategory}
-        selectedFlower={selectedFlower}
-        time={time}
-        setTime={setTime}
-        isRunning={isRunning}
-        setIsRunning={setIsRunning}
-        handleStartStop={handleStartStop}
-        isTimerMode={isTimerMode}
-      />
+        <PlantingBox
+          selectedCategory={selectedCategory}
+          selectedFlower={selectedFlower}
+          time={time}
+          setTime={setTime}
+          isRunning={isRunning}
+          setIsRunning={setIsRunning}
+          handleStartStop={handleStart}
+          isTimerMode={isTimerMode}
+        />
       )}
-      
 
       {/* 🌸 꽃 변경 & 카테고리 설정 버튼 */}
       <div className="action-buttons">
@@ -139,7 +132,8 @@ function MainPage() {
         <FlowerSelect
           onClose={() => setFlowerModalOpen(false)}
           onSelectFlower={(flower) => {
-            setSelectedFlower(flower);
+            console.log("🌸 [모달] 선택한 꽃:", flower);
+            setSelectedFlower(flower); // ✅ 선택한 꽃을 상태에 저장
             setFlowerModalOpen(false);
           }}
         />
@@ -150,7 +144,11 @@ function MainPage() {
         <CategorySelect
           isOpen={isCategoryModalOpen}
           onClose={() => setCategoryModalOpen(false)}
-          onSelectCategory={(category) => setSelectedCategory(category)}
+          onSelectCategory={(category) => {
+            console.log("📌 [모달] 선택한 카테고리:", category);
+            setSelectedCategory(category); // ✅ 선택한 카테고리 상태에 저장
+            setCategoryModalOpen(false);
+          }}
         />
       )}
     </div>
@@ -158,5 +156,3 @@ function MainPage() {
 }
 
 export default MainPage;
-
-

@@ -11,7 +11,7 @@ import rightArrow from "../../assets/icons/화살표(아래).png";
 import FlowerPlantSuccess from "./flowerplantsuccess"; // ✅ 성공 모달 추가
 import FlowerPlantFail from "./flowerplantfail"; // ✅ 실패 모달 추가
 
-const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) => {
+const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selectedCategory, selectedFlower, }) => {
     const initialTime =
     focusTime.target_time != "00:00:00"
     ? convertTimeToSeconds(focusTime.target_time) -
@@ -70,7 +70,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning }) =>
           }
           
         } else {
-          startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, 0);
+          startFocusTime(setIsRunning, time, selectedCategory, selectedFlower);
         }
       }}>
         {isRunning ? "포기" : "시작"}

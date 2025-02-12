@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { formatTimeForApi, convertTimeToSeconds, handleTimeAdjust } from "./timeutils";
+import { formatTimeForApi, convertTimeToSeconds, handleTimeIncrease, handleTimeDecrease } from "./timeutils";
 import { startFocusTime, cancelFocusTime } from "../../api/focustime"; // ✅ API 호출 함수 가져오기
-import { connectToSSE } from "./ssemanager"; // ✅ SSE 연결 함수 가져오기
 import soilImage from "../../assets/flowers/땅 이미지.png";
 import flowerStage1 from "../../assets/flowers/1단계 새싹.png";
 import flowerStage2 from "../../assets/flowers/2단계 새싹.png";
@@ -12,8 +11,9 @@ import rightArrow from "../../assets/icons/화살표(아래).png";
 import FlowerPlantSuccess from "./flowerplantsuccess"; // ✅ 성공 모달 추가
 import FlowerPlantFail from "./flowerplantfail"; // ✅ 실패 모달 추가
 
+
 const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning }) => {
-  const [time, setTime] = useState("00:15:00");
+  const [time, setTime] = useState(60); // ✅ 900초 = 15분 (초 단위로 변경)
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [currentFlowerImage, setCurrentFlowerImage] = useState(soilImage);
   const [showSuccessModal, setShowSuccessModal] = useState(false); // ✅ 성공 모달 상태 추가
@@ -24,6 +24,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
   return (
     <section className="planting-box">
       <div className="planting-circle">
+        {/*<img src={soilImage} alt="흙" className="soil-image" />*/}
         <img src={currentFlowerImage} alt="꽃 성장 단계" className="plant-image" />
       </div>
 
@@ -34,11 +35,15 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
 
       {/* 🌿 시간 조절 (15분 단위) */}
       <div className="timer-category-container">
-        <button className="time-adjust" onClick={() => handleTimeAdjust(setTime, 1, true, isRunning)}>
+        {/* ✅ 15분 증가 버튼 */}
+        <button className="time-adjust" onClick={() => handleTimeIncrease(setTime, true, isRunning)} disabled={isRunning}>
           <img src={leftArrow} alt="시간 증가" />
         </button>
-        <p className="time-text">{formatTimeForApi(convertTimeToSeconds(time))}</p>
-        <button className="time-adjust" onClick={() => handleTimeAdjust(setTime, -1, true, isRunning)}>
+
+        <p className="time-text">{formatTimeForApi(time)}</p>
+
+        {/* ✅ 15분 감소 버튼 */}
+        <button className="time-adjust" onClick={() => handleTimeDecrease(setTime, true, isRunning)} disabled={isRunning}>
           <img src={rightArrow} alt="시간 감소" />
         </button>
       </div>
@@ -49,17 +54,17 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
           cancelFocusTime(setIsRunning);
           setShowFailModal(true); // ✅ 실패 모달 표시
         } else {
-          startFocusTime(setIsRunning, setTime, setCurrentFlowerImage, setCurrentStageIndex);
+          startFocusTime(setIsRunning, time, selectedCategory, selectedFlower);
         }
       }}>
         {isRunning ? "포기" : "시작"}
       </button>
 
       {/* ✅ 성공 모달 */}
-      {showSuccessModal && <FlowerPlantSuccess onClose={() => setShowSuccessModal(false)} />}
+      {showSuccessModal && <FlowerPlantSuccess onClose={() => setShowSuccessModal(false)}keepOpen={true} />}
 
       {/* ✅ 실패 모달 */}
-      {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)} />}
+      {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)}keepOpen={true} />}
     </section>
   );
 };

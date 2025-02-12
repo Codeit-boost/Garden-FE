@@ -34,6 +34,12 @@ function CategorySelect({ onClose, onSelectCategory }) {
         }
     };
 
+    // ✅ 카테고리 선택 시 호출
+    const handleSelectCategory = (categoryName) => {
+        setSelectedCategory(categoryName);
+        console.log("📌 선택한 카테고리:", categoryName);
+    };
+
     return (
         <>
             {/* ✅ 배경 어두워지는 효과 */}
@@ -52,14 +58,14 @@ function CategorySelect({ onClose, onSelectCategory }) {
                         <button
                             key={index}
                             className={`category-item ${selectedCategory === category.name ? "selected" : ""}`}
-                            onClick={() => setSelectedCategory(category.name)}
+                            onClick={() => handleSelectCategory(category.name)}
                         >
                             {category.name}
                         </button>
                     ))}
                 </div>
 
-                {/* ✅ 카테고리 추가 입력창 (새로운 스타일 적용) */}
+                {/* ✅ 카테고리 추가 입력창 */}
                 {isAddingCategory ? (
                     <div className="add-category-container">
                         <input
@@ -78,7 +84,15 @@ function CategorySelect({ onClose, onSelectCategory }) {
                 )}
 
                 {/* ✅ 선택하기 버튼 */}
-                <button className="select-btn" onClick={() => onSelectCategory(selectedCategory)}>
+                <button
+                    className="select-btn"
+                    disabled={!selectedCategory} // 선택한 값이 없을 경우 비활성화
+                    onClick={() => {
+                        console.log("🚀 [모달 닫기] 최종 선택한 카테고리:", selectedCategory);
+                        onSelectCategory(selectedCategory);
+                        onClose();
+                    }}
+                >
                     선택하기
                 </button>
             </div>
