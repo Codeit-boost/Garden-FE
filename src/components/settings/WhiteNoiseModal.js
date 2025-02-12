@@ -1,3 +1,4 @@
+// src/components/settings/WhiteNoiseModal.js
 import React from "react";
 import {
   Overlay,
@@ -23,9 +24,7 @@ const WhiteNoiseModal = ({
 
   // 모달 배경(오버레이) 클릭 시 모달 닫힘
   const handleOverlayClick = () => {
-    if (onClose) {
-      onClose();
-    }
+    if (onClose) onClose();
   };
 
   // 모달 본체 클릭 시 배경 클릭 이벤트 전파 막기
