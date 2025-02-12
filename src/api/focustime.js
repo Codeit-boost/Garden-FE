@@ -1,18 +1,37 @@
 import api from "./api"; // API 기본 설정 가져오기
+import { formatTimeForApi , convertTimeToSeconds} from "../components/main/timeutils";
+
 
 // ✅ 집중시간 시작 (POST /focusTime)
-export const startFocusTime = async (setIsRunning, setTime, setCurrentFlowerImage, setCurrentStageIndex) => {
+export const startFocusTime = async (setIsRunning, time, selectedCategory, selectedFlower) => {
   const token = localStorage.getItem("jwt");
   if (!token) {
     console.error("❌ 인증 토큰이 없습니다.");
     return;
   }
+  // ✅ time 값이 HH:MM:SS 문자열인지 확인하고 초 단위로 변환
+  let timeInSeconds;
+  if (typeof time === "string" && time.includes(":")) {
+    timeInSeconds = convertTimeToSeconds(time); // ✅ 문자열이면 초 단위로 변환
+  } else if (typeof time === "number") {
+    timeInSeconds = time; // ✅ 이미 초 단위라면 그대로 사용
+  } else {
+    console.error("❌ [오류] 유효하지 않은 time 값:", time);
+    return;
+  }
+  // ✅ time 값 검증 추가
+  console.log("🎯 변환 전 time 값:", time);
+  if (isNaN(time) || time === undefined || time === null) {
+    console.error("❌ [오류] 유효하지 않은 time 값:", time);
+    time = 7200; // ✅ 기본값 2시간 (7200초)로 설정
+  }
 
   const requestData = {
-    target_time: "00:15:00", // 기본 값 (변경 가능)
-    category: "기본",
-    flower_id: 1,
+    target_time: formatTimeForApi(time),  // ✅ 사용자가 설정한 시간 변환하여 적용
+    category: selectedCategory || "기본",  // ✅ 사용자가 선택한 카테고리 적용
+    flower_id: Number(selectedFlower) || 1,  // ✅ 사용자가 선택한 꽃 ID 적용
   };
+  
 
   console.log("📡 [API 요청] 집중시간 생성 데이터:", requestData);
 

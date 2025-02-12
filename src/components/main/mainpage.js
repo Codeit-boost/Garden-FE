@@ -23,7 +23,7 @@ function MainPage() {
   const [isRunning, setIsRunning] = useState(false);
   const [focusTime, setFocusTime] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("공부");
-  const [selectedFlower, setSelectedFlower] = useState("메리골드");
+  const [selectedFlower, setSelectedFlower] = useState("1");
   const [isFlowerModalOpen, setFlowerModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
