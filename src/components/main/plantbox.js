@@ -35,7 +35,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isRunning,]);
+  }, [isRunning]);
   
   useEffect(() => {
     if (index > 4 && isTimerMode) {
@@ -62,7 +62,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
       {/* 🌿 시작 & 포기 버튼 */}
       <button className="start-button" onClick={() => {
         if (isRunning) {
-          cancelFocusTime(setIsRunning, focusTime.id);
+          cancelFocusTime(focusTime.id);
           if(isTimerMode){
             setShowFailModal(true); // ✅ 실패 모달 표시
           }else{ // 스톱워치는 성공
@@ -80,7 +80,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
       {showSuccessModal && <FlowerPlantSuccess onClose={() => {window.location.reload(); setShowSuccessModal(false);}} />}
 
       {/* ✅ 실패 모달 */}
-      {showFailModal && <FlowerPlantFail onClose={() => setShowFailModal(false)} />}
+      {showFailModal && <FlowerPlantFail onClose={() => {window.location.reload(); setShowFailModal(false)}} />}
     </section>
   );
 };
