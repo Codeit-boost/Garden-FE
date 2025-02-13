@@ -13,8 +13,7 @@ import { AudioContext } from "../context/AudioContext";
 const Settings = () => {
   const navigate = useNavigate();
 
-  // 기존 알림, 모드 등의 로컬 상태
-  const [notifications, setNotifications] = useState(true);
+  // 모드, 백색 소음, 초대 모달 등의 상태 관리
   const [isModeModalOpen, setIsModeModalOpen] = useState(false);
   const [isNoiseModalOpen, setIsNoiseModalOpen] = useState(false);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
@@ -30,7 +29,7 @@ const Settings = () => {
         const userInfo = await fetchMyInfo();
         console.log("✅ 불러온 사용자 정보:", userInfo);
 
-        setNotifications(userInfo.alarm);
+        // 알림 설정은 제거하고, 모드와 백색 소음만 설정
         setSelectedMode(userInfo.mode);
         setWhiteNoise(userInfo.sound);
 
@@ -78,21 +77,6 @@ const Settings = () => {
 
       <div className="settings-section">
         <h3>설정</h3>
-
-        {/* 알림 설정 */}
-        <div className="settings-item">
-          <span>알림 설정</span>
-          <input
-            className="settings-toggle-switch"
-            type="checkbox"
-            checked={notifications}
-            onChange={() => {
-              const newAlarmState = !notifications;
-              setNotifications(newAlarmState);
-              handleUpdateSettings({ alarm: newAlarmState });
-            }}
-          />
-        </div>
 
         {/* 모드 설정 */}
         <div className="settings-item" onClick={() => setIsModeModalOpen(true)}>
