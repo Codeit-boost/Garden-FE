@@ -10,6 +10,8 @@ import leftArrow from "../../assets/icons/화살표(위).png";
 import rightArrow from "../../assets/icons/화살표(아래).png";
 import FlowerPlantSuccess from "./flowerplantsuccess";
 import FlowerPlantFail from "./flowerplantfail";
+import LockModeScreen from "../../screens/LockModeScreen";
+import mode from "../settings/ModeSettingsModal";
 
 const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning, isTimerMode }) => {
   const [time, setTime] = useState(isTimerMode ? 60 : 0);
@@ -18,7 +20,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
 
-  const flowerStages = [soilImage, flowerStage1, flowerStage2, flowerStage3, selectedFlower || defaultFlower];
+  const flowerStages = [soilImage, flowerStage1, flowerStage2, flowerStage3 , selectedFlower || defaultFlower];
 
   // ✅ 🔥 모드 변경 시 초기 시간 설정
   useEffect(() => {
@@ -37,6 +39,21 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
       }
     }
   }, [time, isTimerMode, isRunning]); // `time` 값 변경 시마다 실행
+  // ✅ **잠금 모드일 경우 LockModeScreen으로 전환**
+  const isLockMode = mode === "잠금 모드"; // ✅ mode 값이 "잠금 모드"인지 확인
+  if (isRunning && isLockMode) {
+    return (
+      <LockModeScreen
+        time={time}
+        setTime={setTime}
+        isRunning={isRunning}
+        setIsRunning={setIsRunning}
+        selectedCategory={selectedCategory}
+        selectedFlower={selectedFlower}
+        isTimerMode={isTimerMode}
+      />
+    );
+  }
 
   return (
     <section className="planting-box">

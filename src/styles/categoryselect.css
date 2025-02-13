@@ -32,10 +32,12 @@
 /* 📌 모달 상단 닫기 버튼 ('━' 모양, 중앙 정렬) */
 .modal-close-button {
     width: 50px;
+    display: flex;
     height: 5px;
     background: #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+    justify-content: center;
     cursor: pointer;
 
 }
