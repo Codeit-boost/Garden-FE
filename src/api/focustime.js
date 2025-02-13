@@ -38,7 +38,7 @@ export const startFocusTime = async (setIsRunning, time, selectedCategory, selec
 };
 
 // ✅ 집중시간 포기 (DELETE /focusTime/{focusTimeId}/cancel)
-export const cancelFocusTime = async (setIsRunning, focusTimeId) => {
+export const cancelFocusTime = async (focusTimeId) => {
   if (!focusTimeId) {
     console.warn("⚠️ [포기 실패] 현재 실행 중인 집중시간이 없습니다.");
     return;
@@ -56,7 +56,6 @@ export const cancelFocusTime = async (setIsRunning, focusTimeId) => {
     });
 
     console.log("✅ [API 성공] 집중시간 포기 완료");
-    setIsRunning(false);
     localStorage.removeItem("focusTimeId");
   } catch (error) {
     console.error("❌ [API 실패] 집중시간 포기 오류:", error);
