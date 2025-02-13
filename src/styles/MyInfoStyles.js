@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 100vh; /* ✅ 화면 전체 높이 */
   background-color: #ffffff;
   padding-bottom: 0; /* ✅ 하단 여백 제거 */
-  overflow: hidden; /* ✅ 스크롤바 제거 */
+  position: relative; /* ActionContainer의 절대 위치를 위한 설정 */
 `;
 
 /* ✅ 상단 헤더 */
@@ -42,7 +42,7 @@ export const ProfileCard = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 24px;
-  margin-top: 30px; /* ✅ 여백 조정 */
+  margin-top: 50px; /* ✅ 여백 조정 */
 `;
 
 /* ✅ 프로필 이미지 컨테이너 */
@@ -58,19 +58,6 @@ export const ProfileImage = styled.img`
   height: 120px;
   border-radius: 50%;
   border: 2px solid #e0e0e0;
-`;
-
-/* ✅ 카메라 아이콘 */
-export const CameraIcon = styled.img`
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-  background-color: #f5f5f5;
-  border-radius: 50%;
-  padding: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 /* ✅ 사용자 이름 */
@@ -103,14 +90,14 @@ export const InfoValue = styled.span`
   font-weight: bold;
 `;
 
-/* ✅ 버튼 감싸는 컨테이너 */
+/* ✅ 하단 고정 액션 영역 */
 export const ActionContainer = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute; /* ✅ 화면 아래 고정 */
-  bottom: 90px; /* ✅ 하단바 위쪽으로 배치 */
+  position: absolute; /* 화면 아래 고정 */
+  bottom: 120px; /* 하단바 위로 배치 */
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -120,7 +107,6 @@ export const LogoutButton = styled.button`
   width: 90%;
   background-color: #4caf50;
   color: white;
-  margin-top: 400px;
   border: none;
   border-radius: 8px;
   padding: 14px;
@@ -139,7 +125,7 @@ export const LogoutButton = styled.button`
 export const QuitText = styled.div`
   font-size: 14px;
   color: black;
-  margin-top: 10px; /* ✅ 버튼과 간격 조정 */
+  margin-top: 10px; /* 버튼과 간격 조정 */
   cursor: pointer;
   transition: opacity 0.2s;
 

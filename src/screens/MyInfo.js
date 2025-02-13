@@ -17,7 +17,8 @@ import {
   InfoValue,
   LogoutButton,
   QuitText,
-} from "../styles/MyInfoStyles.js"; // ✅ `UserName`을 가져옴
+  ActionContainer, // ActionContainer 추가
+} from "../styles/MyInfoStyles.js";
 
 const MyInfo = () => {
   const navigate = useNavigate();
@@ -89,17 +90,23 @@ const MyInfo = () => {
         <UserName>{userInfo ? userInfo.name : "로딩 중..."}</UserName>
       </ProfileCard>
 
-      {/* 사용자 정보 */}
+      {/* 사용자 정보 - 아이디 */}
       <InfoSection>
         <InfoLabel>아이디</InfoLabel>
         <InfoValue>{userInfo ? userInfo.kakaoUserId : "로딩 중..."}</InfoValue>
       </InfoSection>
 
-      {/* 로그아웃 버튼 */}
-      <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+      {/* 사용자 정보 - 이메일 */}
+      <InfoSection>
+        <InfoLabel>이메일</InfoLabel>
+        <InfoValue>{userInfo ? userInfo.email : "로딩 중..."}</InfoValue>
+      </InfoSection>
 
-      {/* 회원 탈퇴 버튼 */}
-      <QuitText onClick={handleDeleteAccount}>탈퇴하기</QuitText>
+      {/* 하단 고정 버튼 영역 */}
+      <ActionContainer>
+        <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+        <QuitText onClick={handleDeleteAccount}>탈퇴하기</QuitText>
+      </ActionContainer>
 
       {/* 하단바 */}
       <TabBar />

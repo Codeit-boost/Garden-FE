@@ -1,4 +1,3 @@
-// src/components/ranking/RankInviteFriendsModal.js
 import React, { useState } from "react";
 import {
   Overlay,
@@ -8,29 +7,23 @@ import {
   SendButton,
   CloseModalButton,
 } from "../../styles/RankInviteFriendsModal.styled.js"; // 스타일 파일
-import { addFriend } from "../../api/member.js"; // 친구 추가 API 함수 import
+import { addFriend } from "../../api/member.js"; // 수정된 친구 추가 API 함수 import
 
 const RankInviteFriendsModal = ({ isOpen, onClose }) => {
   const [friendIdInput, setFriendIdInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSendInvite = async () => {
-    // 입력값이 없으면 알림
-    if (!friendIdInput.trim()) {
-      alert("친구 아이디를 입력해주세요.");
-      return;
-    }
-
-    // 입력값을 숫자로 변환 (API에서는 숫자 타입의 friendId를 기대)
-    const friendId = parseInt(friendIdInput, 10);
-    if (isNaN(friendId)) {
-      alert("올바른 친구 아이디를 입력해주세요.");
+    const trimmedInput = friendIdInput.trim();
+    if (!trimmedInput) {
+      alert("친구 아이디 또는 이메일을 입력해주세요.");
       return;
     }
 
     setLoading(true);
     try {
-      await addFriend(friendId);
+      // friendData가 숫자(문자열로 입력된 숫자)인 경우 friendId로, 그렇지 않으면 friendEmail로 전송됨
+      await addFriend(trimmedInput);
       alert("친구 추가 요청이 성공적으로 전송되었습니다.");
       setFriendIdInput("");
       onClose(); // 모달 닫기
@@ -50,8 +43,8 @@ const RankInviteFriendsModal = ({ isOpen, onClose }) => {
 
           <InputContainer>
             <InputField
-              type="text" // 친구 아이디 입력 (숫자로 입력)
-              placeholder="친구 아이디를 입력해 주세요"
+              type="text"
+              placeholder="친구 아이디 또는 이메일을 입력해 주세요"
               value={friendIdInput}
               onChange={(e) => setFriendIdInput(e.target.value)}
             />

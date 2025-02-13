@@ -12,34 +12,30 @@ const MyBestFlower = ({ flowerAnalysis }) => {
       </div>
     );
   }
-
-  return (
-    <div className="mybestflower" style={{ width: "100%" }}>
-      <h2>많이 심은 꽃</h2>
-      
-        {flowerAnalysis.map((flower, index) => (
-          <div key={index} className="flower-content">
-            <div className="flower-image-container">
-             
-              <img
-                src={require(`../../assets/flowers/${flower.name}.png`)}
-                alt={flower.name}
-                className="flower-image"
-              />
-            </div>
-            <div className="flower-info">
-              <p className="flower-name">{flower.name}의</p>
-              <p className="flower-meaning">"{flower.floriography}"</p>
-              <div className="flower-count">
-                <img src={leafIcon} alt="Leaf Icon" className="leaf-icon" />
-                <span>{flower.bloomedCount}회</span> 
-              </div>
-            </div>
-          </div>
-        ))}
+const bestFlower = flowerAnalysis.reduce((max,flower)=> flower.bloomedCount > max.bloomedCount ? flower : max, flowerAnalysis[0])
+return (
+  <div className="mybestflower" style={{ width: "100%" }}>
+    <h2>많이 심은 꽃</h2>
+    <div className="flower-content">
+      <div className="flower-image-container">
+        <img
+          src={require(`../../assets/flowers/${bestFlower.name}.png`)}
+          alt={bestFlower.name}
+          className="flower-image"
+        />
       </div>
-    
-  );
+      <div className="flower-info">
+        <p className="flower-name">{bestFlower.name}의</p>
+        <p className="flower-meaning">"{bestFlower.floriography}"</p>
+        <div className="flower-count">
+          <img src={leafIcon} alt="Leaf Icon" className="leaf-icon" />
+          <span>{bestFlower.bloomedCount}회</span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 };
+
 
 export default MyBestFlower;

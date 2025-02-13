@@ -89,10 +89,28 @@ export const deleteMyInfo = async () => {
   }
 };
 
-// 친구 추가 요청
-export const addFriend = async (friendId) => {
+// 친구 추가 요청 (숫자만 입력 시 기존 friendId 방식, 그 외에는 friendEmail 방식으로 요청)
+// 요청 바디 예시:
+//   { friendId: 123 } 또는 { friendEmail: "example@email.com" }
+export const addFriend = async (friendData) => {
   try {
-    const response = await api.post("/members/friend", { friendId });
+    let requestBody = {};
+
+    if (typeof friendData === "number") {
+      // 숫자형이면 friendId로 전송
+      requestBody = { friendId: friendData };
+    } else if (typeof friendData === "string") {
+      const trimmedData = friendData.trim();
+      // 입력값이 모두 숫자로 구성되었으면 friendId로 전환
+      if (/^\d+$/.test(trimmedData)) {
+        requestBody = { friendId: parseInt(trimmedData, 10) };
+      } else {
+        // 그렇지 않으면 friendEmail로 전송
+        requestBody = { friendEmail: trimmedData };
+      }
+    }
+
+    const response = await api.post("/members/friend", requestBody);
     return response.data;
   } catch (error) {
     console.error("Error adding friend:", error);
