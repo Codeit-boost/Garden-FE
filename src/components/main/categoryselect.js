@@ -1,102 +1,103 @@
-import React, { useState } from "react";
-import "../../styles/categoryselect.css"; // ✅ 스타일 적용
+import React, { useState, useEffect } from "react";
+import api from "../../api/api";
+import "../../styles/categoryselect.css";
 
-const categoriesList = ["공부", "독서", "운동", "대외활동"]; // ✅ 기본 카테고리 리스트
+function CategorySelect({ onClose, onSelectCategory }) {
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isAddingCategory, setIsAddingCategory] = useState(false);
+    const [newCategoryName, setNewCategoryName] = useState("");
 
-const CategorySelect = ({ isOpen, onClose, onSelectCategory }) => {
-  const [categories, setCategories] = useState(categoriesList);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedCategory, setEditedCategory] = useState("");
+    // ✅ API: 카테고리 목록 불러오기
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await api.get("/categories/me");
+                setCategories(response.data);
+            } catch (error) {
+                console.error("❌ 카테고리 불러오기 실패:", error);
+            }
+        };
+        fetchCategories();
+    }, []);
 
-  // ✅ 카테고리 선택 (회색 점 포함)
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category);
-    setIsEditing(false);
-  };
+    // ✅ API: 카테고리 추가
+    const handleAddCategory = async () => {
+        if (!newCategoryName.trim()) return;
+        try {
+            const response = await api.post("/categories/me", { name: newCategoryName });
+            setCategories([...categories, response.data]); // ✅ 새로운 카테고리를 목록에 추가
+            setNewCategoryName("");
+            setIsAddingCategory(false);
+        } catch (error) {
+            console.error("❌ 카테고리 생성 오류:", error);
+        }
+    };
 
-  // ✅ 카테고리 삭제
-  const handleDeleteCategory = (category) => {
-    const updatedCategories = categories.filter((cat) => cat !== category);
-    setCategories(updatedCategories);
-    setSelectedCategory(null); // 선택 초기화
-  };
+    // ✅ 카테고리 선택 시 호출
+    const handleSelectCategory = (categoryName) => {
+        setSelectedCategory(categoryName);
+        console.log("📌 선택한 카테고리:", categoryName);
+    };
 
-  // ✅ 수정 모드 활성화
-  const handleEditCategory = (category) => {
-    setIsEditing(true);
-    setEditedCategory(category);
-  };
+    return (
+        <>
+            {/* ✅ 배경 어두워지는 효과 */}
+            <div className="category-modal-overlay" onClick={onClose}></div>
 
-  // ✅ 수정 내용 적용
-  const handleSaveEdit = () => {
-    if (editedCategory.trim() !== "") {
-      setCategories(
-        categories.map((cat) => (cat === selectedCategory ? editedCategory : cat))
-      );
-      setSelectedCategory(editedCategory);
-      setIsEditing(false);
-    }
-  };
+            <div className="category-modal">
+                {/* ✅ 닫기 버튼 (중앙 정렬, '-' 모양) */}
+                <button className="modal-close-button" onClick={onClose}></button>
 
-  return (
-    isOpen && (
-      <div className="modal-overlay">
-        <div className={`category-modal ${isEditing ? "expanded" : ""}`}>
-          {/* 모달 상단 바 */}
-          <div className="modal-bar" onClick={onClose}></div>
-          <h3 className="modal-title">카테고리 설정</h3>
+                {/* ✅ 카테고리 설정 제목 */}
+                <h3 className="category-title">카테고리 설정</h3>
 
-          {/* ✅ 카테고리 리스트 (가로 스크롤 가능) */}
-          <div className="category-list">
-            {categories.map((category) => (
-              <div
-                key={category}
-                className={`category-item ${selectedCategory === category ? "selected" : ""}`}
-                onClick={() => handleSelectCategory(category)}
-              >
-                <span className="category-dot"></span> {/* ✅ 회색 점 추가 */}
-                <span>{category}</span>
-                {selectedCategory === category && (
-                  <div className="edit-options">
-                    <button className="edit-btn" onClick={() => handleEditCategory(category)}>✏️</button>
-                    <button className="delete-btn" onClick={() => handleDeleteCategory(category)}>❌</button>
-                  </div>
+                {/* ✅ 기존 카테고리 리스트 */}
+                <div className="category-list">
+                    {categories.map((category, index) => (
+                        <button
+                            key={index}
+                            className={`category-item ${selectedCategory === category.name ? "selected" : ""}`}
+                            onClick={() => handleSelectCategory(category.name)}
+                        >
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
+
+                {/* ✅ 카테고리 추가 입력창 */}
+                {isAddingCategory ? (
+                    <div className="add-category-container">
+                        <input
+                            type="text"
+                            className="category-input"
+                            placeholder="새 카테고리 이름"
+                            value={newCategoryName}
+                            onChange={(e) => setNewCategoryName(e.target.value)}
+                        />
+                        <button className="confirm-button" onClick={handleAddCategory}>설정</button>
+                    </div>
+                ) : (
+                    <button className="select-btn" onClick={() => setIsAddingCategory(true)}>
+                        카테고리 추가
+                    </button>
                 )}
-              </div>
-            ))}
-          </div>
 
-          {/* ✅ 수정 모드 UI */}
-          {isEditing && (
-            <div className="edit-container">
-              <input
-                type="text"
-                className="edit-input"
-                value={editedCategory}
-                onChange={(e) => setEditedCategory(e.target.value)}
-              />
-              <button className="save-edit-btn" onClick={handleSaveEdit}>수정</button>
+                {/* ✅ 선택하기 버튼 */}
+                <button
+                    className="select-btn"
+                    disabled={!selectedCategory} // 선택한 값이 없을 경우 비활성화
+                    onClick={() => {
+                        console.log("🚀 [모달 닫기] 최종 선택한 카테고리:", selectedCategory);
+                        onSelectCategory(selectedCategory);
+                        onClose();
+                    }}
+                >
+                    선택하기
+                </button>
             </div>
-          )}
-
-          {/* ✅ "변경하기" 버튼 (카테고리 선택 후 활성화) */}
-          <button
-            className="select-btn"
-            disabled={!selectedCategory}
-            onClick={() => {
-              if (selectedCategory) {
-                onSelectCategory(selectedCategory); // ✅ MainPage.js에 선택된 값 반영
-                onClose();
-              }
-            }}
-          >
-            변경하기
-          </button>
-        </div>
-      </div>
-    )
-  );
-};
+        </>
+    );
+}
 
 export default CategorySelect;

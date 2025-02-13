@@ -1,38 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/flowerselect.css";
-
-// 🌸 꽃 이미지 개별 import
-import 능소화 from "../../assets/flowers/능소화.png";
-import 라일락 from "../../assets/flowers/라일락.png";
-import 메리골드 from "../../assets/flowers/메리골드.png";
-import 물망초 from "../../assets/flowers/물망초.png";
-import 수선화 from "../../assets/flowers/수선화.png";
-import 장미 from "../../assets/flowers/장미.png";
-import 제비꽃 from "../../assets/flowers/제비꽃.png";
-import 초롱꽃 from "../../assets/flowers/초롱꽃.png";
-import 코스모스 from "../../assets/flowers/코스모스.png";
-import 튤립 from "../../assets/flowers/튤립.png";
-import 해바라기 from "../../assets/flowers/해바라기.png";
-
-const flowerData = [
-  { name: "능소화", image: 능소화 },
-  { name: "라일락", image: 라일락 },
-  { name: "메리골드", image: 메리골드 },
-  { name: "물망초", image: 물망초 },
-  { name: "수선화", image: 수선화 },
-  { name: "장미", image: 장미 },
-  { name: "제비꽃", image: 제비꽃 },
-  { name: "초롱꽃", image: 초롱꽃 },
-  { name: "코스모스", image: 코스모스 },
-  { name: "튤립", image: 튤립 },
-  { name: "해바라기", image: 해바라기 },
-];
+import api from "../../api/api";
+import lockIcon from "../../assets/icons/잠금 아이콘.jpeg"; // 🔒 잠긴 아이콘 이미지
 
 const FlowerSelect = ({ onClose, onSelectFlower }) => {
+  const [flowers, setFlowers] = useState([]); // 🌸 API에서 꽃 목록 불러오기
   const [selectedFlower, setSelectedFlower] = useState(null);
 
+  // ✅ API 호출하여 꽃 목록 가져오기
+  useEffect(() => {
+    const fetchFlowers = async () => {
+      try {
+        const response = await api.get("/flower/unlocked");
+        setFlowers(response.data); // 🌸 불러온 꽃 목록 상태에 저장
+      } catch (error) {
+        console.error("❌ 꽃 목록 불러오기 실패:", error);
+      }
+    };
+    fetchFlowers();
+  }, []);
+
+  // ✅ 꽃 선택 핸들러
   const handleSelectFlower = (flower) => {
-    setSelectedFlower(flower);
+    if (!flower.unlocked) return; // 🔒 잠긴 꽃은 선택 불가
+    setSelectedFlower(flower.id);
+    console.log("🌸 선택한 꽃:", flower.name);
   };
 
   return (
@@ -40,36 +32,43 @@ const FlowerSelect = ({ onClose, onSelectFlower }) => {
       <div className="flower-modal" onClick={(e) => e.stopPropagation()}>
         {/* 상단 바 */}
         <div className="modal-bar" onClick={onClose}></div>
-
         <h3 className="modal-title">꽃 선택</h3>
 
-        {/* 꽃 리스트 */}
+        {/* 🌸 꽃 리스트 */}
         <div className="flower-list">
-          {flowerData.map((flower) => (
+          {flowers.map((flower) => (
             <div
-              key={flower.name}
-              className={`flower-item ${
-                selectedFlower === flower.name ? "selected" : ""
+              key={flower.id}
+              className={`flower-item ${selectedFlower === flower.id ? "selected" : ""} ${
+                !flower.unlocked ? "locked" : ""
               }`}
-              onClick={() => handleSelectFlower(flower.name)}
+              onClick={() => handleSelectFlower(flower)}
             >
               <input
                 type="checkbox"
-                checked={selectedFlower === flower.name}
+                checked={selectedFlower === flower.id}
                 readOnly
                 className="flower-checkbox"
               />
-              <img src={flower.image} alt={flower.name} className="flower-image" />
+              <img
+                src={flower.unlocked ? flower.FlowerImg : lockIcon} // 🔓 잠금 상태에 따라 이미지 변경
+                alt={flower.name}
+                className="flower-image"
+              />
               <p className="flower-name">{flower.name}</p>
             </div>
           ))}
         </div>
 
-        {/* 선택하기 버튼 */}
+        {/* ✅ 선택하기 버튼 */}
         <button
           className="select-button"
-          disabled={!selectedFlower}
-          onClick={() => onSelectFlower(selectedFlower)}
+          disabled={!selectedFlower} // 선택한 값이 없을 경우 비활성화
+          onClick={() => {
+            console.log("🚀 [모달 닫기] 최종 선택한 꽃 ID:", selectedFlower);
+            onSelectFlower(selectedFlower); // ✅ 선택한 꽃 ID만 전달
+            onClose();
+          }}
         >
           선택하기
         </button>

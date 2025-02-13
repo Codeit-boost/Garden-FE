@@ -7,7 +7,7 @@ const Startscreen = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container" onClick={() => navigate("/onboarding/1")}>
+    <div className="container" onClick={() => navigate("/Onboarding")}>
       <img className="logo" src={logo} alt="Garden Logo" />
     </div>
   );

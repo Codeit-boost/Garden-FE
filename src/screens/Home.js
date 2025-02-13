@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // ✅ React 중복 제거
+import React, { useEffect } from "react";
 import MainPage from "../components/main/mainpage"; // ✅ MainPage.js 불러오기
 import BottomBar from "../components/BottomBar"; // ✅ 하단 바 유지
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,15 +10,26 @@ const Home = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const token = params.get("token");
+    const tokenFromURL = params.get("token");
+    const storedToken = localStorage.getItem("jwt");
 
-    if (token) {
-      // 1. 토큰을 localStorage에 저장
-      localStorage.setItem("jwt", token);
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    if (tokenFromURL) {
+      console.log("🔍 받은 토큰:", tokenFromURL);
 
-      // 2. URL에서 ?token= 제거
+      // ✅ 토큰을 localStorage에 저장
+      localStorage.setItem("jwt", tokenFromURL);
+      api.defaults.headers.common["Authorization"] = `Bearer ${tokenFromURL}`;
+      console.log("✅ 토큰이 localStorage에 저장되었습니다.");
+
+      // ✅ URL에서 ?token= 제거
       navigate(location.pathname, { replace: true });
+    } else if (storedToken) {
+      // ✅ localStorage에서 기존 토큰 가져오기
+      api.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+      console.log("🔄 기존 토큰 유지:", storedToken);
+    } else {
+      console.warn("⚠️ 토큰이 없습니다. 로그인 필요");
+      navigate("/login", { replace: true }); // 로그인 페이지로 리디렉트
     }
   }, [location, navigate]);
 
