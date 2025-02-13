@@ -6,8 +6,6 @@ import flowerStage1 from "../../assets/flowers/1단계 새싹.png";
 import flowerStage2 from "../../assets/flowers/2단계 새싹.png";
 import flowerStage3 from "../../assets/flowers/3단계 새싹.png";
 import defaultFlower from "../../assets/flowers/장미.png";
-import leftArrow from "../../assets/icons/화살표(위).png";
-import rightArrow from "../../assets/icons/화살표(아래).png";
 import FlowerPlantSuccess from "./flowerplantsuccess"; // ✅ 성공 모달 추가
 import FlowerPlantFail from "./flowerplantfail"; // ✅ 실패 모달 추가
 
@@ -26,6 +24,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
   const [showFailModal, setShowFailModal] = useState(false); // ✅ 실패 모달 상태 추가
 
   const flowerStages = [soilImage, flowerStage1, flowerStage2, flowerStage3, focusTime.FlowerImage || defaultFlower];
+  
  
   useEffect(() => {
     let interval;
