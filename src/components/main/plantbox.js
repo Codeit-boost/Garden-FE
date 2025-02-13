@@ -46,7 +46,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
   return (
     <section className="planting-box">
       <div className="planting-circle">
-        <img src={flowerStages[index]} alt="꽃 성장 단계" className="plant-image" />
+        <img src={flowerStages[Math.min(4,index)]} alt="꽃 성장 단계" className="plant-image" />
       </div>
 
       {/* ✅ 선택한 카테고리 표시 */}
