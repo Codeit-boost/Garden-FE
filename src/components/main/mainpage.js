@@ -51,6 +51,30 @@ function MainPage() {
 
     startFocusTime(setIsRunning, time, selectedCategory, selectedFlower);
   };
+  // ✅ 🔥 오늘의 꽃말 데이터 가져오기
+  useEffect(() => {
+    const fetchTodayFlower = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      // 📅 현재 날짜 가져오기
+      const today = new Date();
+      const month = today.getMonth() + 1; // JavaScript에서 0부터 시작하므로 +1 필요
+      const day = today.getDate();
+
+      try {
+        const response = await api.get(`/flower/todayFlower?fMonth=${month}&fDay=${day}`);
+        setFlower(response.data); // 🌸 데이터 저장
+      } catch (error) {
+        console.error("❌ [API 오류] 오늘의 꽃말 불러오기 실패:", error);
+        setError("오늘의 꽃 정보를 가져올 수 없습니다.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayFlower();
+  }, []);
 
   return (
     <div className="main-container">
