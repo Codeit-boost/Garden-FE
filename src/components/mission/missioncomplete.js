@@ -1,5 +1,5 @@
 import React from "react";
-import successIcon from "../../assets/icons/꽃 심기 완료 아이콘.png";
+import successIcon from "../../assets/icons/로고.png";
 import "../../styles/flowerplantfail.css"; 
 
 function MissionComplete({ onClose }) {
