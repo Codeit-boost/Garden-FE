@@ -1,6 +1,6 @@
 import React from "react";
 import TabBar from "../components/BottomBar";
-import MissionPage from "../components/mission/mission";
+import MissionPage from "../components/mission/missionpage";
 
 const Mission = () => {
   return (
