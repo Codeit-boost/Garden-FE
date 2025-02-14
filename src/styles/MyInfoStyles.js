@@ -149,7 +149,7 @@ export const InfoValue = styled.span`
 
 /* ✅ 하단 고정 액션 영역 */
 export const ActionContainer = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,7 +157,7 @@ export const ActionContainer = styled.div`
   /* 화면 아래 고정: TabBar 위에 띄우기 */
   position: absolute;
   bottom: 120px;
-  left: 50%;
+  left: 47.25%;
   transform: translateX(-50%);
 
   @media (max-width: 480px) {
@@ -165,9 +165,10 @@ export const ActionContainer = styled.div`
   }
 `;
 
-/* ✅ 로그아웃 버튼 */
+/* ✅ 로그아웃 버튼 (중앙 정렬) */
 export const LogoutButton = styled.button`
-  width: 90%;
+  width: 100%;
+  margin: 0 auto; /* 중앙 정렬 보장 */
   background-color: #4caf50;
   color: white;
   border: none;
@@ -186,14 +187,16 @@ export const LogoutButton = styled.button`
   @media (max-width: 480px) {
     padding: 12px;
     font-size: 14px;
+    width: 70%;
   }
 `;
 
-/* ✅ 탈퇴하기 텍스트 */
+/* ✅ 탈퇴하기 텍스트 (중앙 정렬) */
 export const QuitText = styled.div`
   font-size: 14px;
   color: black;
   margin-top: 10px; /* 버튼과 간격 조정 */
+  text-align: center;
   cursor: pointer;
   transition: opacity 0.2s;
 
