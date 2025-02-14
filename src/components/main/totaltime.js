@@ -9,6 +9,7 @@ const TotalTime = () => {
     bloomedCount: 0,
     wiltedCount: 0,
     nextTotalTime: 0, // ✅ `null` 대신 `0`으로 설정
+    percent: 0
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const TotalTime = () => {
           bloomedCount: Number(data?.bloomedCount) || 0,
           wiltedCount: Number(data?.wiltedCount) || 0,
           nextTotalTime: convertTimeStringToSeconds(data?.nextTotalTime) || 0,
+          percent:  Number(data?.percent) || 0
         });
       } catch (error) {
         console.error("❌ [API 실패] 사용자 정보 가져오기 오류:", error);
@@ -57,31 +59,32 @@ const TotalTime = () => {
         <p className="total-time-text">누적 시간</p>
       </div>
 
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: "70%" }}></div>
+      <div className="progress-bar" style={{ width: '100%',height : '30px' , backgroundcolor : '#ccc'}}>
+        <div className="progress-fill" style={{backgroundcolor:'#00A806', width: `${userStats.percent}%`}}></div>
       </div>
 
       {/* ✅ 꽃 개수 및 다음 랭킹까지 남은 시간 */}
-      <div className="rank-flower-container">
+      <div className="rank-flower-container" >
         {/* ✅ 완성 꽃 및 시든 꽃 개수 */}
         <div className="flower-count">
-          <div className="flower-item1">
-            <img src={completedFlowerIcon} alt="완성 꽃" className="flower-icon" />
-            <p>{userStats.bloomedCount}</p>
+          <div className="flower-item1" >
+            <img src={completedFlowerIcon} alt="완성 꽃" className="flower-icon" style={{width:'12px',padding: '3px'}}/>
+            <p style= {{ fontSize: '13px'}}>{userStats.bloomedCount}</p>
           </div>
           <div className="flower-item1">
-            <img src={witheredFlowerIcon} alt="시든 꽃" className="flower-icon" />
-            <p>{userStats.wiltedCount}</p>
+            <img src={witheredFlowerIcon} alt="시든 꽃" className="flower-icon" style={{width:'12px', padding: '3px'}} />
+            <p style= {{ fontSize: '13px'}}>{userStats.wiltedCount}</p>
           </div>
         </div>
 
         {/* ✅ 다음 랭킹까지 남은 시간 */}
         <div className="ranking-info">
-          <p>
-            다음 랭킹까지{" "}
-            <span className="ranking-time">
-              {userStats.nextTotalTime > 0 ? formatTotalTime(userStats.nextTotalTime) : "최고 랭킹"}
-            </span>
+        <p>
+            {userStats.nextTotalTime > 0 ? (
+              <>다음 랭킹까지 {formatTotalTime(userStats.nextTotalTime)}</>
+            ) : (
+              <>1등 입니다!</>
+            )}
           </p>
         </div>
       </div>
