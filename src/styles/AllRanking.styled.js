@@ -5,6 +5,7 @@ export const AllRankingContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px; /* 각 아이템 간 간격 */
+  padding: 0 16px; /* 양쪽 여백 추가로 모바일에서 좌우 간격 확보 */
 `;
 
 // ✅ 로딩 메시지 스타일
@@ -13,6 +14,11 @@ export const LoadingMessage = styled.p`
   font-size: 16px;
   color: gray;
   margin-top: 20px;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    margin-top: 16px;
+  }
 `;
 
 // ✅ 에러 메시지 스타일
@@ -21,6 +27,11 @@ export const ErrorMessage = styled.p`
   font-size: 16px;
   color: red;
   margin-top: 20px;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    margin-top: 16px;
+  }
 `;
 
 // ✅ 랭킹 아이템(한 줄) 전체를 감싸는 박스
@@ -31,6 +42,10 @@ export const RankingItem = styled.div`
   align-items: center; /* 수직 정렬 가운데 */
   padding: 12px; /* 내부 여백 */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 가벼운 그림자 */
+
+  @media (max-width: 480px) {
+    padding: 8px;
+  }
 `;
 
 // ✅ 랭킹 순위 표시 영역 (왼쪽 1,2,3,4등 등)
@@ -40,12 +55,23 @@ export const RankingRank = styled.div`
   margin-right: 12px; /* 오른쪽 여백 */
   font-size: 18px; /* 폰트 크기 */
   font-weight: bold;
+
+  @media (max-width: 480px) {
+    width: 32px;
+    margin-right: 8px;
+    font-size: 16px;
+  }
 `;
 
 // ✅ 1~3위일 때 표시할 왕관 아이콘
 export const CrownIcon = styled.img`
   width: 24px;
   height: 24px;
+
+  @media (max-width: 480px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 // ✅ 사용자 정보(이름, 통계)를 감싸는 영역
@@ -59,6 +85,10 @@ export const RankingUser = styled.div`
 export const UserName = styled.div`
   font-size: 16px;
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;
 
 // ✅ 사용자 통계 (완성꽃, 시든꽃 등)
@@ -77,7 +107,18 @@ export const UserStats = styled.div`
       width: 16px;
       height: 16px;
       margin-right: 4px;
+
+      @media (max-width: 480px) {
+        width: 14px;
+        height: 14px;
+        margin-right: 2px;
+      }
     }
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    gap: 4px;
   }
 `;
 
@@ -86,4 +127,8 @@ export const RankingTime = styled.div`
   margin-left: auto; /* 왼쪽으로 공간을 최대 확보, 오른쪽 정렬 효과 */
   font-size: 14px;
   color: #333;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;

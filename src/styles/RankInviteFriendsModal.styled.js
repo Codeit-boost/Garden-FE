@@ -12,6 +12,11 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: flex-end;
   z-index: 1000;
+
+  @media (max-width: 480px) {
+    /* 모바일에서도 하단 정렬 유지 */
+    align-items: flex-end;
+  }
 `;
 
 // ✅ 모달 컨테이너 (하단 시트 디자인)
@@ -26,6 +31,12 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 12px 12px 0 0;
+  }
 `;
 
 // ✅ 입력 필드 + 버튼 컨테이너
@@ -35,6 +46,11 @@ export const InputContainer = styled.div`
   width: 100%;
   gap: 8px;
   margin-bottom: 20px;
+
+  @media (max-width: 480px) {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
 `;
 
 // ✅ 이메일 입력 필드
@@ -45,6 +61,11 @@ export const InputField = styled.input`
   border-radius: 8px;
   font-size: 14px;
   outline: none;
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    font-size: 13px;
+  }
 `;
 
 // ✅ 보내기 버튼
@@ -56,6 +77,11 @@ export const SendButton = styled.button`
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
 `;
 
 // ✅ 닫기 버튼
@@ -69,4 +95,10 @@ export const CloseModalButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 8px;
+  }
 `;
