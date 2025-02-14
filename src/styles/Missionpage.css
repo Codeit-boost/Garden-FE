@@ -1,0 +1,10 @@
+.container{
+  font-family: 'KorailRoundGothicBold';
+}
+
+@font-face {
+  font-family: 'KorailRoundGothicBold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}

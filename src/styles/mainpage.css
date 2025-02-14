@@ -347,12 +347,10 @@ body {
 }
 
 /* 🔧 시작 버튼과 꽃 선택/카테고리 버튼 동일화 */
-.start-button,
-.change-flower-button,
-.change-category-button {
+.start-button {
   width: 150px;
   height: 35px;
-  background: #75da79;
+  background: #00A806;
   color: white;
   border: none;
   border-radius: 10px;
@@ -361,6 +359,18 @@ body {
   font-weight: bold;
 }
 
+.change-flower-button,
+.change-category-button {
+  width: 150px;
+  height: 35px;
+  background: #D6F1D7;
+  color: #008704;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
 /* 🔧 버튼 컨테이너 중앙 정렬 */
 .action-buttons {
   display: flex;
@@ -435,6 +445,7 @@ body {
     width: 130px;
     height: 32px;
     font-size: 13px;
+    background-color: ;
   }
   .action-buttons {
     width: 90%;

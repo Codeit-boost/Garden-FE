@@ -141,7 +141,7 @@ export const RankingTime = styled.div`
   margin-left: auto; /* 왼쪽으로 공간 최대 확보, 오른쪽 정렬 효과 */
   font-size: 14px;
   color: #333;
-
+  
   @media (max-width: 480px) {
     font-size: 12px;
   }
