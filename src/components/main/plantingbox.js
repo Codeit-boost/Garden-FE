@@ -39,7 +39,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
 
   // ✅ 🔥 모드 변경 시 초기 시간 설정
   useEffect(() => {
-    setTime(isTimerMode ? 900 : 0); // 토글로 설정하는 초기시간 값
+    setTime(isTimerMode ? 60 : 0); // 토글로 설정하는 초기시간 값
     setCurrentStageIndex(0);
     setCurrentFlowerImage(soilImage);
   }, [isTimerMode]);

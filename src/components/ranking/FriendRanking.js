@@ -39,7 +39,6 @@ const FriendRanking = () => {
       try {
         const myInfo = await fetchMyInfo(); // ✅ 내 정보 가져오기
         setMyId(myInfo.id); // ✅ 내 아이디 저장
-        console.log("✅ 내 정보:", myInfo);
 
         const data = await fetchFriends(1, 10); // ✅ 첫 페이지, 10개 항목 가져오기
         console.log("✅ 불러온 친구 목록:", data);
