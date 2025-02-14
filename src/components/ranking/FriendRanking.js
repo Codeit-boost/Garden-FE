@@ -115,7 +115,7 @@ const FriendRanking = () => {
                 <img
                   src={completedFlowerIcon}
                   alt="완성꽃"
-                  style={{ width: "12px", marginRight: "3px" }}
+                  style={{ width: "10px", marginRight: "3px" }}
                 />
                 {bloomedCount}
               </div>
@@ -125,7 +125,7 @@ const FriendRanking = () => {
                 <img
                   src={wiltedFlowerIcon}
                   alt="시든꽃"
-                  style={{ width: "12px", marginRight: "3px" }}
+                  style={{ width: "10px", marginRight: "3px" }}
                 />
                 {wiltedCount}
               </div>

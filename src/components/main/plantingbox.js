@@ -80,7 +80,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
       <div className="category-container">
         <p className="category-text">{selectedCategory}</p>
       {/* ✅ 선택한 꽃 표시 (새로운 코드 추가) */}
-  <p className="selected-flower-text">선택한 꽃: {selectedFlowerName}</p>
+  <p className="selected-flower-text" style={{fontSize:'13px'}}>선택한 꽃: {selectedFlowerName}</p>
 </div>
 
       {/* 🌿 시간 조절 (타이머 모드일 때만 작동) */}

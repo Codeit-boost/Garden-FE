@@ -49,7 +49,7 @@ const MissionPage = () => {
   }
 
   return (
-    <div className="mission-container">
+    <div className="mission-container" style={{ fontfamily: "KorailRoundGothicBold" }}>
       <h1 className="mission-title">미션</h1>
       <div className="mission-list">
         {missions.length === 0 ? (

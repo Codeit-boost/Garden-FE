@@ -85,18 +85,18 @@ const AllRanking = () => {
             <RankingUser>
               <UserName>{item.name}</UserName>
               {/* 유저 아이디 추가 */}
-              <div style={{ fontSize: "0.8em", color: "#777" }}>
+              <div style={{ fontSize: "0.8em", color: "#777" , marginTop: "3px"}}>
                 ID: {item.id}
               </div>
               <UserStats>
                 {/* 완성꽃 (bloomedCount → leaf) */}
                 <div>
-                  <img src={completedFlowerIcon} alt="완성꽃" style={{ width: "12px"}} />
+                  <img src={completedFlowerIcon} alt="완성꽃" style={{ width: "10px"}} />
                   {item.bloomedCount}
                 </div>
                 {/* 시든꽃 (wiltedCount → seed) */}
                 <div>
-                  <img src={wiltedFlowerIcon} alt="시든꽃" style={{ width: "12px"}}/>
+                  <img src={wiltedFlowerIcon} alt="시든꽃" style={{ width: "10px"}}/>
                   {item.wiltedCount}
                 </div>
               </UserStats>
