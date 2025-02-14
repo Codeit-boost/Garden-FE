@@ -439,14 +439,14 @@ body {
     font-size: 18px;
     line-height: 18px;
   }
-  .start-button,
+  /* .start-button,
   .change-flower-button,
   .change-category-button {
     width: 130px;
     height: 32px;
     font-size: 13px;
     background-color: ;
-  }
+  } */
   .action-buttons {
     width: 90%;
   }
