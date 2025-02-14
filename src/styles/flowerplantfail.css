@@ -20,7 +20,7 @@
   text-align: center;
   padding: 40px 20px;
   min-height: 180px;
-  transform: translateY(-65%); /* ✅ 모달 자체를 위로 올리기 */
+  transform: translateY(-85%); /* ✅ 모달 자체를 위로 올리기 */
 }
 
 
