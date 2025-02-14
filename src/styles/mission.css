@@ -1,14 +1,17 @@
-/* 전체 미션 컨테이너: 화면 전체 높이 - 탭바 높이 */
+/* 전체 미션 컨테이너: 화면 전체 높이 및 세로 플렉스 레이아웃 */
 .mission-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px); /* 탭바가 60px 높이라고 가정 */
+  height: calc(
+    100vh - 50px
+  ); /* 탭바 높이 대신 조금 더 높게 빼서 컨테이너 크기 줄임 */
   overflow: hidden; /* 자식 .mission-list에서 스크롤 처리 */
+  padding-bottom: 10px; /* 스크롤 마지막 아이템 여백 */
+  font-family: "KorailRoundGothicBold";
 }
 
 /* 상단 미션 제목 스타일 */
 .mission-title {
-  font-family: "Korail Round Gothic Bold";
   font-size: 22px;
   font-weight: 700;
   padding-top: 10px;
@@ -25,10 +28,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 20px;
   scrollbar-width: none; /* 파이어폭스에서 스크롤바 숨기기 */
 }
 
-/* 크롬 및 엣지에서 스크롤바 완전히 숨기기 */
+/* 크롬 및 엣지에서 스크롤바 숨기기 */
 .mission-list::-webkit-scrollbar {
   display: none;
 }
@@ -79,49 +83,91 @@
 
 /* 미션 이름 */
 .mission-name {
-  font-family: "Korail Round Gothic Bold";
-  font-size: 15px;
-  font-weight: 400;
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 20px;
   margin-bottom: 2px;
 }
 
 /* 미션 설명 */
 .mission-description {
-  font-family: "Korail Round Gothic Light";
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   color: #666;
-  margin-bottom: 2px;
+  margin-top: 2px;
+  margin-bottom: 5px;
 }
 
-/* 진행 바 컨테이너 */
+/* 진행 바 컨테이너: 게이지와 텍스트를 한 줄에 배치 */
 .progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 게이지와 텍스트 사이 간격 */
   width: 100%;
-  max-width: 268px;
+  max-width: 300px;
   height: 8px;
   border-radius: 10px;
   background: #ebebeb;
-  position: relative;
-  margin-top: 2px; /* 간격을 줄여서 조정 */
+  margin-top: 2px;
 }
 
 /* 진행 바 채우기 */
 .progress-bar-fill {
+  width: 0; /* 기본값은 0%로, React 코드에서 inline style로 width 조정 */
   height: 100%;
   border-radius: 10px;
   background: #4caf50;
+  transition: width 0.3s ease-in-out;
 }
 
-/* 진행도 텍스트 (우측 끝 정렬) */
+/* 진행도 텍스트 (게이지 오른쪽, 인라인 배치) */
 .progress-text {
-  font-family: "Korail Round Gothic Medium";
   font-size: 12px;
   font-weight: 400;
   line-height: 16.8px;
-  position: absolute;
-  right: 0;
-  top: -3px;
-  text-align: right;
+  color: #444;
+  margin-left: 8px; /* 게이지와 텍스트 사이에 간격 부여 */
+}
+
+/* ✅ 모바일 반응형 스타일 (최대 480px) */
+@media (max-width: 480px) {
+  .mission-title {
+    font-size: 20px;
+    margin: 16px 0;
+  }
+
+  .mission-item {
+    width: 95%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+
+  .mission-icon-container {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+
+  .mission-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mission-name {
+    font-size: 14px;
+  }
+
+  .mission-description {
+    font-size: 12px;
+  }
+
+  .progress-bar-container {
+    max-width: 260px;
+  }
+
+  .progress-text {
+    font-size: 12px;
+  }
 }
