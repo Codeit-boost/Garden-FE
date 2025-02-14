@@ -12,6 +12,21 @@ import FlowerPlantSuccess from "./flowerplantsuccess";
 import FlowerPlantFail from "./flowerplantfail";
 import LockModeScreen from "../../screens/LockModeScreen";
 import mode from "../settings/ModeSettingsModal";
+// 🌼 꽃 ID와 이름 매핑
+const flowerMap = {
+  1: "장미",
+  2: "해바라기",
+  3: "메리골드",
+  4: "초롱꽃",
+  5: "코스모스",
+  6: "수선화",
+  7: "물망초",
+  8: "능소화",
+  9: "제비꽃",
+  10: "라벤더",
+  11: "도라지꽃",
+  12: "히아신스",
+};
 
 const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning, isTimerMode }) => {
   const [time, setTime] = useState(isTimerMode ? 60 : 0);
@@ -19,7 +34,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
   const [currentFlowerImage, setCurrentFlowerImage] = useState(soilImage);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
-
+  const selectedFlowerName = flowerMap[selectedFlower] || "알 수 없음";
   const flowerStages = [soilImage, flowerStage1, flowerStage2, flowerStage3 , selectedFlower || defaultFlower];
 
   // ✅ 🔥 모드 변경 시 초기 시간 설정
@@ -64,7 +79,9 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
       {/* ✅ 선택한 카테고리 표시 */}
       <div className="category-container">
         <p className="category-text">{selectedCategory}</p>
-      </div>
+      {/* ✅ 선택한 꽃 표시 (새로운 코드 추가) */}
+  <p className="selected-flower-text">선택한 꽃: {selectedFlowerName}</p>
+</div>
 
       {/* 🌿 시간 조절 (타이머 모드일 때만 작동) */}
       <div className="timer-category-container">
