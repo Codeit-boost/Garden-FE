@@ -72,8 +72,8 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 80%;
-  max-width: 300px;
+  width: 100%;
+  max-width: 201px;
   height: auto;
   margin-top: 50px;
 `;

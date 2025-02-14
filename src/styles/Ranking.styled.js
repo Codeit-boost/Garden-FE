@@ -90,7 +90,7 @@ export const RankingTabButton = styled.button`
   padding: 10px 0;
 `;
 
-// ✅ 랭킹 목록을 감싸는 컨테이너 (스크롤 없이 자동 조절)
+
 export const RankingListWrapper = styled.div`
   width: 100%;
   max-width: 400px;
