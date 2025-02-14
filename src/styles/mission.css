@@ -2,11 +2,9 @@
 .mission-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px); /* 탭바 높이: 60px */
-  overflow: hidden; /* 자식 .mission-list에서 스크롤 처리 */
-  padding-bottom: 10px; /* 스크롤 마지막 아이템 여백 */
-
-  /* ✅ 전체 글씨체를 KorailRoundGothicBold로 통일 */
+  height: calc(100vh - 60px);
+  overflow: hidden;
+  padding-bottom: 10px;
   font-family: "KorailRoundGothicBold";
 }
 
@@ -24,20 +22,19 @@
 .mission-list {
   flex: 1;
   width: 100%;
-  overflow-y: auto; /* 자동 스크롤 활성화 */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 20px;
-  scrollbar-width: none; /* 파이어폭스에서 스크롤바 숨기기 */
+  scrollbar-width: none; /* 파이어폭스 스크롤바 숨기기 */
 }
 
-/* 크롬 및 엣지에서 스크롤바 숨기기 */
 .mission-list::-webkit-scrollbar {
-  display: none;
+  display: none; /* 크롬/엣지 스크롤바 숨기기 */
 }
 
-/* 미션 아이템 스타일 */
+/* 미션 아이템 */
 .mission-item {
   display: flex;
   align-items: center;
@@ -97,15 +94,11 @@
   margin-bottom: 5px;
 }
 
-/* 
-    ✅ 게이지와 텍스트를 한 줄에 배치
-    display: flex; align-items: center; gap: 8px;
-  */
+/* 게이지와 텍스트를 한 줄에 배치 */
 .progress-bar-container {
   display: flex;
   align-items: center;
   gap: 8px;
-
   width: 100%;
   max-width: 300px;
   height: 8px;
@@ -116,7 +109,7 @@
 
 /* 진행 바 채우기 */
 .progress-bar-fill {
-  flex: 1; /* 남은 공간을 모두 사용해 폭이 늘어남 */
+  width: 0; /* 기본값은 0% */
   height: 100%;
   border-radius: 10px;
   background: #4caf50;
@@ -128,10 +121,9 @@
   font-size: 13px;
   font-weight: 400;
   color: #444;
-  /* 게이지와의 간격은 위의 gap: 8px에서 조정됨 */
 }
 
-/* ✅ 모바일 반응형 스타일 (최대 480px) */
+/* 모바일 반응형 (최대 480px) */
 @media (max-width: 480px) {
   .mission-title {
     font-size: 20px;
