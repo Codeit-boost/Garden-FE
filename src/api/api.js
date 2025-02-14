@@ -20,7 +20,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ 응답 인터셉터: 402 에러 발생 시 자동 로그아웃
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

@@ -39,7 +39,7 @@ const PlantingBox = ({ selectedCategory, selectedFlower, isRunning, setIsRunning
       }
     }
   }, [time, isTimerMode, isRunning]); // `time` 값 변경 시마다 실행
-  // ✅ **잠금 모드일 경우 LockModeScreen으로 전환**
+  
   const isLockMode = mode === "잠금 모드"; // ✅ mode 값이 "잠금 모드"인지 확인
   if (isRunning && isLockMode) {
     return (
