@@ -3,6 +3,7 @@ import MainPage from "../components/main/mainpage"; // ✅ MainPage.js 불러오
 import BottomBar from "../components/BottomBar"; // ✅ 하단 바 유지
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api/api"; // 한 단계 위에서 가져오기
+import "../styles/mainpage.css";
 
 const Home = () => {
   const location = useLocation();
