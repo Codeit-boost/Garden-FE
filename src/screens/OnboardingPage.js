@@ -40,6 +40,7 @@ const Onboarding = () => {
   return (
     <Container>
       <Image src={onboardingData[currentIndex].image} alt="Onboarding" />
+
       <Text>
         {onboardingData[currentIndex].text.split("\n").map((line, index) => (
           <React.Fragment key={index}>
@@ -48,43 +49,69 @@ const Onboarding = () => {
           </React.Fragment>
         ))}
       </Text>
-      <IndicatorContainer>
-        {onboardingData.map((_, index) => (
-          <Indicator key={index} active={currentIndex === index} />
-        ))}
-      </IndicatorContainer>
-      <NextButton onClick={handleNext}>
-        {currentIndex === onboardingData.length - 1 ? "시작하기" : "다음"}
-      </NextButton>
+
+      <BottomWrapper>
+        <IndicatorContainer>
+          {onboardingData.map((_, index) => (
+            <Indicator key={index} active={currentIndex === index} />
+          ))}
+        </IndicatorContainer>
+
+        <NextButton onClick={handleNext}>
+          {currentIndex === onboardingData.length - 1 ? "시작하기" : "다음"}
+        </NextButton>
+      </BottomWrapper>
     </Container>
   );
 };
+
+export default Onboarding;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+
+  /* 화면 전체를 사용하되 스크롤바가 없도록 오버플로우 숨김 */
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
   background-color: #f5f5f5;
-  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 50px;
   text-align: center;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  max-width: 201px;
+  /* 화면이 작은 기기에서도 이미지가 너무 커지지 않도록 */
+  width: 80%;
+  max-width: 200px;
   height: auto;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 const Text = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  margin: 20px 0;
-  padding: 0 15px;
-  line-height: 1.5;
+  margin: 30px 0;
+  padding: 0 10px;
+  line-height: 1.4;
   text-align: center;
+`;
+
+/* 인디케이터와 버튼을 아래쪽에 배치하는 래퍼 */
+const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* 남은 공간을 밀어내어 화면 아래에 위치시키고, 
+     margin-bottom으로 버튼을 조금 띄움 */
+  margin-top: auto;
+  margin-bottom: 20px;
+  gap: 10px; /* 인디케이터와 버튼 사이 간격 */
 `;
 
 const IndicatorContainer = styled.div`
@@ -100,17 +127,15 @@ const Indicator = styled.span`
 `;
 
 const NextButton = styled.button`
-  width: 90%;
+  width: 80%;
   max-width: 300px;
-  height: 50px;
+  height: 45px;
+  width: 300px;
   background-color: #00a806;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 12px;
   cursor: pointer;
   border: none;
   font-family: "KorailRoundGothicBold";
-  margin-bottom: 20px;
 `;
-
-export default Onboarding;
