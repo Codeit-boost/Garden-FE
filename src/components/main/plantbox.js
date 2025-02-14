@@ -18,8 +18,7 @@ const PlantBox = ({ focusTime, index ,isRunning, isTimerMode, setIsRunning,selec
     (convertTimeToSeconds(focusTime.time) + (Date.now() - focusTime.now) / 1000)
     : convertTimeToSeconds(focusTime.time) + (Date.now() - focusTime.now) / 1000;
 
-    console.log(focusTime.target_time,focusTime.time, initialTime)
-
+    
   const [time, setTime] = useState(initialTime);
   const [currentFlowerImage, setCurrentFlowerImage] = useState(focusTime.currentFlowerImage);
   const [showSuccessModal, setShowSuccessModal] = useState(false); // ✅ 성공 모달 상태 추가

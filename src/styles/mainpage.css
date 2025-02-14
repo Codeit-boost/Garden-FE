@@ -22,6 +22,15 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding-bottom: 20px;
 }
+.home-container {
+    width: 100%; /* ✅ 전체 화면을 차지하도록 설정 */
+    max-width: 100%; /* ✅ 데스크탑에서 너무 넓어지지 않도록 제한 */
+    margin: 0 auto; /* ✅ 항상 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ✅ 내부 요소도 중앙 정렬 */
+}
+
 
 /* 📱 메인 컨테이너 */
 .main-container {
@@ -36,11 +45,14 @@ body {
 }
 
 /* ✅ 반응형 레이아웃 조정 */
-@media (max-width: 400px) {
-  .main-container,
-  .planting-container {
-    max-width: 320px;
-  }
+/* ✅ 반응형 설정 */
+@media (max-width: 350px) {
+    .main-container {
+        max-width: 320px;
+    }
+    .planting-container{
+        max-width: 320px;
+    }
 }
 
 @media (min-width: 650px) {

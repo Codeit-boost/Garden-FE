@@ -18,12 +18,14 @@ const InviteFriendsModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  // ✅ 현재 페이지 URL을 클립보드에 복사하는 함수
+  // ✅ 초대 링크를 클립보드에 복사하는 함수
   const handleCopyClipBoard = async () => {
     try {
-      const fullUrl = `${window.location.origin}${location.pathname}`; // ✅ 현재 페이지 URL
-      await navigator.clipboard.writeText(fullUrl);
-      alert("클립보드에 링크가 복사되었어요! 📋");
+      // ✅ 초대용 링크를 고정
+      const inviteUrl = "https://garden-fe-shw012s-projects.vercel.app/";
+
+      await navigator.clipboard.writeText(inviteUrl);
+      alert("클립보드에 초대 링크가 복사되었어요! 📋");
     } catch (err) {
       console.error("❌ 링크 복사 실패:", err);
       alert("링크 복사에 실패했습니다.");
@@ -34,7 +36,7 @@ const InviteFriendsModal = ({ isOpen, onClose }) => {
     <Overlay onClick={onClose}>
       <Container onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <Title>링크 복사</Title> {/* ✅ 제목 변경 */}
+        <Title>링크 복사</Title>
         <OptionContainer>
           <Option onClick={handleCopyClipBoard}>
             <IconImage src={linkIcon} alt="링크 복사" />
