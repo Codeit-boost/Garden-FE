@@ -1,117 +1,165 @@
 /* 🌿 모달 배경 */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* ✅ 배경 어둡게 */
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  /* 🌸 꽃 선택 모달 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 전체 화면 덮기 */
+  background: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* 🌸 꽃 선택 모달 */
+.flower-modal {
+  width: 90%;
+  max-width: 390px;
+  height: 70%;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔧 모달 닫기 바 */
+.modal-bar {
+  width: 50px;
+  height: 5px;
+  background: #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* 🌸 꽃 선택 타이틀 */
+.modal-title {
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 15px;
+}
+
+/* 🌸 꽃 리스트 */
+.flower-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 55%;
+  padding: 10px;
+}
+
+/* 🌼 꽃 아이템 */
+.flower-item {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #ddd;
+  cursor: pointer;
+}
+
+/* ✅ 선택된 꽃 */
+.flower-item.selected {
+  border: 2px solid #00a806;
+}
+
+/* 🌸 꽃 체크박스 */
+.flower-checkbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* 🌼 꽃 이미지 */
+.flower-image {
+  width: 60px;
+  height: 60px;
+}
+
+/* 🌸 꽃 이름 */
+.flower-name {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ✅ 선택하기 버튼 */
+.select-button {
+  width: 100%;
+  background: #00a806;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+}
+
+.select-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 480px) {
   .flower-modal {
-    width: 90%;
-    max-width: 390px;
-    height: 70%;
-    background: white;
-    border-radius: 20px 20px 0 0;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 320px;
+    height: 75%;
+    padding: 10px;
+    border-radius: 15px 15px 0 0;
   }
-  
-  /* 🔧 모달 닫기 바 */
+
   .modal-bar {
-    width: 50px;
-    height: 5px;
-    background: #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    width: 40px;
+    height: 4px;
+    margin-bottom: 8px;
   }
-  
-  /* 🌸 꽃 선택 타이틀 */
+
   .modal-title {
-    width: 100%;
-    text-align: left;
-    font-size: 18px;
-    font-weight: bold;
-    padding-left: 15px;
-  }
-  
-  /* 🌸 꽃 리스트 */
-  .flower-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    width: 100%;
-    overflow-y: auto;
-    max-height: 55%;
-    padding: 10px;
-  }
-  
-  /* 🌼 꽃 아이템 */
-  .flower-item {
-    position: relative;
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid #ddd;
-    cursor: pointer;
-  }
-  
-  /* ✅ 선택된 꽃 */
-  .flower-item.selected {
-    border: 2px solid #00A806;
-  }
-  
-  /* 🌸 꽃 체크박스 */
-  .flower-checkbox {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-  
-  /* 🌼 꽃 이미지 */
-  .flower-image {
-    width: 60px;
-    height: 60px;
-  }
-  
-  /* 🌸 꽃 이름 */
-  .flower-name {
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  /* ✅ 선택하기 버튼 */
-  .select-button {
-    width: 100%;
-    background: #00A806;
-    color: white;
     font-size: 16px;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 40px;
+    padding-left: 10px;
   }
-  
-  .select-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+
+  .flower-list {
+    gap: 8px;
+    padding: 8px;
+    max-height: 60%;
   }
-  
+
+  .flower-item {
+    padding: 8px;
+    border-width: 1px;
+  }
+
+  .flower-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .flower-name {
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .select-button {
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 30px;
+  }
+}

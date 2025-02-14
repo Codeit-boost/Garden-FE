@@ -20,12 +20,12 @@
 
 /* ✅ 로그인 버튼 스타일 */
 .login-button {
-  position: relative; /* 로고와 텍스트의 개별 위치 조정을 위한 상대 위치 */
+  position: relative; /* 버튼 내부 요소 개별 위치 조정을 위해 */
   width: 90%; /* 모바일 화면 너비에 맞게 */
   max-width: 360px; /* 최대 너비 제한 */
   padding: 14px 0;
   font-size: 18px; /* 버튼 텍스트 크기 */
-  font-weight: bold; /* 버튼 텍스트 굵기 */
+  font-weight: bold;
   text-align: center;
   background-color: #fee500; /* 버튼 배경색 */
   color: #000000; /* 텍스트 색상 */
@@ -43,10 +43,35 @@
 
 /* ✅ 카카오 로고 스타일 */
 .login-kakao-logo {
-  position: absolute; /* 버튼 내부에서 로고를 위치 조정 */
+  position: absolute; /* 버튼 내부에서 로고 위치 조정 */
   left: 20px; /* 버튼 왼쪽으로부터의 거리 */
   top: 50%; /* 버튼의 중앙에 수직 정렬 */
   transform: translateY(-50%); /* 수직 중앙 정렬 보정 */
   width: 24px; /* 로고 크기 */
   height: auto;
+}
+
+/* 모바일 환경 최적화 */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+  }
+
+  .login-logo {
+    width: 180px; /* 로고 크기 축소 */
+    height: auto; /* 이미지 비율 유지 */
+    margin-top: 150px; /* 위쪽 여백 축소 */
+    margin-bottom: 16px; /* 아래쪽 여백 축소 */
+  }
+
+  .login-button {
+    padding: 12px 0; /* 버튼 패딩 축소 */
+    font-size: 16px; /* 텍스트 크기 축소 */
+    margin-bottom: 16px;
+  }
+
+  .login-kakao-logo {
+    left: 16px; /* 아이콘 위치 약간 조정 */
+    width: 20px; /* 아이콘 크기 축소 */
+  }
 }

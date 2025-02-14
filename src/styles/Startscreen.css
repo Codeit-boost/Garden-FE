@@ -7,6 +7,7 @@
   height: 100vh; /* 전체 화면 높이 */
   background-color: #ffffff; /* 배경색 */
   cursor: pointer; /* 클릭 가능하도록 설정 */
+  transition: background-color 0.3s;
 }
 
 .container:hover {
@@ -18,5 +19,19 @@
   width: 220px; /* 로고 너비 */
   height: 230px; /* 로고 높이 */
   margin-top: -50px; /* 로고를 화면 중심에서 위로 살짝 이동 */
-  object-fit: contain; /* 이미지가 깨지지 않도록 유지 */
+  object-fit: contain; /* 이미지 비율 유지 */
+  transition: width 0.3s, height 0.3s, margin-top 0.3s;
+}
+
+/* 모바일 환경 최적화 (최대 너비 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px; /* 좌우 여백 추가 */
+  }
+
+  .logo {
+    width: 180px; /* 로고 크기 축소 */
+    height: auto; /* 비율에 맞춰 높이 자동 조정 */
+    margin-top: -30px; /* 위쪽 위치 조정 */
+  }
 }

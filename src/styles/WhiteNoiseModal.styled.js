@@ -24,6 +24,12 @@ export const ModalContainer = styled.div`
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+
+  @media (max-width: 480px) {
+    padding: 16px;
+    max-width: 90%;
+    border-radius: 12px;
+  }
 `;
 
 // 닫기 버튼
@@ -36,6 +42,12 @@ export const CloseButton = styled.button`
   font-size: 20px;
   cursor: pointer;
   color: #666;
+
+  @media (max-width: 480px) {
+    top: 8px;
+    left: 8px;
+    font-size: 18px;
+  }
 `;
 
 // 모달 제목
@@ -44,6 +56,11 @@ export const ModalTitle = styled.h2`
   font-weight: bold;
   color: #666;
   margin-bottom: 16px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
 `;
 
 // 옵션 목록 전체를 감싸는 컨테이너
@@ -58,7 +75,6 @@ export const OptionItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
@@ -72,10 +88,15 @@ export const OptionItem = styled.div`
     color: #333;
   }
 
-  /* 호버 효과를 주고 싶다면 주석 해제 */
-  /* &:hover {
+  /* 호버 효과 (필요시 주석 해제)
+  &:hover {
     background: #f9f9f9;
   } */
+
+  @media (max-width: 480px) {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
 `;
 
 // 체크 아이콘
@@ -83,4 +104,8 @@ export const CheckIcon = styled.span`
   font-size: 18px;
   color: #4caf50; /* 녹색 아이콘 */
   font-weight: bold;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;

@@ -114,3 +114,61 @@
   height: 18px;
   opacity: 0.6;
 }
+
+/* 모바일 반응형 스타일 (최대 너비 480px) */
+@media (max-width: 480px) {
+  .settings-container {
+    height: 100vh; /* 모바일 화면에 맞게 조정 */
+    padding-bottom: 60px; /* 하단바 여백 축소 */
+  }
+
+  .settings-header-container {
+    padding: 12px 0;
+  }
+
+  .settings-header {
+    font-size: 20px;
+  }
+
+  .settings-section {
+    width: 95%;
+    margin-top: 8px;
+    padding: 10px 16px;
+  }
+
+  .settings-section h3 {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .settings-item {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .settings-right-text {
+    font-size: 12px;
+    margin-right: 6px;
+  }
+
+  .settings-toggle-switch {
+    width: 30px;
+    height: 16px;
+  }
+
+  .settings-toggle-switch::before {
+    width: 14px;
+    height: 14px;
+    top: 1px;
+    left: 1px;
+  }
+
+  .settings-toggle-switch:checked::before {
+    left: 15px;
+  }
+
+  .settings-arrow-icon {
+    width: 16px;
+    height: 16px;
+  }
+}

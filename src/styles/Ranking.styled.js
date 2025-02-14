@@ -54,7 +54,7 @@ export const RankingTabs = styled.div`
   display: flex;
   position: relative;
   width: 320px;
-  height: 40px;
+  height: 30px;
   background-color: #ddd;
   border-radius: 20px;
   padding: 4px;
@@ -70,7 +70,7 @@ export const ActiveTabIndicator = styled.div`
   left: ${(props) =>
     props.activeTab === "friends" ? "0px" : "calc(50% + 2px)"};
   width: 50%;
-  height: 50px;
+  height: 35px;
   background-color: #4caf50;
   border-radius: 20px;
   transition: left 0.3s ease-in-out;

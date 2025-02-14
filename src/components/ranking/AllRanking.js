@@ -91,12 +91,12 @@ const AllRanking = () => {
               <UserStats>
                 {/* 완성꽃 (bloomedCount → leaf) */}
                 <div>
-                  <img src={completedFlowerIcon} alt="완성꽃" />
+                  <img src={completedFlowerIcon} alt="완성꽃" style={{ width: "12px"}} />
                   {item.bloomedCount}
                 </div>
                 {/* 시든꽃 (wiltedCount → seed) */}
                 <div>
-                  <img src={wiltedFlowerIcon} alt="시든꽃" />
+                  <img src={wiltedFlowerIcon} alt="시든꽃" style={{ width: "12px"}}/>
                   {item.wiltedCount}
                 </div>
               </UserStats>

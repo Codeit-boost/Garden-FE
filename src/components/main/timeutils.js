@@ -28,14 +28,14 @@ export const formatTimeForApi = (seconds) => {
   };
   
   
-  // ✅ 15분 단위 증가
+  
 export const handleTimeIncrease = (setTime, isTimerMode, isRunning) => {
   if (isTimerMode && !isRunning) {
-    setTime((prevTime) => prevTime + 900); // 900초 = 15분 증가
+    setTime((prevTime) => prevTime + 900); 
   }
 };
 
-// ✅ 15분 단위 감소
+
 export const handleTimeDecrease = (setTime, isTimerMode, isRunning) => {
   if (isTimerMode && !isRunning) {
     setTime((prevTime) => Math.max(0, prevTime - 900)); // 900초 = 15분 감소
