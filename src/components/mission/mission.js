@@ -1,82 +1,75 @@
 import React, { useEffect, useState } from "react";
+import MissionComplete from "./missioncomplete";
+import MissionFlower from "./missionflower";
 import { fetchMissions } from "../../api/missonApi";
 import "../../styles/mission.css";
 import logo from "../../assets/icons/로고.png";
 
 const MissionPage = () => {
-  const [missions, setMissions] = useState([]); // ✅ 미션 목록 상태
-  const [loading, setLoading] = useState(true); // ✅ 로딩 상태
-  const [error, setError] = useState(null); // ✅ 에러 상태
+  const [missions, setMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [completedMission, setCompletedMission] = useState(null);
+  const [flowerMission, setFlowerMission] = useState(null);
 
-  // ✅ 미션 데이터 불러오기
   useEffect(() => {
     const loadMissions = async () => {
       try {
-        const data = await fetchMissions(); // ✅ API 호출
-        console.log("✅ 불러온 미션 목록:", data);
-
-        // ✅ 데이터 가공 (progress & total 추가)
-        const formattedMissions = data.map((mission) => ({
-          id: mission.id,
+        const data = await fetchMissions();
+        const formattedMissions = data.map(mission => ({
+          id: mission.title,
           description: mission.description || "미션 설명 없음",
-          progress: mission.progress || 0, // 기본값 0
-          total: mission.total || 1, // 기본값 1
+          progress: mission.currentValue || 0,
+          total: mission.targetValue || 1,
+          completed: mission.completed,
+          flowername: mission.flowerName,
         }));
 
         setMissions(formattedMissions);
+
+        const completed = formattedMissions.find(mission => mission.completed);
+        if (completed) {
+          setCompletedMission(true);
+          setFlowerMission(completed.flowername);
+        }
       } catch (err) {
-        console.error("❌ 미션 목록 불러오기 실패:", err);
         setError(err);
       } finally {
         setLoading(false);
       }
     };
-
     loadMissions();
   }, []);
 
-  // ✅ 로딩 상태 처리
-  if (loading) {
-    return <p className="loading-message">미션을 불러오는 중...</p>;
-  }
-
-  // ✅ 에러 발생 시 처리
-  if (error) {
-    return <p className="error-message">미션을 불러오는 데 실패했습니다.</p>;
-  }
+  if (loading) return <p>미션을 불러오는 중...</p>;
+  if (error) return <p>미션을 불러오는 데 실패했습니다.</p>;
 
   return (
     <div className="mission-container">
+      {completedMission && <MissionComplete onClose={() => setCompletedMission(false)} />}
+      {flowerMission && (
+        <MissionFlower
+          flowername={flowerMission}
+          onClose={() => setFlowerMission(null)}
+        />
+      )}
       <h1 className="mission-title">미션</h1>
       <div className="mission-list">
-        {missions.length === 0 ? (
-          <p className="no-mission-message">진행 중인 미션이 없습니다.</p>
-        ) : (
-          missions.map((mission) => (
-            <div key={mission.id} className="mission-item">
-              <div className="mission-icon-container">
-                <img src={logo} alt="미션 아이콘" className="mission-icon" />
-              </div>
-              <div className="mission-content">
-                <p className="mission-name">{mission.description}</p>
-                <div className="progress-bar-container">
-                  <div
-                    className="progress-bar-fill"
-                    style={{
-                      width: `${(mission.progress / mission.total) * 100}%`,
-                    }}
-                  ></div>
-                </div>
-                <p className="progress-text">
-                  {mission.progress}/{mission.total}
-                </p>
-              </div>
+        {missions.map(mission => (
+          <div key={mission.id} className="mission-item">
+            <img src={logo} alt="미션 아이콘" className="mission-icon" />
+            <p className="mission-name">{mission.description}</p>
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar-fill"
+                style={{ width: `${(mission.progress / mission.total) * 100}%` }}
+              />
             </div>
-          ))
-        )}
+            <p className="progress-text">{mission.progress}/{mission.total}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
 export default MissionPage;
