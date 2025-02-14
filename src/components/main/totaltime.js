@@ -16,7 +16,6 @@ const TotalTime = () => {
     const loadUserStats = async () => {
       try {
         const data = await fetchMyInfo();
-        console.log("📡 [API 응답] 사용자 통계 데이터:", data);
 
         // ✅ 문자열("HH:MM") → 초(Seconds) 변환 함수 적용
         setUserStats({

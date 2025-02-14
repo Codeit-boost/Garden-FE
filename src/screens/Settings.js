@@ -27,7 +27,6 @@ const Settings = () => {
     const loadUserSettings = async () => {
       try {
         const userInfo = await fetchMyInfo();
-        console.log("✅ 불러온 사용자 정보:", userInfo);
 
         // 알림 설정은 제거하고, 모드와 백색 소음만 설정
         setSelectedMode(userInfo.mode);

@@ -26,7 +26,6 @@ const Home = () => {
     } else if (storedToken) {
       // ✅ localStorage에서 기존 토큰 가져오기
       api.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
-      console.log("🔄 기존 토큰 유지:", storedToken);
     } else {
       console.warn("⚠️ 토큰이 없습니다. 로그인 필요");
       navigate("/login", { replace: true }); // 로그인 페이지로 리디렉트
