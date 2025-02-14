@@ -1,10 +1,12 @@
-/* 전체 미션 컨테이너: 화면 전체 높이 - 탭바 높이 */
+/* 전체 미션 컨테이너: 화면 전체 높이 및 세로 플렉스 레이아웃 */
 .mission-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px);
-  overflow: hidden;
-  padding-bottom: 10px;
+  height: calc(
+    100vh - 50px
+  ); /* 탭바 높이 대신 조금 더 높게 빼서 컨테이너 크기 줄임 */
+  overflow: hidden; /* 자식 .mission-list에서 스크롤 처리 */
+  padding-bottom: 10px; /* 스크롤 마지막 아이템 여백 */
   font-family: "KorailRoundGothicBold";
 }
 
@@ -22,31 +24,33 @@
 .mission-list {
   flex: 1;
   width: 100%;
-  overflow-y: auto;
+  overflow-y: auto; /* 자동 스크롤 활성화 */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 20px;
-  scrollbar-width: none; /* 파이어폭스 스크롤바 숨기기 */
+  scrollbar-width: none; /* 파이어폭스에서 스크롤바 숨기기 */
 }
 
+/* 크롬 및 엣지에서 스크롤바 숨기기 */
 .mission-list::-webkit-scrollbar {
-  display: none; /* 크롬/엣지 스크롤바 숨기기 */
+  display: none;
 }
 
-/* 미션 아이템 */
+/* 미션 아이템 스타일 */
 .mission-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 90%;
-  max-width: 400px;
-  padding: 12px 15px;
+  padding: 10px 15px;
   background: #fff;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   position: relative;
-  margin-bottom: 12px;
+}
+
+.mission-item:last-child {
+  border-bottom: none;
 }
 
 /* 미션 아이콘을 원형 테두리로 감싸기 */
@@ -74,11 +78,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 /* 미션 이름 */
 .mission-name {
+  margin-top: 5px;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -91,39 +96,42 @@
   font-weight: 400;
   line-height: 18px;
   color: #666;
+  margin-top: 2px;
   margin-bottom: 5px;
 }
 
-/* 게이지와 텍스트를 한 줄에 배치 */
+/* 진행 바 컨테이너: 게이지와 텍스트를 한 줄에 배치 */
 .progress-bar-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 8px; /* 게이지와 텍스트 사이 간격 */
   width: 100%;
   max-width: 300px;
   height: 8px;
   border-radius: 10px;
   background: #ebebeb;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 /* 진행 바 채우기 */
 .progress-bar-fill {
-  width: 0; /* 기본값은 0% */
+  width: 0; /* 기본값은 0%로, React 코드에서 inline style로 width 조정 */
   height: 100%;
   border-radius: 10px;
   background: #4caf50;
   transition: width 0.3s ease-in-out;
 }
 
-/* 진행도 텍스트 (게이지 오른쪽) */
+/* 진행도 텍스트 (게이지 오른쪽, 인라인 배치) */
 .progress-text {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
+  line-height: 16.8px;
   color: #444;
+  margin-left: 8px; /* 게이지와 텍스트 사이에 간격 부여 */
 }
 
-/* 모바일 반응형 (최대 480px) */
+/* ✅ 모바일 반응형 스타일 (최대 480px) */
 @media (max-width: 480px) {
   .mission-title {
     font-size: 20px;

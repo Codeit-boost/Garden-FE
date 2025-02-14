@@ -49,7 +49,10 @@ const MissionPage = () => {
   }
 
   return (
-    <div className="mission-container" style={{ fontfamily: "KorailRoundGothicBold" }}>
+    <div
+      className="mission-container"
+      style={{ fontfamily: "KorailRoundGothicBold" }}
+    >
       <h1 className="mission-title">미션</h1>
       <div className="mission-list">
         {missions.length === 0 ? (
@@ -69,18 +72,28 @@ const MissionPage = () => {
                 <div className="mission-content">
                   <p className="mission-name">{mission.title}</p>
                   <p className="mission-description">{mission.description}</p>
-                  <div className="progress-bar-container">
-                    <div
-                      className="progress-bar-fill"
-                      style={{ width: `${progressPercent}%` }}
-                    ></div>
+                  <div
+                    className="progress-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <div className="progress-bar-container">
+                      <div
+                        className="progress-bar-fill"
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
+
+                    <p className="progress-text">
+                      {mission.progress}/{mission.total}{" "}
+                      {mission.completed && (
+                        <span className="completed-text">완료</span>
+                      )}
+                    </p>
                   </div>
-                  <p className="progress-text">
-                    {mission.progress}/{mission.total}{" "}
-                    {mission.completed && (
-                      <span className="completed-text">완료</span>
-                    )}
-                  </p>
                 </div>
               </div>
             );
