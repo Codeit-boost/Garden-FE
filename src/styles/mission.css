@@ -1,121 +1,127 @@
+/* 전체 미션 컨테이너: 화면 전체 높이 - 탭바 높이 */
+.mission-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px); /* 탭바가 60px 높이라고 가정 */
+  overflow: hidden; /* 자식 .mission-list에서 스크롤 처리 */
+}
+
 /* 상단 미션 제목 스타일 */
 .mission-title {
-    font-family: "Korail Round Gothic Bold";
-    font-size: 22px;
-    font-weight: 700;
-    padding-top: 10px;
-    text-align: center;
-    color: #333;
-    margin: 20px 0;
-  }
-  
-  /* 미션 리스트 스타일 */
-  .mission-list {
-    width: 100%;
-    max-height: calc(100vh - 60px);
-    overflow-y: scroll; /* 스크롤바가 화면을 줄이지 않도록 설정 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scrollbar-width: none; /* 파이어폭스에서 스크롤바 숨기기 */
-  }
-  
-  /* 크롬 및 엣지에서 스크롤바 완전히 숨기기 */
-  .mission-list::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* 미션 아이템 스타일 */
-  .mission-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    padding: 10px 15px;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-  }
-  
-  /* 리스트의 마지막 미션에는 구분선 제거 */
-  .mission-item:last-child {
-    border-bottom: none;
-  }
-  
-  /* 미션 아이콘을 원형 테두리로 감싸기 */
-  .mission-icon-container {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ddd;
-    margin-right: 12px;
-  }
-  
-  .mission-icon {
-    width: 30px;
-    height: 30px;
-  }
-  
-  /* 미션 정보 컨테이너 */
-  .mission-content {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2px; /* 미션 제목과 설명, 진척도 바 사이의 간격을 줄이기 */
-  }
-  
-  /* 미션 이름 */
-  .mission-name {
-    font-family: "Korail Round Gothic Bold";
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 20px;
-    margin-bottom: 2px;
-  }
-  
-  /* 미션 설명 */
-  .mission-description {
-    font-family: "Korail Round Gothic Light";
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
-    color: #666;
-    margin-bottom: 2px;
-  }
-  
-  /* 진행 바 컨테이너 */
-  .progress-bar-container {
-    width: 100%;
-    max-width: 268px;
-    height: 8px;
-    border-radius: 10px;
-    background: #ebebeb;
-    position: relative;
-    margin-top: 2px; /* 간격을 줄여서 조정 */
-  }
-  
-  /* 진행 바 채우기 */
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 10px;
-    background: #4caf50;
-  }
-  
-  /* 진행도 텍스트 (우측 끝 정렬) */
-  .progress-text {
-    font-family: "Korail Round Gothic Medium";
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16.8px;
-    position: absolute;
-    right: 0;
-    top: -3px;
-    text-align: right;
-  }
-  
+  font-family: "Korail Round Gothic Bold";
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 10px;
+  text-align: center;
+  color: #333;
+  margin: 20px 0;
+}
+
+/* 미션 리스트 스타일: 남은 공간을 채우고 스크롤 가능 */
+.mission-list {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto; /* 자동 스크롤 활성화 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scrollbar-width: none; /* 파이어폭스에서 스크롤바 숨기기 */
+}
+
+/* 크롬 및 엣지에서 스크롤바 완전히 숨기기 */
+.mission-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* 미션 아이템 스타일 */
+.mission-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  padding: 10px 15px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.mission-item:last-child {
+  border-bottom: none;
+}
+
+/* 미션 아이콘을 원형 테두리로 감싸기 */
+.mission-icon-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  margin-right: 12px;
+}
+
+.mission-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* 미션 정보 컨테이너 */
+.mission-content {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+/* 미션 이름 */
+.mission-name {
+  font-family: "Korail Round Gothic Bold";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 2px;
+}
+
+/* 미션 설명 */
+.mission-description {
+  font-family: "Korail Round Gothic Light";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+/* 진행 바 컨테이너 */
+.progress-bar-container {
+  width: 100%;
+  max-width: 268px;
+  height: 8px;
+  border-radius: 10px;
+  background: #ebebeb;
+  position: relative;
+  margin-top: 2px; /* 간격을 줄여서 조정 */
+}
+
+/* 진행 바 채우기 */
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: #4caf50;
+}
+
+/* 진행도 텍스트 (우측 끝 정렬) */
+.progress-text {
+  font-family: "Korail Round Gothic Medium";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.8px;
+  position: absolute;
+  right: 0;
+  top: -3px;
+  text-align: right;
+}

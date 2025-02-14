@@ -5,27 +5,26 @@ import "../../styles/mission.css";
 import logo from "../../assets/icons/로고.png";
 
 const MissionPage = () => {
-  const [missions, setMissions] = useState([]); // ✅ 미션 목록 상태
-  const [loading, setLoading] = useState(true); // ✅ 로딩 상태
-  const [error, setError] = useState(null); // ✅ 에러 상태
+  const [missions, setMissions] = useState([]); // 미션 목록 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태
 
-  // ✅ 미션 데이터 불러오기
+  // 미션 데이터 불러오기
   useEffect(() => {
     const loadMissions = async () => {
       try {
-        const data = await fetchMissions(); // ✅ API 호출
+        const data = await fetchMissions(); // API 호출
         console.log("✅ 불러온 미션 목록:", data);
 
         // API 스펙에 따른 데이터 가공
         const formattedMissions = data.map((mission, index) => ({
-          // mission.id가 없을 경우 인덱스를 임시 ID로 사용
-          id: mission.id || index,
+          id: mission.id || index, // mission.id가 없으면 인덱스 사용
           title: mission.title || "미션",
           description: mission.description || "미션 설명 없음",
           progress: mission.currentValue || 0,
           total: mission.targetValue || 1,
           completed: mission.completed,
-          flowerName: mission.flowerName || "", // 필요에 따라 아이콘이나 텍스트로 활용
+          flowerName: mission.flowerName || "",
         }));
 
         setMissions(formattedMissions);
@@ -40,12 +39,12 @@ const MissionPage = () => {
     loadMissions();
   }, []);
 
-  // ✅ 로딩 상태 처리
+  // 로딩 상태 처리
   if (loading) {
     return <p className="loading-message">미션을 불러오는 중...</p>;
   }
 
-  // ✅ 에러 발생 시 처리
+  // 에러 발생 시 처리
   if (error) {
     return <p className="error-message">미션을 불러오는 데 실패했습니다.</p>;
   }
@@ -69,16 +68,12 @@ const MissionPage = () => {
                   <img src={logo} alt="미션 아이콘" className="mission-icon" />
                 </div>
                 <div className="mission-content">
-                  <p className="mission-name">
-                    {mission.title} {/* 제목 표시 */}
-                  </p>
+                  <p className="mission-name">{mission.title}</p>
                   <p className="mission-description">{mission.description}</p>
                   <div className="progress-bar-container">
                     <div
                       className="progress-bar-fill"
-                      style={{
-                        width: `${progressPercent}%`,
-                      }}
+                      style={{ width: `${progressPercent}%` }}
                     ></div>
                   </div>
                   <p className="progress-text">
