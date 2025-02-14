@@ -1,6 +1,7 @@
 /* 전체 미션 컨테이너: 화면 전체 높이 - 탭바 높이 */
 .mission-container {
   display: flex;
+  font-family:'KorailRoundGothicBold';
   flex-direction: column;
   height: calc(100vh - 60px); /* 탭바 높이: 60px */
   overflow: hidden; /* 자식 .mission-list에서 스크롤 처리 */

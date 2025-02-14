@@ -54,7 +54,7 @@ export const RankingTabs = styled.div`
   display: flex;
   position: relative;
   width: 320px;
-  height: 40px;
+  height: 30px;
   background-color: #ddd;
   border-radius: 20px;
   padding: 4px;
