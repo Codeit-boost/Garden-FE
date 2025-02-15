@@ -69,12 +69,12 @@ export const RankingRank = styled.div`
 
 // ✅ 1~3위일 때 표시할 왕관 아이콘
 export const CrownIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 25px;
 
   @media (max-width: 480px) {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 25px;
   }
 `;
 
