@@ -125,7 +125,7 @@ export const UserStats = styled.div`
 // ✅ 공부 시간 또는 집중 시간 등을 표시하는 영역 (오른쪽 끝)
 export const RankingTime = styled.div`
   margin-left: auto; /* 왼쪽으로 공간을 최대 확보, 오른쪽 정렬 효과 */
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
 
   @media (max-width: 480px) {

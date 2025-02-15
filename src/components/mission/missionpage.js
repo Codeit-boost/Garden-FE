@@ -59,7 +59,7 @@ const MissionPage = () => {
           <p className="no-mission-message">진행 중인 미션이 없습니다.</p>
         ) : (
           missions.map((mission) => {
-            // 미션 진행률 계산 (completed이면 100%)
+            
             const progressPercent = mission.completed
               ? 100
               : (mission.progress / mission.total) * 100;
@@ -77,7 +77,7 @@ const MissionPage = () => {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "10px",
+                      gap: "10px", height:"10px"
                     }}
                   >
                     <div className="progress-bar-container">

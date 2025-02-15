@@ -89,7 +89,7 @@ const Image = styled.img`
   width: 80%;
   max-width: 200px;
   height: auto;
-  margin-top: 30px;
+  margin-top: 180px;
 `;
 
 const Text = styled.p`

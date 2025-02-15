@@ -60,14 +60,14 @@
   .login-logo {
     width: 180px; /* 로고 크기 축소 */
     height: auto; /* 이미지 비율 유지 */
-    margin-top: 150px; /* 위쪽 여백 축소 */
+    margin-top: 300px; /* 위쪽 여백 축소 */
     margin-bottom: 16px; /* 아래쪽 여백 축소 */
   }
 
   .login-button {
     padding: 12px 0; /* 버튼 패딩 축소 */
     font-size: 16px; /* 텍스트 크기 축소 */
-    margin-bottom: 16px;
+    margin-bottom: 50px;
   }
 
   .login-kakao-logo {
